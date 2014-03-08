@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.actionbarsherlock.app.SherlockActivity;
