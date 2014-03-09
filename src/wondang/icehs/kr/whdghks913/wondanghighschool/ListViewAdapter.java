@@ -76,7 +76,15 @@ class ListViewAdapter extends BaseAdapter {
 
 		ListData mData = mListData.get(position);
 
-		holder.mListImage.setImageDrawable(mData.mIcon);
+		if (mData.mIcon == null) {
+			holder.mListImage.setImageDrawable(null);
+			holder.mListImage.setVisibility(View.GONE);
+
+		} else {
+			holder.mListImage.setImageDrawable(mData.mIcon);
+			holder.mListImage.setVisibility(View.VISIBLE);
+		}
+
 		holder.mListLargeText.setText(mData.mTitle);
 		holder.mListMediumText.setText(mData.mDate);
 
