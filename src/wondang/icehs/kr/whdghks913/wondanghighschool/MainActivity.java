@@ -18,7 +18,7 @@ public class MainActivity extends SherlockActivity {
 
 	private ListView mListView;
 	private ListViewAdapter mAdapter;
-	
+
 	private CroutonHelper mHelper;
 
 	@Override
@@ -69,7 +69,7 @@ public class MainActivity extends SherlockActivity {
 				}
 			}
 		});
-		
+
 		mHelper = new CroutonHelper(this);
 		mHelper.setText("환영합니다~!");
 		mHelper.setStyle(Style.INFO);

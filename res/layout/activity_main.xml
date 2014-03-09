@@ -9,8 +9,8 @@
         android:id="@+id/mImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerInside"
         android:adjustViewBounds="true"
+        android:scaleType="centerInside"
         android:src="@drawable/mainimage" />
 
     <ListView

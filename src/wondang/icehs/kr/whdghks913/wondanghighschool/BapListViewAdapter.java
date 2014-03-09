@@ -49,8 +49,8 @@ class BapListViewAdapter extends BaseAdapter {
 	public void clearData() {
 		mListData.clear();
 	}
-	
-	public void sort(){
+
+	public void sort() {
 		Collections.sort(mListData, BapListData.ALPHA_COMPARATOR);
 	}
 
@@ -154,7 +154,8 @@ class BapListData {
 
 		@Override
 		public int compare(BapListData mListDate_1, BapListData mListDate_2) {
-			return sCollator.compare(mListDate_1.mCalender, mListDate_2.mCalender);
+			return sCollator.compare(mListDate_1.mCalender,
+					mListDate_2.mCalender);
 		}
 	};
 }

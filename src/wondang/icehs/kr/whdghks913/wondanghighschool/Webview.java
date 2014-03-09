@@ -14,7 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class Webview extends Activity {
-	
+
 	private WebView mWebView;
 	private WebSettings mWebSettings;
 
