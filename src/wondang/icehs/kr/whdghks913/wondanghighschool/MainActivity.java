@@ -1,20 +1,11 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
-import java.util.ArrayList;
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuInflater;
@@ -76,89 +67,6 @@ public class MainActivity extends SherlockActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class ViewHolder {
-		public ImageView mListImage;
-
-		public TextView mListLargeText;
-
-		public TextView mListMediumText;
-	}
-
-	private class ListViewAdapter extends BaseAdapter {
-		private Context mContext = null;
-		private ArrayList<ListData> mListData = new ArrayList<ListData>();
-
-		public ListViewAdapter(Context mContext) {
-			super();
-			this.mContext = mContext;
-		}
-
-		public void addItem(Drawable icon, String mTitle, String mDate) {
-			ListData addInfo = new ListData();
-			addInfo.mIcon = icon;
-			addInfo.mTitle = mTitle;
-			addInfo.mDate = mDate;
-
-			mListData.add(addInfo);
-
-			mAdapter.notifyDataSetChanged();
-		}
-
-		@Override
-		public int getCount() {
-			return mListData.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return mListData.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder;
-			if (convertView == null) {
-				holder = new ViewHolder();
-
-				LayoutInflater inflater = (LayoutInflater) mContext
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				convertView = inflater.inflate(R.layout.main_list_item, null);
-
-				holder.mListImage = (ImageView) convertView
-						.findViewById(R.id.mListImage);
-				holder.mListLargeText = (TextView) convertView
-						.findViewById(R.id.mListLargeText);
-				holder.mListMediumText = (TextView) convertView
-						.findViewById(R.id.mListMediumText);
-
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-
-			ListData mData = mListData.get(position);
-
-			holder.mListImage.setImageDrawable(mData.mIcon);
-			holder.mListLargeText.setText(mData.mTitle);
-			holder.mListMediumText.setText(mData.mDate);
-
-			return convertView;
-		}
-	}
-
-	public class ListData {
-		/**
-		 * 리스트 정보를 담고 있을 객체 생성
-		 */
-
-		public Drawable mIcon;
-		public String mTitle;
-		public String mDate;
-	}
+	
 
 }
