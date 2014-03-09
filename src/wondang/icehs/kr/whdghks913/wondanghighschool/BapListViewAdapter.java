@@ -3,6 +3,7 @@ package wondang.icehs.kr.whdghks913.wondanghighschool;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,8 +87,20 @@ class BapListViewAdapter extends BaseAdapter {
 
 		BapListData mData = mListData.get(position);
 
+		String mDate = mData.mDate;
+		if("일요일".equals(mDate)){
+			holder.mCalender.setTextColor(Color.RED);
+			holder.mDate.setTextColor(Color.RED);
+		}else if("토요일".equals(mDate)){
+			holder.mCalender.setTextColor(Color.BLUE);
+			holder.mDate.setTextColor(Color.BLUE);
+		}else{
+			holder.mCalender.setTextColor(Color.BLACK);
+			holder.mDate.setTextColor(Color.BLACK);
+		}
+		
 		holder.mCalender.setText(mData.mCalender);
-		holder.mDate.setText(mData.mDate);
+		holder.mDate.setText(mDate);
 
 		String mMorning = mData.mMorning;
 		String mLunch = mData.mLunch;

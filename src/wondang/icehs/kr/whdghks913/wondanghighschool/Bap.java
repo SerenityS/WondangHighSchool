@@ -17,6 +17,9 @@ import com.tistory.whdghks913.croutonhelper.CroutonHelper;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class Bap extends Activity {
+	/**
+	 * 한번 급식정보를 받을때마다 272kb 데이터 소모
+	 */
 
 	private BapListViewAdapter mAdapter;
 	private ListView mListView;
