@@ -21,7 +21,7 @@ class ViewHolder {
 
 class ListViewAdapter extends BaseAdapter {
 	private Context mContext = null;
-	private ArrayList<ListData> mListData = new ArrayList<ListData>();
+	public ArrayList<ListData> mListData = new ArrayList<ListData>();
 
 	public ListViewAdapter(Context mContext) {
 		super();
