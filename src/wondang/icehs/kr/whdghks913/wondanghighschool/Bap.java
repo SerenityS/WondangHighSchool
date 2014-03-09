@@ -8,7 +8,13 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.ListView;
+
+import com.tistory.whdghks913.croutonhelper.CroutonHelper;
+
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class Bap extends Activity {
 
@@ -18,6 +24,8 @@ public class Bap extends Activity {
 	private ProgressDialog mDialog;
 
 	private String[] calender, morning, lunch, night;
+
+	private CroutonHelper mHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,15 @@ public class Bap extends Activity {
 		morning = new String[7];
 		lunch = new String[7];
 		night = new String[7];
+
+		mHelper = new CroutonHelper(this);
+
+		sync();
+	}
+
+	private void sync() {
+		mAdapter.clearData();
+		mAdapter.notifyDataSetChanged();
 
 		handler = new MyHandler(this);
 		new Thread() {
@@ -51,17 +68,12 @@ public class Bap extends Activity {
 						"04", "3");
 
 				handler.sendEmptyMessage(1);
+
+				mHelper.setText("인터넷에서 급식 정보를 받아왔습니다");
+				mHelper.setStyle(Style.CONFIRM);
+				mHelper.show();
 			}
 		}.start();
-
-		/*
-		 * mAdapter.addItem("월", "아침 없음", "점심은 라면", "저녁은 밥");
-		 * mAdapter.addItem("화", "아침ㅇㅇ 없음", "점ㄴㅇㅁㄹㄴㅁㅇ심은 라면", "저녁은ㅇㅇㅇ 밥");
-		 * mAdapter.addItem("수", "아침 ㅇㅇ없음", "점심ㄴㅇㄹㅇㅁㄴㅇㄴㄹ은 라면", "저녁ㅇㅇㅇ은 밥");
-		 * mAdapter.addItem("목", "아침 ㅇㅇ없음", "점심ㅇㄴㄻㄴㅇㄹ은 라면", "저녁은ㅇㄹㅇㄴㄹㄴㅇ 밥");
-		 * mAdapter.addItem("금", "아침 없ㅇㅇ음", "점심ㄴㅁㄹㅇㅁㄴㅇㄹ은 라면", "저ㅇㄴㄻㅁㄴㅇ녁은 밥");
-		 * mAdapter.addItem("토", "아침 ㄴㅇ없음", "점심ㅇㅁㄹㄴㅁㅇ은 라면", "저녁ㅁㄴㄹㄴㅁㅇ은 밥");
-		 */
 	}
 
 	private String getDate(int num) {
@@ -82,6 +94,25 @@ public class Bap extends Activity {
 		return null;
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.bap, menu);
+
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(android.view.MenuItem item) {
+		int ItemId = item.getItemId();
+
+		if (ItemId == R.id.sync) {
+			sync();
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
 	private class MyHandler extends Handler {
 		private final WeakReference<Bap> mActivity;
 
@@ -95,16 +126,11 @@ public class Bap extends Activity {
 			if (activity != null) {
 				if (msg.what == 0)
 					mDialog = ProgressDialog.show(Bap.this, "",
-							"Data loding...");
+							"급식 정보를 받아오고 있습니다...");
 				else if (msg.what == 1) {
 					for (int i = 0; i < 7; i++) {
-						mAdapter.addItem(calender[i], getDate(i), morning[i], lunch[i], night[i]);
-						
-//						Log.d("날짜", calender[i]);
-//						Log.d("아침", moning[i]);
-//						Log.d("점심", lunch[i]);
-//						Log.d("저녁", night[i]);
-//						Log.d(" ", " ");
+						mAdapter.addItem(calender[i], getDate(i), morning[i],
+								lunch[i], night[i]);
 					}
 					mAdapter.notifyDataSetChanged();
 					mDialog.cancel();
@@ -112,5 +138,4 @@ public class Bap extends Activity {
 			}
 		}
 	}
-
 }

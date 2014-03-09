@@ -3,7 +3,6 @@ package wondang.icehs.kr.whdghks913.wondanghighschool;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,10 @@ class BapListViewAdapter extends BaseAdapter {
 		addInfo.mNight = mNight;
 
 		mListData.add(addInfo);
+	}
+
+	public void clearData() {
+		mListData.clear();
 	}
 
 	@Override
