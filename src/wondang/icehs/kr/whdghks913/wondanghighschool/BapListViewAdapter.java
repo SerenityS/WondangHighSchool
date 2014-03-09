@@ -1,6 +1,9 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -46,6 +49,10 @@ class BapListViewAdapter extends BaseAdapter {
 	public void clearData() {
 		mListData.clear();
 	}
+	
+	public void sort(){
+		Collections.sort(mListData, BapListData.ALPHA_COMPARATOR);
+	}
 
 	@Override
 	public int getCount() {
@@ -88,17 +95,17 @@ class BapListViewAdapter extends BaseAdapter {
 		BapListData mData = mListData.get(position);
 
 		String mDate = mData.mDate;
-		if("老夸老".equals(mDate)){
+		if ("老夸老".equals(mDate)) {
 			holder.mCalender.setTextColor(Color.RED);
 			holder.mDate.setTextColor(Color.RED);
-		}else if("配夸老".equals(mDate)){
+		} else if ("配夸老".equals(mDate)) {
 			holder.mCalender.setTextColor(Color.BLUE);
 			holder.mDate.setTextColor(Color.BLUE);
-		}else{
+		} else {
 			holder.mCalender.setTextColor(Color.BLACK);
 			holder.mDate.setTextColor(Color.BLACK);
 		}
-		
+
 		holder.mCalender.setText(mData.mCalender);
 		holder.mDate.setText(mDate);
 
@@ -141,4 +148,13 @@ class BapListData {
 	public String mMorning;
 	public String mLunch;
 	public String mNight;
+
+	public static final Comparator<BapListData> ALPHA_COMPARATOR = new Comparator<BapListData>() {
+		private final Collator sCollator = Collator.getInstance();
+
+		@Override
+		public int compare(BapListData mListDate_1, BapListData mListDate_2) {
+			return sCollator.compare(mListDate_1.mCalender, mListDate_2.mCalender);
+		}
+	};
 }

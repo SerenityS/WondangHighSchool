@@ -1,10 +1,19 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import toast.library.meal.MealLibrary;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,12 +32,15 @@ public class Bap extends Activity {
 
 	private BapListViewAdapter mAdapter;
 	private ListView mListView;
-	private Handler handler;
+	private Handler mHandler;
 	private ProgressDialog mDialog;
 
 	private String[] calender, morning, lunch, night;
 
 	private CroutonHelper mHelper;
+
+	private SharedPreferences bapList;
+	private SharedPreferences.Editor bapListeditor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +52,48 @@ public class Bap extends Activity {
 		mAdapter = new BapListViewAdapter(this);
 		mListView.setAdapter(mAdapter);
 
-		calender = new String[7];
-		morning = new String[7];
-		lunch = new String[7];
-		night = new String[7];
+		bapList = getSharedPreferences("bapList", 0);
+		bapListeditor = bapList.edit();
+
+		mHandler = new MyHandler(this);
 
 		mHelper = new CroutonHelper(this);
 
-		sync();
+		if (bapList.getBoolean("checker", false)) {
+			calender = restore("calender");
+			morning = restore("morning");
+			lunch = restore("lunch");
+			night = restore("night");
+
+			mHandler.sendEmptyMessage(1);
+
+			mAdapter.sort();
+			mAdapter.notifyDataSetChanged();
+
+			mHelper.setText("저장된 정보를 불러왔습니다, 과거 정보일경우 새로고침 해주세요");
+			mHelper.setStyle(Style.CONFIRM);
+			mHelper.show();
+		} else {
+			calender = new String[7];
+			morning = new String[7];
+			lunch = new String[7];
+			night = new String[7];
+
+			sync();
+		}
 	}
 
 	private void sync() {
 		mAdapter.clearData();
 		mAdapter.notifyDataSetChanged();
 
-		handler = new MyHandler(this);
+		bapListeditor.clear().commit();
+
 		new Thread() {
 
 			@Override
 			public void run() {
-				handler.sendEmptyMessage(0);
+				mHandler.sendEmptyMessage(0);
 
 				calender = MealLibrary.getDate("ice.go.kr", "E100001786", "4",
 						"04", "1");
@@ -70,7 +104,13 @@ public class Bap extends Activity {
 				night = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
 						"04", "3");
 
-				handler.sendEmptyMessage(1);
+				mHandler.sendEmptyMessage(1);
+				mHandler.sendEmptyMessage(2);
+
+				save("calender", calender);
+				save("morning", morning);
+				save("lunch", lunch);
+				save("night", night);
 
 				mHelper.setText("인터넷에서 급식 정보를 받아왔습니다");
 				mHelper.setStyle(Style.CONFIRM);
@@ -95,6 +135,60 @@ public class Bap extends Activity {
 		else if (num == 6)
 			return "토요일";
 		return null;
+	}
+
+	/**
+	 * Thanks NaraePreference
+	 */
+
+	@SuppressLint("NewApi")
+	private void save(String name, String[] value) {
+		ArrayList<String> arraylist = new ArrayList<String>(
+				Arrays.asList(value));
+		try {
+			Set<String> list = new HashSet<String>(arraylist);
+			bapListeditor.putStringSet(name, list);
+			bapListeditor.putBoolean("checker", true);
+			bapListeditor.commit();
+		} catch (Exception e) {
+			JSONArray a = new JSONArray();
+			for (int i = 0; i < arraylist.size(); i++) {
+				a.put(arraylist.get(i));
+			}
+			if (!arraylist.isEmpty()) {
+				bapListeditor.putString(name, a.toString());
+			} else {
+				bapListeditor.putString(name, null);
+			}
+			bapListeditor.putBoolean("checker", true);
+			bapListeditor.commit();
+		}
+	}
+
+	@SuppressLint("NewApi")
+	private String[] restore(String name) {
+		try {
+			return bapList.getStringSet(name, null).toArray(new String[7]);
+		} catch (Exception e) {
+			try {
+				String json = bapList.getString(name, null);
+				ArrayList<String> urls = new ArrayList<String>();
+				if (json != null) {
+					try {
+						JSONArray a = new JSONArray(json);
+						for (int i = 0; i < a.length(); i++) {
+							String url = a.optString(i);
+							urls.add(url);
+						}
+					} catch (JSONException ex) {
+						ex.printStackTrace();
+					}
+				}
+				return urls.toArray(new String[0]);
+			} catch (Exception ex) {
+				return null;
+			}
+		}
 	}
 
 	@Override
@@ -136,6 +230,7 @@ public class Bap extends Activity {
 								lunch[i], night[i]);
 					}
 					mAdapter.notifyDataSetChanged();
+				} else if (msg.what == 2) {
 					mDialog.cancel();
 				}
 			}
