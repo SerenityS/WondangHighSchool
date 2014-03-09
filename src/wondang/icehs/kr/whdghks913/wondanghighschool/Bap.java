@@ -1,16 +1,8 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import toast.library.meal.MealLibrary;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
@@ -70,7 +62,7 @@ public class Bap extends Activity {
 			mAdapter.sort();
 			mAdapter.notifyDataSetChanged();
 
-			mHelper.setText("저장된 정보를 불러왔습니다, 과거 정보일경우 새로고침 해주세요");
+			mHelper.setText("저장된 정보를 불러왔습니다\n과거 정보일경우 새로고침 해주세요");
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
 		} else {
@@ -137,58 +129,23 @@ public class Bap extends Activity {
 		return null;
 	}
 
-	/**
-	 * Thanks NaraePreference
-	 */
-
-	@SuppressLint("NewApi")
 	private void save(String name, String[] value) {
-		ArrayList<String> arraylist = new ArrayList<String>(
-				Arrays.asList(value));
-		try {
-			Set<String> list = new HashSet<String>(arraylist);
-			bapListeditor.putStringSet(name, list);
-			bapListeditor.putBoolean("checker", true);
-			bapListeditor.commit();
-		} catch (Exception e) {
-			JSONArray a = new JSONArray();
-			for (int i = 0; i < arraylist.size(); i++) {
-				a.put(arraylist.get(i));
-			}
-			if (!arraylist.isEmpty()) {
-				bapListeditor.putString(name, a.toString());
-			} else {
-				bapListeditor.putString(name, null);
-			}
-			bapListeditor.putBoolean("checker", true);
-			bapListeditor.commit();
+		for (int i = 0; i < value.length; i++) {
+			bapListeditor.putString(name + "_" + i, value[i]);
 		}
+		bapListeditor.putBoolean("checker", true);
+		bapListeditor.putInt(name, value.length);
+		bapListeditor.commit();
 	}
 
-	@SuppressLint("NewApi")
 	private String[] restore(String name) {
-		try {
-			return bapList.getStringSet(name, null).toArray(new String[7]);
-		} catch (Exception e) {
-			try {
-				String json = bapList.getString(name, null);
-				ArrayList<String> urls = new ArrayList<String>();
-				if (json != null) {
-					try {
-						JSONArray a = new JSONArray(json);
-						for (int i = 0; i < a.length(); i++) {
-							String url = a.optString(i);
-							urls.add(url);
-						}
-					} catch (JSONException ex) {
-						ex.printStackTrace();
-					}
-				}
-				return urls.toArray(new String[0]);
-			} catch (Exception ex) {
-				return null;
-			}
+		int length = bapList.getInt(name, 0);
+		String[] string = new String[length];
+
+		for (int i = 0; i < length; i++) {
+			string[i] = bapList.getString(name + "_" + i, "");
 		}
+		return string;
 	}
 
 	@Override
