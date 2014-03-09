@@ -32,7 +32,7 @@ public class MainActivity extends SherlockActivity {
 		mListView.setAdapter(mAdapter);
 
 		mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),
-				"원당고 소게", "인천 원당고등학교를 소게합니다");
+				"원당고 소개", "인천 원당고등학교를 소개합니다");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.song), "교가",
 				"우리 학교 교가 확인하기");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.calender), "일정",
