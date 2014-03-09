@@ -63,6 +63,7 @@ public class MainActivity extends SherlockActivity {
 					mHelper.show();
 				} else if (position == 3) {
 					// 전화 하기
+					startActivity(new Intent(MainActivity.this, Call.class));
 				} else if (position == 4) {
 					// 급식
 					startActivity(new Intent(MainActivity.this, Bap.class));
