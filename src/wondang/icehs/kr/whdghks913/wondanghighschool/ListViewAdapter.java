@@ -28,11 +28,11 @@ class ListViewAdapter extends BaseAdapter {
 		this.mContext = mContext;
 	}
 
-	public void addItem(Drawable icon, String mTitle, String mDate) {
+	public void addItem(Drawable icon, String mTitle, String mText) {
 		ListData addInfo = new ListData();
 		addInfo.mIcon = icon;
 		addInfo.mTitle = mTitle;
-		addInfo.mDate = mDate;
+		addInfo.mText = mText;
 
 		mListData.add(addInfo);
 	}
@@ -86,7 +86,7 @@ class ListViewAdapter extends BaseAdapter {
 		}
 
 		holder.mListLargeText.setText(mData.mTitle);
-		holder.mListMediumText.setText(mData.mDate);
+		holder.mListMediumText.setText(mData.mText);
 
 		return convertView;
 	}
@@ -99,5 +99,5 @@ class ListData {
 
 	public Drawable mIcon;
 	public String mTitle;
-	public String mDate;
+	public String mText;
 }
