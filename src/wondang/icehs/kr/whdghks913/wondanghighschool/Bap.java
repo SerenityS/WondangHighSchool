@@ -79,6 +79,13 @@ public class Bap extends Activity {
 
 				sync();
 			} else {
+				String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
+
+				mHelper.setText(noMessage);
+				mHelper.setStyle(Style.ALERT);
+				mHelper.setAutoTouchCencle(true);
+				mHelper.show();
+
 				errorView(true);
 			}
 		}
@@ -218,6 +225,13 @@ public class Bap extends Activity {
 			if (isNetwork()) {
 				sync();
 			} else {
+				String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
+
+				mHelper.setText(noMessage);
+				mHelper.setStyle(Style.ALERT);
+				mHelper.setAutoTouchCencle(true);
+				mHelper.show();
+
 				errorView(true);
 			}
 		}
