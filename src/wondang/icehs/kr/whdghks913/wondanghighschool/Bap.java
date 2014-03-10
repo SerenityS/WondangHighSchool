@@ -251,9 +251,14 @@ public class Bap extends Activity {
 			Bap activity = mActivity.get();
 			if (activity != null) {
 				if (msg.what == 0) {
-					if (mDialog == null)
-						mDialog = ProgressDialog.show(Bap.this, "",
-								"급식 정보를 받아오고 있습니다...");
+					if (mDialog == null) {
+						try {
+							mDialog = ProgressDialog.show(Bap.this, "",
+									"급식 정보를 받아오고 있습니다...");
+						} catch (Exception ex) {
+
+						}
+					}
 				} else if (msg.what == 1) {
 					for (int i = 0; i < 7; i++) {
 						mAdapter.addItem(calender[i], getDate(i), morning[i],
