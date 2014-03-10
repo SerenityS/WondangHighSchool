@@ -5,7 +5,10 @@ import java.lang.ref.WeakReference;
 import toast.library.meal.MealLibrary;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -68,12 +71,16 @@ public class Bap extends Activity {
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
 		} else {
-			calender = new String[7];
-			morning = new String[7];
-			lunch = new String[7];
-			night = new String[7];
+			if (isNetwork()) {
+				calender = new String[7];
+				morning = new String[7];
+				lunch = new String[7];
+				night = new String[7];
 
-			sync();
+				sync();
+			} else {
+				errorView(true);
+			}
 		}
 	}
 
@@ -178,6 +185,23 @@ public class Bap extends Activity {
 					.setVisibility(View.GONE);
 	}
 
+	private boolean isNetwork() {
+		ConnectivityManager manager = (ConnectivityManager) this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mobile = manager
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		NetworkInfo wifi = manager
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		if (wifi.isConnected() || mobile.isConnected()) {
+			// ¿¬°áµÊ
+			return true;
+		} else {
+			// ¿¬°á ¾ÈµÊ
+			return false;
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -191,7 +215,11 @@ public class Bap extends Activity {
 		int ItemId = item.getItemId();
 
 		if (ItemId == R.id.sync) {
-			sync();
+			if (isNetwork()) {
+				sync();
+			} else {
+				errorView(true);
+			}
 		}
 
 		return super.onOptionsItemSelected(item);
