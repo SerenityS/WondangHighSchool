@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.tistory.whdghks913.croutonhelper.CroutonHelper;
@@ -87,26 +89,45 @@ public class Bap extends Activity {
 			public void run() {
 				mHandler.sendEmptyMessage(0);
 
-				calender = MealLibrary.getDate("ice.go.kr", "E100001786", "4",
-						"04", "1");
-				morning = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
-						"04", "1");
-				lunch = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
-						"04", "2");
-				night = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
-						"04", "3");
+				try {
+					calender = MealLibrary.getDate("ice.go.kr", "E100001786",
+							"4", "04", "1");
+					morning = MealLibrary.getMeal("ice.go.kr", "E100001786",
+							"4", "04", "1");
+					lunch = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
+							"04", "2");
+					night = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
+							"04", "3");
 
-				mHandler.sendEmptyMessage(1);
+					save("calender", calender);
+					save("morning", morning);
+					save("lunch", lunch);
+					save("night", night);
+
+					mHandler.sendEmptyMessage(1);
+
+					errorView(false);
+
+					mHelper.setText("인터넷에서 급식 정보를 받아왔습니다");
+					mHelper.setStyle(Style.CONFIRM);
+					mHelper.setAutoTouchCencle(true);
+					mHelper.show();
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+
+					mAdapter.clearData();
+					String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
+
+					errorView(true);
+
+					mHelper.setText(noMessage);
+					mHelper.setStyle(Style.ALERT);
+					mHelper.setAutoTouchCencle(true);
+					mHelper.show();
+				}
+
 				mHandler.sendEmptyMessage(2);
-
-				save("calender", calender);
-				save("morning", morning);
-				save("lunch", lunch);
-				save("night", night);
-
-				mHelper.setText("인터넷에서 급식 정보를 받아왔습니다");
-				mHelper.setStyle(Style.CONFIRM);
-				mHelper.show();
 			}
 		}.start();
 	}
@@ -148,6 +169,15 @@ public class Bap extends Activity {
 		return string;
 	}
 
+	private void errorView(boolean isError) {
+		if (isError)
+			((FrameLayout) findViewById(R.id.errorView))
+					.setVisibility(View.VISIBLE);
+		else
+			((FrameLayout) findViewById(R.id.errorView))
+					.setVisibility(View.GONE);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -178,17 +208,21 @@ public class Bap extends Activity {
 		public void handleMessage(Message msg) {
 			Bap activity = mActivity.get();
 			if (activity != null) {
-				if (msg.what == 0)
-					mDialog = ProgressDialog.show(Bap.this, "",
-							"급식 정보를 받아오고 있습니다...");
-				else if (msg.what == 1) {
+				if (msg.what == 0) {
+					if (mDialog == null)
+						mDialog = ProgressDialog.show(Bap.this, "",
+								"급식 정보를 받아오고 있습니다...");
+				} else if (msg.what == 1) {
 					for (int i = 0; i < 7; i++) {
 						mAdapter.addItem(calender[i], getDate(i), morning[i],
 								lunch[i], night[i]);
 					}
 					mAdapter.notifyDataSetChanged();
 				} else if (msg.what == 2) {
-					mDialog.cancel();
+					if (mDialog != null) {
+						mDialog.cancel();
+						mDialog = null;
+					}
 				}
 			}
 		}
