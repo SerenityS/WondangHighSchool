@@ -30,7 +30,6 @@ public class Bap extends Activity {
 	private BapListViewAdapter mAdapter;
 	private ListView mListView;
 	private Handler mHandler;
-	private ProgressDialog mDialog;
 
 	private String[] calender, morning, lunch, night;
 
@@ -38,6 +37,8 @@ public class Bap extends Activity {
 
 	private SharedPreferences bapList;
 	private SharedPreferences.Editor bapListeditor;
+
+	ProgressDialog mDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -239,6 +240,13 @@ public class Bap extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		mDialog.dismiss();
+	}
+
 	private class MyHandler extends Handler {
 		private final WeakReference<Bap> mActivity;
 
@@ -250,14 +258,11 @@ public class Bap extends Activity {
 		public void handleMessage(Message msg) {
 			Bap activity = mActivity.get();
 			if (activity != null) {
+
 				if (msg.what == 0) {
 					if (mDialog == null) {
-						try {
-							mDialog = ProgressDialog.show(Bap.this, "",
-									"급식 정보를 받아오고 있습니다...");
-						} catch (Exception ex) {
-
-						}
+						mDialog = ProgressDialog.show(Bap.this, "",
+								"급식 정보를 받아오고 있습니다...");
 					}
 				} else if (msg.what == 1) {
 					for (int i = 0; i < 7; i++) {
@@ -266,10 +271,8 @@ public class Bap extends Activity {
 					}
 					mAdapter.notifyDataSetChanged();
 				} else if (msg.what == 2) {
-					if (mDialog != null) {
-						mDialog.cancel();
-						mDialog = null;
-					}
+					mDialog.cancel();
+					mDialog.dismiss();
 				}
 			}
 		}
