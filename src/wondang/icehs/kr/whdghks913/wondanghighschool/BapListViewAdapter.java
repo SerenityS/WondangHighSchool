@@ -1,9 +1,6 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -50,9 +47,9 @@ class BapListViewAdapter extends BaseAdapter {
 		mListData.clear();
 	}
 
-	public void sort() {
-		Collections.sort(mListData, BapListData.ALPHA_COMPARATOR);
-	}
+	// public void sort() {
+	// Collections.sort(mListData, BapListData.ALPHA_COMPARATOR);
+	// }
 
 	@Override
 	public int getCount() {
@@ -149,13 +146,14 @@ class BapListData {
 	public String mLunch;
 	public String mNight;
 
-	public static final Comparator<BapListData> ALPHA_COMPARATOR = new Comparator<BapListData>() {
-		private final Collator sCollator = Collator.getInstance();
-
-		@Override
-		public int compare(BapListData mListDate_1, BapListData mListDate_2) {
-			return sCollator.compare(mListDate_1.mCalender,
-					mListDate_2.mCalender);
-		}
-	};
+	// public static final Comparator<BapListData> ALPHA_COMPARATOR = new
+	// Comparator<BapListData>() {
+	// private final Collator sCollator = Collator.getInstance();
+	//
+	// @Override
+	// public int compare(BapListData mListDate_1, BapListData mListDate_2) {
+	// return sCollator.compare(mListDate_1.mCalender,
+	// mListDate_2.mCalender);
+	// }
+	// };
 }
