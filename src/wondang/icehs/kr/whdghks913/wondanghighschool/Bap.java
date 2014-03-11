@@ -80,6 +80,7 @@ public class Bap extends Activity {
 
 				sync();
 			} else {
+				addErrorList();
 
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
@@ -123,6 +124,8 @@ public class Bap extends Activity {
 					ex.printStackTrace();
 
 					mAdapter.clearData();
+
+					addErrorList();
 
 					mHelper.setText(noMessage);
 					mHelper.setStyle(Style.ALERT);
@@ -185,6 +188,10 @@ public class Bap extends Activity {
 			return false;
 	}
 
+	private void addErrorList() {
+		mAdapter.addItem("알수 없음", "알수 없음", noMessage, noMessage, noMessage);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -201,6 +208,8 @@ public class Bap extends Activity {
 			if (isNetwork()) {
 				sync();
 			} else {
+				addErrorList();
+
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.setAutoTouchCencle(true);
