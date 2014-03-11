@@ -38,7 +38,12 @@ public class Bap extends Activity {
 	private SharedPreferences bapList;
 	private SharedPreferences.Editor bapListeditor;
 
-	ProgressDialog mDialog;
+	private ProgressDialog mDialog;
+
+	private final String savedList = "저장된 정보를 불러왔습니다\n과거 정보일경우 새로고침 해주세요";
+	private final String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
+	private final String loadingList = "급식 정보를 받아오고 있습니다...";
+	private final String loadList = "인터넷에서 급식 정보를 받아왔습니다";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +70,7 @@ public class Bap extends Activity {
 
 			mHandler.sendEmptyMessage(1);
 
-			mAdapter.sort();
-			mAdapter.notifyDataSetChanged();
-
-			mHelper.setText("저장된 정보를 불러왔습니다\n과거 정보일경우 새로고침 해주세요");
+			mHelper.setText(savedList);
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
 		} else {
@@ -80,7 +82,6 @@ public class Bap extends Activity {
 
 				sync();
 			} else {
-				String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
 
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
@@ -94,9 +95,6 @@ public class Bap extends Activity {
 
 	private void sync() {
 		mAdapter.clearData();
-		mAdapter.notifyDataSetChanged();
-
-		bapListeditor.clear().commit();
 
 		new Thread() {
 
@@ -123,7 +121,7 @@ public class Bap extends Activity {
 
 					errorView(false);
 
-					mHelper.setText("인터넷에서 급식 정보를 받아왔습니다");
+					mHelper.setText(loadList);
 					mHelper.setStyle(Style.CONFIRM);
 					mHelper.setAutoTouchCencle(true);
 					mHelper.show();
@@ -132,7 +130,6 @@ public class Bap extends Activity {
 					ex.printStackTrace();
 
 					mAdapter.clearData();
-					String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
 
 					errorView(true);
 
@@ -185,10 +182,11 @@ public class Bap extends Activity {
 	}
 
 	private void errorView(boolean isError) {
-		if (isError)
+		if (isError) {
 			((FrameLayout) findViewById(R.id.errorView))
 					.setVisibility(View.VISIBLE);
-		else
+			errorView(true);
+		} else
 			((FrameLayout) findViewById(R.id.errorView))
 					.setVisibility(View.GONE);
 	}
@@ -226,8 +224,6 @@ public class Bap extends Activity {
 			if (isNetwork()) {
 				sync();
 			} else {
-				String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
-
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.setAutoTouchCencle(true);
@@ -244,7 +240,9 @@ public class Bap extends Activity {
 	protected void onPause() {
 		super.onPause();
 
-		mDialog.dismiss();
+		if (mDialog != null) {
+			mDialog.dismiss();
+		}
 	}
 
 	private class MyHandler extends Handler {
@@ -261,8 +259,8 @@ public class Bap extends Activity {
 
 				if (msg.what == 0) {
 					if (mDialog == null) {
-						mDialog = ProgressDialog.show(Bap.this, "",
-								"급식 정보를 받아오고 있습니다...");
+						mDialog = ProgressDialog
+								.show(Bap.this, "", loadingList);
 					}
 				} else if (msg.what == 1) {
 					for (int i = 0; i < 7; i++) {
@@ -271,7 +269,6 @@ public class Bap extends Activity {
 					}
 					mAdapter.notifyDataSetChanged();
 				} else if (msg.what == 2) {
-					mDialog.cancel();
 					mDialog.dismiss();
 				}
 			}
