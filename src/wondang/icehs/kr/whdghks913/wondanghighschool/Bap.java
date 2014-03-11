@@ -119,7 +119,6 @@ public class Bap extends Activity {
 					mHelper.setStyle(Style.CONFIRM);
 					mHelper.setAutoTouchCencle(true);
 					mHelper.show();
-
 				} catch (Exception ex) {
 					ex.printStackTrace();
 
@@ -130,7 +129,6 @@ public class Bap extends Activity {
 					mHelper.setAutoTouchCencle(true);
 					mHelper.show();
 				}
-
 				mHandler.sendEmptyMessage(2);
 			}
 		}.start();
@@ -181,13 +179,10 @@ public class Bap extends Activity {
 		NetworkInfo wifi = manager
 				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-		if (wifi.isConnected() || mobile.isConnected()) {
-			// ¿¬°áµÊ
+		if (wifi.isConnected() || mobile.isConnected())
 			return true;
-		} else {
-			// ¿¬°á ¾ÈµÊ
+		else
 			return false;
-		}
 	}
 
 	@Override
@@ -212,7 +207,6 @@ public class Bap extends Activity {
 				mHelper.show();
 			}
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -220,9 +214,8 @@ public class Bap extends Activity {
 	protected void onPause() {
 		super.onPause();
 
-		if (mDialog != null) {
+		if (mDialog != null)
 			mDialog.dismiss();
-		}
 	}
 
 	private class MyHandler extends Handler {
