@@ -35,8 +35,7 @@ public class WondangInfo extends SherlockActivity {
 
 		if (ItemId == R.id.goWeb) {
 			Intent mIntent = new Intent(this, Webview.class);
-			mIntent.putExtra("url",
-					"http://wondang.icehs.kr/");
+			mIntent.putExtra("url", "http://wondang.icehs.kr/sub/info.do?m=0101&s=wondang");
 			startActivity(mIntent);
 		} else if (ItemId == R.id.infoVideo) {
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
