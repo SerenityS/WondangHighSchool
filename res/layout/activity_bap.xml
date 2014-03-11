@@ -14,20 +14,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <FrameLayout
-        android:id="@+id/errorView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </FrameLayout>
-
 </LinearLayout>

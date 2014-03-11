@@ -14,8 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.tistory.whdghks913.croutonhelper.CroutonHelper;
@@ -87,8 +85,6 @@ public class Bap extends Activity {
 				mHelper.setStyle(Style.ALERT);
 				mHelper.setAutoTouchCencle(true);
 				mHelper.show();
-
-				errorView(true);
 			}
 		}
 	}
@@ -119,8 +115,6 @@ public class Bap extends Activity {
 
 					mHandler.sendEmptyMessage(1);
 
-					errorView(false);
-
 					mHelper.setText(loadList);
 					mHelper.setStyle(Style.CONFIRM);
 					mHelper.setAutoTouchCencle(true);
@@ -130,8 +124,6 @@ public class Bap extends Activity {
 					ex.printStackTrace();
 
 					mAdapter.clearData();
-
-					errorView(true);
 
 					mHelper.setText(noMessage);
 					mHelper.setStyle(Style.ALERT);
@@ -181,16 +173,6 @@ public class Bap extends Activity {
 		return string;
 	}
 
-	private void errorView(boolean isError) {
-		if (isError) {
-			((FrameLayout) findViewById(R.id.errorView))
-					.setVisibility(View.VISIBLE);
-			errorView(true);
-		} else
-			((FrameLayout) findViewById(R.id.errorView))
-					.setVisibility(View.GONE);
-	}
-
 	private boolean isNetwork() {
 		ConnectivityManager manager = (ConnectivityManager) this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -228,8 +210,6 @@ public class Bap extends Activity {
 				mHelper.setStyle(Style.ALERT);
 				mHelper.setAutoTouchCencle(true);
 				mHelper.show();
-
-				errorView(true);
 			}
 		}
 
