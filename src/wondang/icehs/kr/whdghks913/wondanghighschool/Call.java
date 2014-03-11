@@ -54,4 +54,11 @@ public class Call extends Activity {
 		mHelper.setStyle(Style.INFO);
 		mHelper.show();
 	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		mHelper.cencle(true);
+	}
 }

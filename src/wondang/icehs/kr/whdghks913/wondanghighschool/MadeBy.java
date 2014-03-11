@@ -54,4 +54,10 @@ public class MadeBy extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		mHelper.cencle(true);
+	}
 }

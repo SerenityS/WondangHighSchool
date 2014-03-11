@@ -96,4 +96,10 @@ public class MainActivity extends SherlockActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		mHelper.cencle(true);
+	}
 }

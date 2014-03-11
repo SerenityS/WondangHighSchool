@@ -225,6 +225,8 @@ public class Bap extends Activity {
 
 		if (mDialog != null)
 			mDialog.dismiss();
+
+		mHelper.cencle(true);
 	}
 
 	private class MyHandler extends Handler {
