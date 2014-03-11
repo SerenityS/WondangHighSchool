@@ -9,6 +9,6 @@
         android:id="@+id/infoVideo"
         android:orderInCategory="1"
         android:showAsAction="ifRoom"
-        android:title="소게 영상"/>
+        android:title="소개 영상"/>
 
 </menu>
