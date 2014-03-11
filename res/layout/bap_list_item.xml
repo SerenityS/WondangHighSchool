@@ -36,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
             android:text="아침밥" />
     </LinearLayout>
 
@@ -56,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
             android:text="점심밥" />
     </LinearLayout>
 
@@ -76,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:paddingBottom="5dp"
             android:text="저녁밥" />
     </LinearLayout>
 
