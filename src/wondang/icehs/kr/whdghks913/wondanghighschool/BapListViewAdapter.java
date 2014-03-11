@@ -119,12 +119,12 @@ class BapListViewAdapter extends BaseAdapter {
 			holder.mMorning.setText(mMorning.trim());
 
 		if (MealCheck(mLunch))
-			holder.mLunch.setText("점심이 없습니다, 와 4교시 하고 간다");
+			holder.mLunch.setText("점심이 없습니다 : 4교시 하고 집에 갑니다!");
 		else
 			holder.mLunch.setText(mLunch.trim());
 
 		if (MealCheck(mNight))
-			holder.mNight.setText("저녁이 없습니다, 와 야자 안한다");
+			holder.mNight.setText("저녁이 없습니다 : 야자가 없습니다!");
 		else
 			holder.mNight.setText(mNight.trim());
 
