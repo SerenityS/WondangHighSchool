@@ -7,7 +7,6 @@ import java.util.List;
 
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
-import android.util.Log;
 
 public class MealLibrary {
 	static Source source;
@@ -156,7 +155,7 @@ public class MealLibrary {
 
 				for (int ii = 0; ii < tbody.size(); ii++) {
 					List<?> tr = ((Element) tbody.get(ii)).getAllElements("tr");
-					content = new String[tr.size() * 7];
+					content = new String[31];
 
 					for (int a = 0; a < tr.size(); a++) {
 						List<?> title = ((Element) tr.get(a))
@@ -168,23 +167,40 @@ public class MealLibrary {
 							// iiii = 날짜
 
 							if (isMealCheck(Meal)) {
-								Meal = Meal.replace("<br />", "\n");
+								Meal = Meal.replace("<br />", "\n").trim();
 
-								boolean isLunch = Meal.matches("(?i).*[중식].*");
-								boolean isNight = Meal.matches("(?i).*[석식].*");
-								int start = Meal.indexOf("[중식]");
-								int end = Meal.indexOf("[석식]");
+								int morning = Meal.indexOf("[조식]");
+								int lunch = Meal.indexOf("[중식]");
+								int night = Meal.indexOf("[석식]");
 
-								if (isLunch && isNight) {
-									Log.e("isLunch && isNight",
-											"isLunch && isNight");
-									Meal = Meal.substring(start, end);
-								} else if (isLunch) {
-									Log.e("isLunch", "isLunch");
-									Meal = Meal.substring(start);
+								// schMmealScCode == 1 : 아침만
+								// schMmealScCode == 2 : 점심만
+								// schMmealScCode == 3 : 저녁만
+
+								if ("1".equals(schMmealScCode)) {
+									if (morning != -1 && lunch != -1)
+										Meal = Meal.substring(morning + 4,
+												lunch);
+									else if (morning != -1)
+										Meal = Meal.substring(morning + 4);
+									else if (morning == -1)
+										Meal = null;
+
+								} else if ("2".equals(schMmealScCode)) {
+									if (lunch != -1 && night != -1)
+										Meal = Meal.substring(lunch + 4, night);
+									else if (lunch != -1)
+										Meal = Meal.substring(lunch + 4);
+									else if (lunch == -1)
+										Meal = null;
+
+								} else if ("3".equals(schMmealScCode)) {
+									if (night != -1)
+										Meal = Meal.substring(night + 4);
+									else if (night == -1)
+										Meal = null;
 								}
-
-								content[dayChecker++] = Meal.trim();
+								content[dayChecker++] = Meal;
 							}
 						}
 					}
@@ -192,28 +208,8 @@ public class MealLibrary {
 				break;
 			}
 		}
-		content = removeNull(content);
+		// content = removeNull(content);
 		return content;
-	}
-
-	private static String[] removeNull(String[] string) {
-		int nullchecker = 0;
-		for (int i = 0; i < string.length; i++) {
-			if (string[i] == null || "".equals(string[i])) {
-				nullchecker = i;
-				break;
-			}
-		}
-
-		if (nullchecker <= 0)
-			return string;
-
-		String[] returnString = new String[--nullchecker];
-		for (int i = 0; i < nullchecker; i++) {
-			returnString[i] = string[i];
-		}
-		
-		return returnString;
 	}
 
 	private static boolean isMealCheck(String meal) {
