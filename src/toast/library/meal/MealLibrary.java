@@ -208,7 +208,6 @@ public class MealLibrary {
 				break;
 			}
 		}
-		// content = removeNull(content);
 		return content;
 	}
 
