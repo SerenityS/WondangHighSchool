@@ -125,15 +125,14 @@ public class MealLibrary {
 	public static String[] getMonthMeal(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode,
 			String schMmealScCode, String schYm) {
+		int dayChecker = 0;
+
 		String[] content = null;
 		String url = "http://hes." + CountryCode
 				+ "/sts_sci_md00_001.do?schulCode=" + schulCode
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
 				+ "&schYm=" + schYm;
-
-		Log.d("url", url);
-		Log.d("getMonthMeal", "Source 전");
 
 		try {
 			source = new Source(new URL(url));
@@ -163,39 +162,29 @@ public class MealLibrary {
 						List<?> title = ((Element) tr.get(a))
 								.getAllElements("td");
 
-						// StringTokenizer st = new StringTokenizer(str," \n");
-						// for(int i=0;st.hasMoreTokens();i++) {
-
 						for (int iiii = 0; iiii < title.size(); iiii++) {
 							String Meal = ((Element) title.get(iiii))
 									.getContent().toString();
+							// iiii = 날짜
 
 							if (isMealCheck(Meal)) {
-//								String lunch = "[중식]";
-//								String night = "[석식]";
+								Meal = Meal.replace("<br />", "\n");
 
-/*								for (int day = 1; day < 7; day++) {
-									// Meal = Meal.replace("<br />", "\n");
-//									String dayString = Integer.toString(day);
+								boolean isLunch = Meal.matches("(?i).*[중식].*");
+								boolean isNight = Meal.matches("(?i).*[석식].*");
+								int start = Meal.indexOf("[중식]");
+								int end = Meal.indexOf("[석식]");
 
-//									if (Meal.matches(".*" + night + ".*")) {
-//										// 석식이 있으면
-//										int start = Meal.indexOf(dayString
-//												+ "<br />[중식]<br />");
-//										int end = Meal.indexOf(dayString
-//												+ "<br />[석식]<br />");
-//										Meal = Meal.substring(start, end);
-//									} else {
-//										// 석식이 없으면
-//										int start = Meal.indexOf(dayString
-//												+ "[중식]");
-//										Meal = Meal.substring(start);
-//									}
-//									Log.e("Meal", Meal);
-								}*/
-								content[iiii] = Meal;
-								content[iiii] = content[iiii].replace(
-										"<br />", "\n");
+								if (isLunch && isNight) {
+									Log.e("isLunch && isNight",
+											"isLunch && isNight");
+									Meal = Meal.substring(start, end);
+								} else if (isLunch) {
+									Log.e("isLunch", "isLunch");
+									Meal = Meal.substring(start);
+								}
+
+								content[dayChecker++] = Meal.trim();
 							}
 						}
 					}
@@ -203,8 +192,28 @@ public class MealLibrary {
 				break;
 			}
 		}
-
+		content = removeNull(content);
 		return content;
+	}
+
+	private static String[] removeNull(String[] string) {
+		int nullchecker = 0;
+		for (int i = 0; i < string.length; i++) {
+			if (string[i] == null || "".equals(string[i])) {
+				nullchecker = i;
+				break;
+			}
+		}
+
+		if (nullchecker <= 0)
+			return string;
+
+		String[] returnString = new String[--nullchecker];
+		for (int i = 0; i < nullchecker; i++) {
+			returnString[i] = string[i];
+		}
+		
+		return returnString;
 	}
 
 	private static boolean isMealCheck(String meal) {

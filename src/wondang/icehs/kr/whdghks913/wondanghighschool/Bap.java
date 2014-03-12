@@ -101,16 +101,11 @@ public class Bap extends Activity {
 				mHandler.sendEmptyMessage(0);
 
 				try {
-					String[] a = new String[31];
-					a = MealLibrary.getMonthMeal("ice.go.kr", "E100001786",
+					String[] a = MealLibrary.getMonthMeal("ice.go.kr", "E100001786",
 							"4", "04", "1", "2014.03");
-					Log.d("새로운 API 시험 : 0", a[0]);
-					Log.d("새로운 API 시험 : 1", a[1]);
-					Log.d("새로운 API 시험 : 2", a[2]);
-					Log.d("새로운 API 시험 : 3", a[3]);
-					Log.d("새로운 API 시험 : 4", a[4]);
-					Log.d("새로운 API 시험 : 5", a[5]);
-					Log.d("새로운 API 시험 : 6", a[6]);
+					for (int i=0 ; i<a.length ; i++){
+						Log.d("새로운 API 시험 : "+i, a[i]);
+					}
 
 					calender = MealLibrary.getDate("ice.go.kr", "E100001786",
 							"4", "04", "1");
