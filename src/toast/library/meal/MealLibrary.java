@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import net.htmlparser.jericho.*;
+
+import net.htmlparser.jericho.Element;
+import net.htmlparser.jericho.Source;
+import android.util.Log;
 
 public class MealLibrary {
 	static Source source;
@@ -117,6 +120,98 @@ public class MealLibrary {
 		}
 
 		return content;
+	}
+
+	public static String[] getMonthMeal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYm) {
+		String[] content = null;
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md00_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYm=" + schYm;
+
+		Log.d("url", url);
+		Log.d("getMonthMeal", "Source 전");
+
+		try {
+			source = new Source(new URL(url));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		source.fullSequentialParse();
+		List<?> table = source.getAllElements("table");
+		for (int i = 0; i < table.size(); i++) {
+
+			String tableType = ((Element) table.get(i))
+					.getAttributeValue("class");
+
+			if ("tableType2".equals(tableType)) {
+
+				List<?> tbody = ((Element) table.get(i))
+						.getAllElements("tbody");
+
+				for (int ii = 0; ii < tbody.size(); ii++) {
+					List<?> tr = ((Element) tbody.get(ii)).getAllElements("tr");
+					content = new String[tr.size() * 7];
+
+					for (int a = 0; a < tr.size(); a++) {
+						List<?> title = ((Element) tr.get(a))
+								.getAllElements("td");
+
+						// StringTokenizer st = new StringTokenizer(str," \n");
+						// for(int i=0;st.hasMoreTokens();i++) {
+
+						for (int iiii = 0; iiii < title.size(); iiii++) {
+							String Meal = ((Element) title.get(iiii))
+									.getContent().toString();
+
+							if (isMealCheck(Meal)) {
+//								String lunch = "[중식]";
+//								String night = "[석식]";
+
+/*								for (int day = 1; day < 7; day++) {
+									// Meal = Meal.replace("<br />", "\n");
+//									String dayString = Integer.toString(day);
+
+//									if (Meal.matches(".*" + night + ".*")) {
+//										// 석식이 있으면
+//										int start = Meal.indexOf(dayString
+//												+ "<br />[중식]<br />");
+//										int end = Meal.indexOf(dayString
+//												+ "<br />[석식]<br />");
+//										Meal = Meal.substring(start, end);
+//									} else {
+//										// 석식이 없으면
+//										int start = Meal.indexOf(dayString
+//												+ "[중식]");
+//										Meal = Meal.substring(start);
+//									}
+//									Log.e("Meal", Meal);
+								}*/
+								content[iiii] = Meal;
+								content[iiii] = content[iiii].replace(
+										"<br />", "\n");
+							}
+						}
+					}
+				}
+				break;
+			}
+		}
+
+		return content;
+	}
+
+	private static boolean isMealCheck(String meal) {
+		if ("".equals(meal) || " ".equals(meal) || meal == null)
+			return false;
+		else
+			return true;
 	}
 
 	public static String[] getKcal(String CountryCode, String schulCode,

@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.ListView;
@@ -100,6 +101,17 @@ public class Bap extends Activity {
 				mHandler.sendEmptyMessage(0);
 
 				try {
+					String[] a = new String[31];
+					a = MealLibrary.getMonthMeal("ice.go.kr", "E100001786",
+							"4", "04", "1", "2014.03");
+					Log.d("새로운 API 시험 : 0", a[0]);
+					Log.d("새로운 API 시험 : 1", a[1]);
+					Log.d("새로운 API 시험 : 2", a[2]);
+					Log.d("새로운 API 시험 : 3", a[3]);
+					Log.d("새로운 API 시험 : 4", a[4]);
+					Log.d("새로운 API 시험 : 5", a[5]);
+					Log.d("새로운 API 시험 : 6", a[6]);
+
 					calender = MealLibrary.getDate("ice.go.kr", "E100001786",
 							"4", "04", "1");
 					morning = MealLibrary.getMeal("ice.go.kr", "E100001786",
