@@ -101,23 +101,6 @@ public class Bap extends Activity {
 				mHandler.sendEmptyMessage(0);
 
 				try {
-					String[] MorningM = MealLibrary.getMonthMeal("ice.go.kr", "E100001786",
-							"4", "04", "1", "2014.04");
-					String[] lunchM = MealLibrary.getMonthMeal("ice.go.kr", "E100001786",
-							"4", "04", "2", "2014.04");
-					String[] nightM = MealLibrary.getMonthMeal("ice.go.kr", "E100001786",
-							"4", "04", "3", "2014.04");
-					
-					for (int i=0 ; i<lunchM.length ; i++){
-						Log.d("아침 : "+i, ""+ MorningM[i]);
-					}
-					for (int i=0 ; i<lunchM.length ; i++){
-						Log.d("점심 : "+i, ""+ lunchM[i]);
-					}
-					for (int i=0 ; i<lunchM.length ; i++){
-						Log.d("저녁 : "+i, ""+ nightM[i]);
-					}
-
 					calender = MealLibrary.getDate("ice.go.kr", "E100001786",
 							"4", "04", "1");
 					morning = MealLibrary.getMeal("ice.go.kr", "E100001786",
