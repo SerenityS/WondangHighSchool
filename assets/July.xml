@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+
+    <string name="04"  value="1학기 2회고사" />
+    <string name="04_Day"  value="금" />
+	
+    <string name="07"  value="1학기 2회고사" />
+    <string name="07_Day"  value="월" />
+	
+    <string name="08"  value="1학기 2회고사" />
+    <string name="08_Day"  value="화" />
+	
+    <string name="09"  value="1학기 2회고사" />
+    <string name="09_Day"  value="수" />
+	
+    <string name="10"  value="전국 연합 학력 평가 (3학년)" />
+    <string name="10_Day"  value="목" />
+	
+    <string name="21"  value="여름방학식" />
+    <string name="21_Day"  value="월" />
+	
+    <int name="days" value="31" />
+</map>

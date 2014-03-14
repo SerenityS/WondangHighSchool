@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="01"  value="3.1절" />
+    <string name="01_Day"  value="토" />
+	
+    <string name="03"  value="입학식" />
+    <string name="03_Day"  value="월" />
+	
+    <string name="12"  value="전국 연합 학력 평가 (전학년)" />
+    <string name="12_Day"  value="수" />
+	
+    <string name="14"  value="학부모 총회" />
+    <string name="14_Day"  value="금" />
+	
+    <string name="26"  value="현장 학습 (1~2학년)" />
+    <string name="26_Day"  value="수" />
+	
+    <string name="27"  value="현장 학습 (1~2학년)" />
+    <string name="27_Day"  value="목" />
+	
+    <string name="28"  value="현장 학습 (1~2학년)" />
+    <string name="28_Day"  value="금" />
+	
+    <int name="days" value="31" />
+</map>

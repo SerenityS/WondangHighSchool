@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="10"  value="전국 연합 학력 평가 (3학년)" />
+    <string name="10_Day"  value="목" />
+	
+    <string name="15"  value="영어 듣기 평가 (1학년)" />
+    <string name="15_Day"  value="화" />
+	
+    <string name="16"  value="영어 듣기 평가 (2학년)" />
+    <string name="16_Day"  value="수" />
+	
+    <string name="17"  value="영어 듣기 평가 (3학년)" />
+    <string name="17_Day"  value="목" />
+	
+    <string name="28"  value="1학기 1회고사" />
+    <string name="28_Day"  value="월" />
+	
+    <string name="29"  value="1학기 1회고사" />
+    <string name="29_Day"  value="화" />
+	
+    <string name="30"  value="1학기 1회고사" />
+    <string name="30_Day"  value="수" />
+	
+    <int name="days" value="30" />
+</map>
