@@ -8,12 +8,12 @@
         android:id="@+id/mListImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:orientation="vertical" >
 
         <TextView
