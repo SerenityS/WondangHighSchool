@@ -82,16 +82,22 @@ class ScheduleListViewAdapter extends BaseAdapter {
 
 		ScheduleListData mData = mListData.get(position);
 
-		holder.mDay.setText(mData.mDay);
-
 		String mDayOfTheWeek = mData.mDayOfTheWeek;
-		if (mDayOfTheWeek.equals("일"))
+		if (mDayOfTheWeek.equals("일")) {
+			holder.mDay.setTextColor(Color.RED);
 			holder.mDayOfTheWeek.setTextColor(Color.RED);
-		else if (mDayOfTheWeek.equals("토"))
+			holder.mText.setTextColor(Color.RED);
+		} else if (mDayOfTheWeek.equals("토")) {
+			holder.mDay.setTextColor(Color.BLUE);
 			holder.mDayOfTheWeek.setTextColor(Color.BLUE);
-		else
+			holder.mText.setTextColor(Color.BLUE);
+		} else {
+			holder.mDay.setTextColor(Color.BLACK);
 			holder.mDayOfTheWeek.setTextColor(Color.BLACK);
+			holder.mText.setTextColor(Color.BLACK);
+		}
 
+		holder.mDay.setText(mData.mDay);
 		holder.mDayOfTheWeek.setText(mDayOfTheWeek);
 		holder.mText.setText(mData.mText);
 
