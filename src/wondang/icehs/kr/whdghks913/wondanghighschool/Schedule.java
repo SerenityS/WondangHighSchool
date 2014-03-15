@@ -56,6 +56,7 @@ public class Schedule extends Activity {
 		mHelper = new CroutonHelper(this);
 		mHelper.setText("학교 일정 내용 입니다");
 		mHelper.setStyle(Style.INFO);
+		mHelper.setAutoTouchCencle(true);
 		mHelper.show();
 
 		sync();
@@ -266,7 +267,6 @@ public class Schedule extends Activity {
 						mHelper.clearCroutonsForActivity();
 						mHelper.setText(noData);
 						mHelper.setStyle(Style.ALERT);
-						mHelper.setAutoTouchCencle(true);
 						mHelper.show();
 					}
 
