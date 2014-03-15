@@ -20,20 +20,25 @@ class ScheduleViewHolder {
 
 class ScheduleListViewAdapter extends BaseAdapter {
 	private Context mContext = null;
-	private ArrayList<ScheduleListData> mListData = new ArrayList<ScheduleListData>();
+	public ArrayList<ScheduleListData> mListData = new ArrayList<ScheduleListData>();
 
 	public ScheduleListViewAdapter(Context mContext) {
 		super();
 		this.mContext = mContext;
 	}
 
-	public void addItem(String mDay, String mDayOfTheWeek, String mText, boolean isHoliday) {
+	public void addItem(String mDay, String mDayOfTheWeek, String mText,
+			boolean isHoliday, int year, int month, int day) {
 
 		ScheduleListData addInfo = new ScheduleListData();
 		addInfo.mDay = mDay;
 		addInfo.mDayOfTheWeek = mDayOfTheWeek;
 		addInfo.mText = mText;
 		addInfo.isHoliday = isHoliday;
+
+		addInfo.year = year;
+		addInfo.month = month;
+		addInfo.day = day;
 
 		mListData.add(addInfo);
 	}
@@ -52,7 +57,7 @@ class ScheduleListViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public ScheduleListData getItem(int position) {
 		return mListData.get(position);
 	}
 
@@ -114,6 +119,8 @@ class ScheduleListData {
 	public String mDayOfTheWeek;
 	public String mText;
 	public boolean isHoliday;
+
+	public int year, month, day;
 
 	// public static final Comparator<ScheduleListData> ALPHA_COMPARATOR = new
 	// Comparator<ScheduleListData>() {

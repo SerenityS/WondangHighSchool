@@ -14,6 +14,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,6 +48,15 @@ public class Schedule extends Activity {
 		mListView = (ListView) findViewById(R.id.mScheduleList);
 		mAdapter = new ScheduleListViewAdapter(this);
 		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> av, View mView,
+					int position, long id) {
+				ScheduleListData mData = mAdapter.getItem(position);
+				getTime(mData.year, mData.month, mData.day);
+			}
+		});
 
 		mHandler = new MyHandler(this);
 
@@ -262,6 +274,36 @@ public class Schedule extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void getTime(int year, int month, int day) {
+		Calendar myTime = Calendar.getInstance();
+
+		long nowTime = myTime.getTimeInMillis();
+
+		myTime.set(year, month, day);
+
+		long touchTime = myTime.getTimeInMillis();
+
+		int diff = (int) ((touchTime - nowTime) / 24 * 60 * 60 * 1000);
+
+		boolean isPast = false;
+		if (diff < 0) {
+			diff = -diff;
+			isPast = true;
+		}
+
+		String Text = "";
+
+		if (isPast)
+			Text = "선택하신 날짜는 " + diff + "일전 날짜입니다";
+		else
+			Text = "선택하신 날짜까지 " + diff + "일 남았습니다";
+
+		mHelper.clearCroutonsForActivity();
+		mHelper.setText(Text);
+		mHelper.setStyle(Style.INFO);
+		mHelper.show();
+	}
+
 	private class MyHandler extends Handler {
 		private final WeakReference<Schedule> mActivity;
 
@@ -281,26 +323,37 @@ public class Schedule extends Activity {
 					}
 
 				} else if (msg.what == 1) {
-					ScheduleList = getSharedPreferences(
-							getMonth(mCalendar.get(Calendar.MONTH)), 0);
+					int month = mCalendar.get(Calendar.MONTH);
+
+					ScheduleList = getSharedPreferences(getMonth(month), 0);
 
 					int days = ScheduleList.getInt("days", 9999);
 
 					if (days != 9999) {
+
 						for (int i = 1; i < days; i++) {
-							String Schedule = ScheduleList.getString(
-									Integer.toString(i), null);
-							if (Schedule != null) {
-								String toString = Integer.toString(i);
-								String dayOfWeek = ScheduleList.getString(
-										toString + "_Day", null);
-								boolean isHoliday = ScheduleList.getBoolean(toString + "_Day_holiday", false);
-								
-								if (i < 10)
-									toString = "0" + toString;
-								mAdapter.addItem(toString + "일", dayOfWeek,
-										Schedule, isHoliday);
-							}
+							String toString = Integer.toString(i);
+							String Schedule = ScheduleList.getString(toString,
+									null);
+
+							if (Schedule == null)
+								continue;
+
+							String dayOfWeek = ScheduleList.getString(toString
+									+ "_Day", null);
+							boolean isHoliday = ScheduleList.getBoolean(
+									toString + "_Day_holiday", false);
+
+							if (i < 10)
+								toString = "0" + toString;
+
+							int year = mCalendar.get(Calendar.YEAR);
+							if (month == 0 || month == 1)
+								year = 2015;
+
+							mAdapter.addItem(toString + "일", dayOfWeek,
+									Schedule, isHoliday, year,
+									mCalendar.get(Calendar.MONTH), i);
 						}
 					} else {
 						mHelper.clearCroutonsForActivity();
