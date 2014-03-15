@@ -65,7 +65,7 @@ public class Schedule extends Activity {
 		Info = getSharedPreferences("Info", 0);
 
 		mHelper = new CroutonHelper(this);
-		mHelper.setText("학교 일정 내용 입니다");
+		mHelper.setText("학교 일정 내용 입니다.\n터치해서 남은 날짜를 확인 할 수 있습니다");
 		mHelper.setStyle(Style.INFO);
 		mHelper.setAutoTouchCencle(true);
 		mHelper.show();
