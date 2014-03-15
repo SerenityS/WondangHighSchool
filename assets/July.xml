@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
 
-    <string name="04" >1학기 2회고사</string>
-    <string name="04_Day" >금</string>
+    <string name="4" >1학기 2회고사</string>
+    <string name="4_Day" >금</string>
 	
-    <string name="07" >1학기 2회고사</string>
-    <string name="07_Day" >월</string>
+    <string name="7" >1학기 2회고사</string>
+    <string name="7_Day" >월</string>
 	
-    <string name="08" >1학기 2회고사</string>
-    <string name="08_Day" >화</string>
+    <string name="8" >1학기 2회고사</string>
+    <string name="8_Day" >화</string>
 	
-    <string name="09" >1학기 2회고사</string>
-    <string name="09_Day" >수</string>
+    <string name="9" >1학기 2회고사</string>
+    <string name="9_Day" >수</string>
 	
     <string name="10" >전국 연합 학력 평가 (3학년)</string>
     <string name="10_Day" >목</string>

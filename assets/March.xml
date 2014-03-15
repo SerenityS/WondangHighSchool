@@ -1,10 +1,10 @@
 ﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
-    <string name="01" >3.1절</string>
-    <string name="01_Day" >토</string>
+    <string name="1" >3.1절</string>
+    <string name="1_Day" >토</string>
 	
-    <string name="03" >입학식</string>
-    <string name="03_Day" >월</string>
+    <string name="3" >입학식</string>
+    <string name="3_Day" >월</string>
 	
     <string name="12" >전국 연합 학력 평가 (전학년)</string>
     <string name="12_Day" >수</string>
