@@ -51,7 +51,6 @@ public class Schedule extends Activity {
 		mCalendar = Calendar.getInstance();
 
 		Info = getSharedPreferences("Info", 0);
-		ScheduleList = getSharedPreferences("March", 0);
 
 		mHelper = new CroutonHelper(this);
 		mHelper.setText("학교 일정 내용 입니다");
@@ -78,10 +77,10 @@ public class Schedule extends Activity {
 							getPackageName(), PackageManager.GET_META_DATA);
 					final int code = infor.versionCode;
 
-					if (Info.getInt("update_code", 0) != code
-							|| ScheduleList.getInt("days", 0) == 0) {
+					if (Info.getInt("update_code", 0) != code || isDataCheck()) {
 						PreferenceData mData = new PreferenceData();
 
+						mData.copyDB(Schedule.this, getPackageName(), "", true);
 						mData.copyDB(Schedule.this, getPackageName(),
 								"March.xml", true);
 						mData.copyDB(Schedule.this, getPackageName(),
@@ -106,34 +105,61 @@ public class Schedule extends Activity {
 		}.start();
 	}
 
+	private boolean isDataCheck() {
+		for (int i = 0; i < 10; i++) {
+			ScheduleList = getSharedPreferences(getMonth(i), 0);
+
+			if (ScheduleList.getInt("days", 9999) != 9999) {
+				ScheduleList = null;
+				return true;
+			}
+		}
+		ScheduleList = null;
+		return false;
+	}
+
 	private String getMonth(int month) {
+		String Month = null;
+
 		switch (month) {
 		case 0:
-			return "January";
+			Month = "January";
+			break;
 		case 1:
-			return "February";
+			Month = "February";
+			break;
 		case 2:
-			return "March";
+			Month = "March";
+			break;
 		case 3:
-			return "April";
+			Month = "April";
+			break;
 		case 4:
-			return "May";
+			Month = "May";
+			break;
 		case 5:
-			return "June";
+			Month = "June";
+			break;
 		case 6:
-			return "July";
+			Month = "July";
+			break;
 		case 7:
-			return "August";
+			Month = "August";
+			break;
 		case 8:
-			return "September";
+			Month = "September";
+			break;
 		case 9:
-			return "October";
+			Month = "October";
+			break;
 		case 10:
-			return "November";
+			Month = "November";
+			break;
 		case 11:
-			return "December";
+			Month = "December";
+			break;
 		}
-		return null;
+		return Month;
 	}
 
 	private String getMonthKorean(int month) {
