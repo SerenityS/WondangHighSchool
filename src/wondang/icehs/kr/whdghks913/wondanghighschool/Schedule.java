@@ -53,35 +53,12 @@ public class Schedule extends Activity {
 		Info = getSharedPreferences("Info", 0);
 		ScheduleList = getSharedPreferences("March", 0);
 
-		try {
-			PackageManager packageManager = this.getPackageManager();
-			PackageInfo infor = packageManager.getPackageInfo(getPackageName(),
-					PackageManager.GET_META_DATA);
-			final int code = infor.versionCode;
-
-			if (Info.getInt("update_code", 0) != code
-					|| ScheduleList.getInt("days", 0) == 0) {
-				PreferenceData mData = new PreferenceData();
-
-				mData.copyDB(this, getPackageName(), "March.xml", true);
-				mData.copyDB(this, getPackageName(), "April.xml", true);
-				mData.copyDB(this, getPackageName(), "May.xml", true);
-				mData.copyDB(this, getPackageName(), "June.xml", true);
-				mData.copyDB(this, getPackageName(), "July.xml", true);
-				mData.copyDB(this, getPackageName(), "August.xml", true);
-
-				Info.edit().putInt("update_code", code).commit();
-			}
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		sync();
-
 		mHelper = new CroutonHelper(this);
 		mHelper.setText("학교 일정 내용 입니다");
 		mHelper.setStyle(Style.INFO);
 		mHelper.show();
+
+		sync();
 	}
 
 	private void sync() {
@@ -92,6 +69,37 @@ public class Schedule extends Activity {
 			@Override
 			public void run() {
 				mHandler.sendEmptyMessage(0);
+
+				try {
+					PackageManager packageManager = Schedule.this
+							.getPackageManager();
+					PackageInfo infor = packageManager.getPackageInfo(
+							getPackageName(), PackageManager.GET_META_DATA);
+					final int code = infor.versionCode;
+
+					if (Info.getInt("update_code", 0) != code
+							|| ScheduleList.getInt("days", 0) == 0) {
+						PreferenceData mData = new PreferenceData();
+
+						mData.copyDB(Schedule.this, getPackageName(),
+								"March.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"April.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"May.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"June.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"July.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"August.xml", true);
+
+						Info.edit().putInt("update_code", code).commit();
+					}
+				} catch (NameNotFoundException e) {
+					e.printStackTrace();
+				}
+
 				mHandler.sendEmptyMessage(1);
 			}
 		}.start();
@@ -239,6 +247,7 @@ public class Schedule extends Activity {
 							getMonth(mCalendar.get(Calendar.MONTH)), 0);
 
 					int days = ScheduleList.getInt("days", 9999);
+
 					if (days != 9999) {
 						for (int i = 1; i < days; i++) {
 							String Schedule = ScheduleList.getString(
