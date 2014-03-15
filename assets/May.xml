@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
-    <string name="05"  value="어린이날" />
-    <string name="05_Day"  value="월" />
+    <string name="05" >어린이날</string>
+    <string name="05_Day" >월</string>
 	
-    <string name="06"  value="석가탄신일" />
-    <string name="06_Day"  value="화" />
+    <string name="06" >석가탄신일</string>
+    <string name="06_Day" >화</string>
 	
-    <string name="09"  value="교내체육대회(1학년, 2학년) / 현장학습(3학년)" />
-    <string name="09_Day"  value="금" />
+    <string name="09" >교내체육대회(1학년, 2학년) / 현장학습(3학년)</string>
+    <string name="09_Day" >금</string>
 	
     <int name="days" value="31" />
 </map>

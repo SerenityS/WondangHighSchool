@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
-    <string name="04"  value="지방 선거" />
-    <string name="04_Day"  value="수" />
+    <string name="04" >지방 선거</string>
+    <string name="04_Day" >수</string>
 	
-    <string name="05"  value="개교 기념일" />
-    <string name="05_Day"  value="목" />
+    <string name="05" >개교 기념일</string>
+    <string name="05_Day" >목</string>
 	
-    <string name="06"  value="현충일" />
-    <string name="06_Day"  value="금" />
+    <string name="06" >현충일</string>
+    <string name="06_Day" >금</string>
 	
-    <string name="12"  value="대수능모의평가(3학년) / 전국연합학력평가(1학년, 2학년)" />
-    <string name="12_Day"  value="목" />
+    <string name="12" >대수능모의평가(3학년) / 전국연합학력평가(1학년, 2학년)</string>
+    <string name="12_Day" >목</string>
 	
-    <string name="24"  value="국가 수준 학업 성취도 평가 (2학년)" />
-    <string name="24_Day"  value="화" />
+    <string name="24" >국가 수준 학업 성취도 평가 (2학년)</string>
+    <string name="24_Day" >화</string>
 	
     <int name="days" value="30" />
 </map>
