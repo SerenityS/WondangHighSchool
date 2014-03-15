@@ -1,7 +1,12 @@
-package wondang.icehs.kr.whdghks913.wondanghighschool;
+package wondang.icehs.kr.whdghks913.wondanghighschool.schedule;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
+
+import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.id;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.layout;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.menu;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

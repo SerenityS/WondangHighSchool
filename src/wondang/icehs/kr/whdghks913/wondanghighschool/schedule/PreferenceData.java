@@ -1,4 +1,4 @@
-package wondang.icehs.kr.whdghks913.wondanghighschool;
+package wondang.icehs.kr.whdghks913.wondanghighschool.schedule;
 
 import java.io.File;
 import java.io.FileOutputStream;

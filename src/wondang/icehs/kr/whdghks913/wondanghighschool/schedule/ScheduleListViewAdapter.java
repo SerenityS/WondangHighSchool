@@ -1,6 +1,10 @@
-package wondang.icehs.kr.whdghks913.wondanghighschool;
+package wondang.icehs.kr.whdghks913.wondanghighschool.schedule;
 
 import java.util.ArrayList;
+
+import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.id;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.layout;
 
 import android.content.Context;
 import android.graphics.Color;

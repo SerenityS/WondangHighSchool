@@ -1,5 +1,7 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
+import wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap;
+import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

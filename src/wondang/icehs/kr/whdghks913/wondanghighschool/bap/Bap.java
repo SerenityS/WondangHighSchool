@@ -1,8 +1,12 @@
-package wondang.icehs.kr.whdghks913.wondanghighschool;
+package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 
 import java.lang.ref.WeakReference;
 
 import toast.library.meal.MealLibrary;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.id;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.layout;
+import wondang.icehs.kr.whdghks913.wondanghighschool.R.menu;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;

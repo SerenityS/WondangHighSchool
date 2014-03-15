@@ -42,7 +42,7 @@
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Webview"
             android:theme="@style/Theme.White" />
         <activity
-            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Bap"
+            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap"
             android:label="급식"
             android:theme="@style/Theme.White" />
         <activity
@@ -50,7 +50,7 @@
             android:label="연락처"
             android:theme="@style/Theme.White" />
         <activity
-            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Schedule"
+            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule"
             android:label="일정"
             android:theme="@style/Theme.White" />
     </application>
