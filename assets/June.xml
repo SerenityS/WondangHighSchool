@@ -2,12 +2,15 @@
 <map>
     <string name="4" >지방 선거</string>
     <string name="4_Day" >수</string>
+    <boolean name="4_Day_holiday" value="true" />
 	
     <string name="5" >개교 기념일</string>
     <string name="5_Day" >목</string>
+    <boolean name="5_Day_holiday" value="true" />
 	
     <string name="6" >현충일</string>
     <string name="6_Day" >금</string>
+    <boolean name="6_Day_holiday" value="true" />
 	
     <string name="12" >대수능모의평가(3학년) / 전국연합학력평가(1학년, 2학년)</string>
     <string name="12_Day" >목</string>

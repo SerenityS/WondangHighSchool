@@ -18,6 +18,7 @@
 	
     <string name="21" >여름방학식</string>
     <string name="21_Day" >월</string>
+    <boolean name="21_Day_holiday" value="true" />
 	
     <int name="days" value="31" />
 </map>

@@ -27,12 +27,13 @@ class ScheduleListViewAdapter extends BaseAdapter {
 		this.mContext = mContext;
 	}
 
-	public void addItem(String mDay, String mDayOfTheWeek, String mText) {
+	public void addItem(String mDay, String mDayOfTheWeek, String mText, boolean isHoliday) {
 
 		ScheduleListData addInfo = new ScheduleListData();
 		addInfo.mDay = mDay;
 		addInfo.mDayOfTheWeek = mDayOfTheWeek;
 		addInfo.mText = mText;
+		addInfo.isHoliday = isHoliday;
 
 		mListData.add(addInfo);
 	}
@@ -83,7 +84,7 @@ class ScheduleListViewAdapter extends BaseAdapter {
 		ScheduleListData mData = mListData.get(position);
 
 		String mDayOfTheWeek = mData.mDayOfTheWeek;
-		if (mDayOfTheWeek.equals("¿œ")) {
+		if (mDayOfTheWeek.equals("¿œ") || mData.isHoliday) {
 			holder.mDay.setTextColor(Color.RED);
 			holder.mDayOfTheWeek.setTextColor(Color.RED);
 			holder.mText.setTextColor(Color.RED);
@@ -112,6 +113,7 @@ class ScheduleListData {
 	public String mDay;
 	public String mDayOfTheWeek;
 	public String mText;
+	public boolean isHoliday;
 
 	// public static final Comparator<ScheduleListData> ALPHA_COMPARATOR = new
 	// Comparator<ScheduleListData>() {

@@ -283,10 +283,12 @@ public class Schedule extends Activity {
 								String toString = Integer.toString(i);
 								String dayOfWeek = ScheduleList.getString(
 										toString + "_Day", null);
+								boolean isHoliday = ScheduleList.getBoolean(toString + "_Day_holiday", false);
+								
 								if (i < 10)
 									toString = "0" + toString;
 								mAdapter.addItem(toString + "ÀÏ", dayOfWeek,
-										Schedule);
+										Schedule, isHoliday);
 							}
 						}
 					} else {
