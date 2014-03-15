@@ -1,15 +1,31 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Song" >
 
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/ScrollImage"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <ImageView
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/schoolsong" />
-    </HorizontalScrollView>
+            android:layout_height="wrap_content" >
 
-</ScrollView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/schoolsong" />
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <wondang.icehs.kr.whdghks913.wondanghighschool.song.ImageDisplayView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>

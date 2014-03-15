@@ -31,7 +31,7 @@
             android:label="원당고 소게"
             android:theme="@style/Theme.White" />
         <activity
-            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Song"
+            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.song.Song"
             android:label="교가"
             android:theme="@style/Theme.White" />
         <activity
