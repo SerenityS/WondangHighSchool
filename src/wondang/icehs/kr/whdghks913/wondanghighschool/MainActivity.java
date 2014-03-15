@@ -36,7 +36,7 @@ public class MainActivity extends SherlockActivity {
 		mAdapter.addItem(getResources().getDrawable(R.drawable.song), "교가",
 				"우리 학교 교가 확인하기");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.calender), "일정",
-				"일정 확인하기 기능은 준비중입니다");
+				"학교의 일정을 확인 할 수 있습니다");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.call), "연락처",
 				"학교로 전화하기");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.bap), "급식",
