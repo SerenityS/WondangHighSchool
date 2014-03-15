@@ -58,9 +58,7 @@ public class MainActivity extends SherlockActivity {
 					startActivity(new Intent(MainActivity.this, Song.class));
 				} else if (position == 2) {
 					// 일정 확인하기
-					mHelper.setText("기능 준비중 입니다");
-					mHelper.setStyle(Style.ALERT);
-					mHelper.show();
+					startActivity(new Intent(MainActivity.this, Schedule.class));
 				} else if (position == 3) {
 					// 전화 하기
 					startActivity(new Intent(MainActivity.this, Call.class));

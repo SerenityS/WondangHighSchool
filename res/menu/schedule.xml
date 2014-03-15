@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/back"
+        android:icon="@drawable/ic_menu_back"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="이전 달"/>
+    
+    <item
+        android:id="@+id/forward"
+        android:icon="@drawable/ic_menu_forward"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:title="다음 달"/>
+    
+    <item
+        android:id="@+id/sync"
+        android:icon="@drawable/ic_menu_rotate"
+        android:orderInCategory="3"
+        android:showAsAction="ifRoom"
+        android:title="새로고침"/>
+
+</menu>
