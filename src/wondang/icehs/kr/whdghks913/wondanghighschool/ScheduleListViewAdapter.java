@@ -3,6 +3,7 @@ package wondang.icehs.kr.whdghks913.wondanghighschool;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,16 @@ class ScheduleListViewAdapter extends BaseAdapter {
 		ScheduleListData mData = mListData.get(position);
 
 		holder.mDay.setText(mData.mDay);
-		holder.mDayOfTheWeek.setText(mData.mDayOfTheWeek);
+
+		String mDayOfTheWeek = mData.mDayOfTheWeek;
+		if (mDayOfTheWeek.equals("¿œ"))
+			holder.mDayOfTheWeek.setTextColor(Color.RED);
+		else if (mDayOfTheWeek.equals("≈‰"))
+			holder.mDayOfTheWeek.setTextColor(Color.BLUE);
+		else
+			holder.mDayOfTheWeek.setTextColor(Color.BLACK);
+
+		holder.mDayOfTheWeek.setText(mDayOfTheWeek);
 		holder.mText.setText(mData.mText);
 
 		return convertView;
