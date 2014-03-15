@@ -278,12 +278,10 @@ public class Schedule extends Activity {
 		Calendar myTime = Calendar.getInstance();
 
 		long nowTime = myTime.getTimeInMillis();
-
 		myTime.set(year, month, day);
-
 		long touchTime = myTime.getTimeInMillis();
 
-		int diff = (int) ((touchTime - nowTime) / 24 * 60 * 60 * 1000);
+		long diff = (touchTime - nowTime);
 
 		boolean isPast = false;
 		if (diff < 0) {
@@ -291,12 +289,13 @@ public class Schedule extends Activity {
 			isPast = true;
 		}
 
-		String Text = "";
+		int diffInt = (int) (diff /= 24 * 60 * 60 * 1000);
 
+		String Text;
 		if (isPast)
-			Text = "선택하신 날짜는 " + diff + "일전 날짜입니다";
+			Text = "선택하신 날짜는 " + diffInt + "일전 날짜입니다";
 		else
-			Text = "선택하신 날짜까지 " + diff + "일 남았습니다";
+			Text = "선택하신 날짜까지 " + diffInt + "일 남았습니다";
 
 		mHelper.clearCroutonsForActivity();
 		mHelper.setText(Text);
