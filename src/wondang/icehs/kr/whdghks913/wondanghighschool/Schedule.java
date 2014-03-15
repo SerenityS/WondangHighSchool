@@ -23,7 +23,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class Schedule extends Activity {
 	private final String loadingList = "데이터를 가져오고 있습니다..";
-	private final String monthError = "올바르지 않습니다";
+	private final String monthError = "이전/다음 달이 없습니다";
 	private final String noData = "데이터가 존재하지 않습니다,\n추후 업데이트로 데이터가 추가됩니다";
 
 	private ScheduleListViewAdapter mAdapter;
