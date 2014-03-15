@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="3" >대수능모의평가(3학년) / 전국연합학력평가(1학년, 2학년)</string>
+    <string name="3_Day" >수</string>
+	
+    <string name="7" >추석 연휴</string>
+    <string name="7_Day" >일</string>
+	<boolean name="7_Day_holiday" value="true" />
+	
+    <string name="8" >추석</string>
+    <string name="8_Day" >월</string>
+	<boolean name="8_Day_holiday" value="true" />
+	
+    <string name="9" >추석 연휴</string>
+    <string name="9_Day" >화</string>
+	<boolean name="9_Day_holiday" value="true" />
+	
+    <string name="10" >추석 연휴</string>
+    <string name="10_Day" >수</string>
+	<boolean name="10_Day_holiday" value="true" />
+	
+    <string name="16" >영어 듣기 능력 평가 (1학년)</string>
+    <string name="16_Day" >화</string>
+	
+    <string name="17" >영어 듣기 능력 평가 (2학년)</string>
+    <string name="17_Day" >수</string>
+	
+    <string name="18" >영어 듣기 능력 평가 (3학년)</string>
+    <string name="18_Day" >목</string>
+	
+    <int name="days" value="30" />
+</map>

@@ -80,7 +80,6 @@ public class Schedule extends Activity {
 					if (Info.getInt("update_code", 0) != code || isDataCheck()) {
 						PreferenceData mData = new PreferenceData();
 
-						mData.copyDB(Schedule.this, getPackageName(), "", true);
 						mData.copyDB(Schedule.this, getPackageName(),
 								"March.xml", true);
 						mData.copyDB(Schedule.this, getPackageName(),
@@ -93,6 +92,18 @@ public class Schedule extends Activity {
 								"July.xml", true);
 						mData.copyDB(Schedule.this, getPackageName(),
 								"August.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"September.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"October.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"November.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"December.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"January.xml", true);
+						mData.copyDB(Schedule.this, getPackageName(),
+								"February.xml", true);
 
 						Info.edit().putInt("update_code", code).commit();
 					}
@@ -165,29 +176,29 @@ public class Schedule extends Activity {
 	private String getMonthKorean(int month) {
 		switch (month) {
 		case 0:
-			return "1월";
+			return "2015년 1월";
 		case 1:
-			return "2월";
+			return "2015년 2월";
 		case 2:
-			return "3월";
+			return "2014년 3월";
 		case 3:
-			return "4월";
+			return "2014년 4월";
 		case 4:
-			return "5월";
+			return "2014년 5월";
 		case 5:
-			return "6월";
+			return "2014년 6월";
 		case 6:
-			return "7월";
+			return "2014년 7월";
 		case 7:
-			return "8월";
+			return "2014년 8월";
 		case 8:
-			return "9월";
+			return "2014년 9월";
 		case 9:
-			return "10월";
+			return "2014년 10월";
 		case 10:
-			return "11월";
+			return "2014년 11월";
 		case 11:
-			return "12월";
+			return "2014년 12월";
 		}
 		return null;
 	}
