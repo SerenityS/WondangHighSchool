@@ -4,6 +4,7 @@
     <string name="app_name">인천 원당고등학교</string>
     <string name="license">오픈소스 라이센스 정보
 \n
+\n
 \n1. Jericho HTML Parser 3.3
 \n
 \n-License : OpenSource Library
@@ -26,6 +27,12 @@
 \n4. CroutonHelper
 \n-License : OpenSource Library
 \n-사이트 : http://whdghks913.tistory.com/481
-\n-비고 : CroutonHelper 직접 만든 라이브러리입니다</string>
+\n-비고 : CroutonHelper는 직접 만든 라이브러리입니다
+\n
+\n
+\n5. 멀티터치 이미지뷰
+\n-License : Do it Android 예제 소스
+\n-사이트 : android-town.org
+\n-비고 : 일부 소스를 수정해 사용</string>
 
 </resources>
