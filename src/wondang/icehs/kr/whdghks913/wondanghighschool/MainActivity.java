@@ -43,7 +43,7 @@ public class MainActivity extends SherlockActivity {
 		mAdapter.addItem(getResources().getDrawable(R.drawable.call), "연락처",
 				"학교로 전화하기");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.bap), "급식",
-				"오늘은 뭐가 나올까?");
+				"오늘 나오는 급식은?");
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 

@@ -43,6 +43,9 @@ public class Bap extends Activity {
 	private final String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
 	private final String loadingList = "급식 정보를 받아오고 있습니다...";
 	private final String loadList = "인터넷에서 급식 정보를 받아왔습니다";
+	private final String Syncing = "지금 로딩중입니다";
+
+	private boolean isSync = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,8 @@ public class Bap extends Activity {
 	}
 
 	private void sync() {
+		isSync = true;
+
 		mAdapter.clearData();
 
 		new Thread() {
@@ -134,6 +139,7 @@ public class Bap extends Activity {
 					mHelper.show();
 				}
 				mHandler.sendEmptyMessage(2);
+				isSync = false;
 			}
 		}.start();
 	}
@@ -207,16 +213,27 @@ public class Bap extends Activity {
 
 		if (ItemId == R.id.sync) {
 			if (isNetwork()) {
-				sync();
+				if (!isSync) {
+					sync();
+					item.setEnabled(false);
+				} else {
+					mHelper.clearCroutonsForActivity();
+					mHelper.setText(Syncing);
+					mHelper.setStyle(Style.INFO);
+					mHelper.setAutoTouchCencle(true);
+					mHelper.show();
+				}
 			} else {
 				addErrorList();
 
+				mHelper.clearCroutonsForActivity();
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.setAutoTouchCencle(true);
 				mHelper.show();
 			}
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 

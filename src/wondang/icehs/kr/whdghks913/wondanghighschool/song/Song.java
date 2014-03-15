@@ -1,9 +1,5 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.song;
 
-import com.tistory.whdghks913.croutonhelper.CroutonHelper;
-
-import de.keyboardsurfer.android.widget.crouton.Style;
-
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
@@ -12,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ScrollView;
+
+import com.tistory.whdghks913.croutonhelper.CroutonHelper;
+
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class Song extends Activity {
 	private ImageDisplayView mImage;
