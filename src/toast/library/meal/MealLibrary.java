@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import net.htmlparser.jericho.*;
+
+import net.htmlparser.jericho.Element;
+import net.htmlparser.jericho.Source;
 
 public class MealLibrary {
 	static Source source;
