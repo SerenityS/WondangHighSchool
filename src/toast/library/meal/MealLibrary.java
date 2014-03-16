@@ -9,7 +9,7 @@ import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 
 public class MealLibrary {
-	static Source source;
+	private static Source source;
 
 	public static String[] getDate(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
@@ -18,6 +18,37 @@ public class MealLibrary {
 				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getDateSub(date, url);
+	}
+
+	public static String[] getDate(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] date = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getDateSub(date, url);
+	}
+
+	public static String[] getDate(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] date = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getDateSub(date, url);
+	}
+
+	private static String[] getDateSub(String[] date, String url) {
 		try {
 			source = new Source(new URL(url));
 		} catch (MalformedURLException e) {
@@ -55,6 +86,40 @@ public class MealLibrary {
 				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getMealSub(content, url);
+	}
+
+	/**
+	 * 2014.03.16
+	 */
+	public static String[] getMeal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getMealSub(content, url);
+	}
+
+	public static String[] getMeal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getMealSub(content, url);
+	}
+
+	private static String[] getMealSub(String[] content, String url) {
 		try {
 			source = new Source(new URL(url));
 		} catch (MalformedURLException e) {
@@ -115,9 +180,7 @@ public class MealLibrary {
 				content[5] = null;
 				content[6] = null;
 			}
-
 		}
-
 		return content;
 	}
 
@@ -135,7 +198,7 @@ public class MealLibrary {
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
 				+ "&schYm=" + schYm;
 
-		return getMonthMealSub(content, schMmealScCode, url);
+		return getMonthMealSub(content, schMmealScCode, url, "1");
 	}
 
 	public static String[] getMonthMeal(String CountryCode, String schulCode,
@@ -149,11 +212,11 @@ public class MealLibrary {
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
 				+ "&schYm=" + year + "." + month;
 
-		return getMonthMealSub(content, schMmealScCode, url);
+		return getMonthMealSub(content, schMmealScCode, url, month);
 	}
 
 	private static String[] getMonthMealSub(String[] content,
-			String schMmealScCode, String url) {
+			String schMmealScCode, String url, String month) {
 		int dayChecker = 0;
 
 		try {
@@ -178,7 +241,7 @@ public class MealLibrary {
 
 				for (int ii = 0; ii < tbody.size(); ii++) {
 					List<?> tr = ((Element) tbody.get(ii)).getAllElements("tr");
-					content = new String[31];
+					content = new String[getMonthDays(month)];
 
 					for (int a = 0; a < tr.size(); a++) {
 						List<?> title = ((Element) tr.get(a))
@@ -242,6 +305,36 @@ public class MealLibrary {
 			return true;
 	}
 
+	private static int getMonthDays(String CalenderMonth) {
+		switch (Integer.parseInt(CalenderMonth)) {
+		case 1:
+			return 31;
+		case 2:
+			return 29;
+		case 3:
+			return 31;
+		case 4:
+			return 30;
+		case 5:
+			return 31;
+		case 6:
+			return 30;
+		case 7:
+			return 31;
+		case 8:
+			return 31;
+		case 9:
+			return 30;
+		case 10:
+			return 31;
+		case 11:
+			return 30;
+		case 12:
+			return 31;
+		}
+		return 31;
+	}
+
 	public static String[] getKcal(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
 		String[] content = new String[7];
@@ -249,6 +342,37 @@ public class MealLibrary {
 				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getKcalSub(content, url);
+	}
+
+	public static String[] getKcal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getKcalSub(content, url);
+	}
+
+	public static String[] getKcal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getKcalSub(content, url);
+	}
+
+	private static String[] getKcalSub(String[] content, String url) {
 		try {
 			source = new Source(new URL(url));
 		} catch (MalformedURLException e) {
@@ -288,7 +412,6 @@ public class MealLibrary {
 				content[6] = null;
 				break;
 			}
-
 		}
 
 		return content;
@@ -301,6 +424,37 @@ public class MealLibrary {
 				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getPeopleSub(content, url);
+	}
+
+	public static String[] getPeople(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getPeopleSub(content, url);
+	}
+
+	public static String[] getPeople(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getPeopleSub(content, url);
+	}
+
+	private static String[] getPeopleSub(String[] content, String url) {
 		try {
 			source = new Source(new URL(url));
 		} catch (MalformedURLException e) {
@@ -340,7 +494,6 @@ public class MealLibrary {
 				content[6] = null;
 				break;
 			}
-
 		}
 
 		return content;
