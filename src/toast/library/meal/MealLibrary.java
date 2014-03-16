@@ -471,10 +471,10 @@ public class MealLibrary {
 				List<?> tbody = ((Element) table.get(i))
 						.getAllElements("tbody");
 				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
-				List<?> __th = ((Element) __tr.get(16)).getAllElements("th");
+				List<?> __th = ((Element) __tr.get(0)).getAllElements("th");
 				if (((Element) __th.get(0)).getContent().toString()
-						.equals("에너지(kcal)    ")) {
-					List<?> td = ((Element) __tr.get(16)).getAllElements("td");
+						.equals("급식인원")) {
+					List<?> td = ((Element) __tr.get(0)).getAllElements("td");
 					content[0] = ((Element) td.get(0)).getContent().toString();
 					content[1] = ((Element) td.get(1)).getContent().toString();
 					content[2] = ((Element) td.get(2)).getContent().toString();
