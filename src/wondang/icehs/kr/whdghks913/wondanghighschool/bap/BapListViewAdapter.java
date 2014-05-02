@@ -1,6 +1,9 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.content.Context;
@@ -104,8 +107,24 @@ class BapListViewAdapter extends BaseAdapter {
 			holder.mDate.setTextColor(Color.BLACK);
 		}
 
-		holder.mCalender.setText(mData.mCalender);
+		String Calender = mData.mCalender;
+		holder.mCalender.setText(Calender);
 		holder.mDate.setText(mDate);
+
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy.MM.dd(E)");
+
+		try {
+			Date currentTime = new Date();
+			Date Date = sdFormat.parse(Calender);
+
+			if (Date.getYear() == currentTime.getYear()
+					&& Date.getMonth() == currentTime.getMonth()
+					&& Date.getDate() == currentTime.getDate()) {
+
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		String mMorning = mData.mMorning;
 		String mLunch = mData.mLunch;
