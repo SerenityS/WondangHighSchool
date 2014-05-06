@@ -3,7 +3,8 @@ package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Locale;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.content.Context;
@@ -30,6 +31,7 @@ class BapViewHolder {
 class BapListViewAdapter extends BaseAdapter {
 	private Context mContext = null;
 	private ArrayList<BapListData> mListData = new ArrayList<BapListData>();
+	private Calendar currentTime = Calendar.getInstance();
 
 	public BapListViewAdapter(Context mContext) {
 		super();
@@ -112,21 +114,30 @@ class BapListViewAdapter extends BaseAdapter {
 		holder.mCalender.setText(Calender);
 		holder.mDate.setText(mDate);
 
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy.MM.dd(E)");
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy.MM.dd(E)",
+				Locale.KOREA);
 
 		try {
-			Date currentTime = new Date();
-			Date Date = sdFormat.parse(Calender);
+			Calendar Date = Calendar.getInstance();
+			Date.setTime(sdFormat.parse(Calender));
 
 			LinearLayout bapListLayout = (LinearLayout) convertView
 					.findViewById(R.id.bapListLayout);
 
-			if (Date.getYear() == currentTime.getYear()
-					&& Date.getMonth() == currentTime.getMonth()
-					&& Date.getDate() == currentTime.getDate()) {
+			if (Date.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)
+					&& Date.get(Calendar.MONTH) == currentTime
+							.get(Calendar.MONTH)
+					&& Date.get(Calendar.DAY_OF_MONTH) == currentTime
+							.get(Calendar.DAY_OF_MONTH)) {
 
 				bapListLayout.setBackgroundColor(mContext.getResources()
 						.getColor(R.color.background));
+
+				if (position == 0)
+					Bap.mListView.setSelection(position);
+				else
+					Bap.mListView.setSelection(position - 1);
+
 			} else {
 				bapListLayout.setBackgroundColor(mContext.getResources()
 						.getColor(android.R.color.transparent));
