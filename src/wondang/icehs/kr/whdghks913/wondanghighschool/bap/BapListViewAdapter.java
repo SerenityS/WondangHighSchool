@@ -147,9 +147,9 @@ class BapListViewAdapter extends BaseAdapter {
 			e.printStackTrace();
 		}
 
-		String mMorning = mData.mMorning.trim();
-		String mLunch = mData.mLunch.trim();
-		String mNight = mData.mNight.trim();
+		String mMorning = mData.mMorning;
+		String mLunch = mData.mLunch;
+		String mNight = mData.mNight;
 
 		if (MealCheck(mMorning))
 			mMorning = mData.mMorning = "아침이 없습니다";
@@ -160,9 +160,9 @@ class BapListViewAdapter extends BaseAdapter {
 		if (MealCheck(mNight))
 			mNight = mData.mNight = "저녁이 없습니다 : 야자가 없습니다!";
 
-		holder.mMorning.setText(mMorning);
-		holder.mLunch.setText(mLunch);
-		holder.mNight.setText(mNight);
+		holder.mMorning.setText(mMorning.trim());
+		holder.mLunch.setText(mLunch.trim());
+		holder.mNight.setText(mNight.trim());
 
 		return convertView;
 	}
