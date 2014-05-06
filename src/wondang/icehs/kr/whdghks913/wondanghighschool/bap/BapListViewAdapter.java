@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 class BapViewHolder {
@@ -117,11 +118,20 @@ class BapListViewAdapter extends BaseAdapter {
 			Date currentTime = new Date();
 			Date Date = sdFormat.parse(Calender);
 
+			LinearLayout bapListLayout = (LinearLayout) convertView
+					.findViewById(R.id.bapListLayout);
+
 			if (Date.getYear() == currentTime.getYear()
 					&& Date.getMonth() == currentTime.getMonth()
 					&& Date.getDate() == currentTime.getDate()) {
 
+				bapListLayout.setBackgroundColor(mContext.getResources()
+						.getColor(R.color.background));
+			} else {
+				bapListLayout.setBackgroundColor(mContext.getResources()
+						.getColor(android.R.color.transparent));
 			}
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
