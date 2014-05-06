@@ -7,6 +7,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,6 +16,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.tistory.whdghks913.croutonhelper.CroutonHelper;
@@ -27,7 +31,7 @@ public class Bap extends Activity {
 	 */
 
 	private BapListViewAdapter mAdapter;
-	private ListView mListView;
+	public static ListView mListView;
 	private Handler mHandler;
 
 	private String[] calender, morning, lunch, night;
@@ -56,6 +60,27 @@ public class Bap extends Activity {
 
 		mAdapter = new BapListViewAdapter(this);
 		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> av, View view, int position,
+					long id) {
+				BapListData mData = mAdapter.getItem(position);
+
+				Intent msg = new Intent(Intent.ACTION_SEND);
+				msg.addCategory(Intent.CATEGORY_DEFAULT);
+				msg.putExtra(Intent.EXTRA_TITLE, String.format(
+						getString(R.string.shareBap_message_title),
+						mData.mCalender));
+				msg.putExtra(Intent.EXTRA_TEXT, String.format(
+						getString(R.string.shareBap_message_msg),
+						mData.mCalender, mData.mMorning, mData.mLunch,
+						mData.mNight));
+				msg.setType("text/plain");
+				startActivity(Intent.createChooser(msg,
+						getString(R.string.shareBap_title)));
+			}
+		});
 
 		bapList = getSharedPreferences("bapList", 0);
 		bapListeditor = bapList.edit();

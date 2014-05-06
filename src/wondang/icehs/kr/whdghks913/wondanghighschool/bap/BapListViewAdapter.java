@@ -64,7 +64,7 @@ class BapListViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public BapListData getItem(int position) {
 		return mListData.get(position);
 	}
 
@@ -147,24 +147,22 @@ class BapListViewAdapter extends BaseAdapter {
 			e.printStackTrace();
 		}
 
-		String mMorning = mData.mMorning;
-		String mLunch = mData.mLunch;
-		String mNight = mData.mNight;
+		String mMorning = mData.mMorning.trim();
+		String mLunch = mData.mLunch.trim();
+		String mNight = mData.mNight.trim();
 
 		if (MealCheck(mMorning))
-			holder.mMorning.setText("아침이 없습니다");
-		else
-			holder.mMorning.setText(mMorning.trim());
+			mMorning = mData.mMorning = "아침이 없습니다";
 
 		if (MealCheck(mLunch))
-			holder.mLunch.setText("점심이 없습니다 : 4교시 하고 집에 갑니다!");
-		else
-			holder.mLunch.setText(mLunch.trim());
+			mLunch = mData.mLunch = "점심이 없습니다 : 4교시 하고 집에 갑니다!";
 
 		if (MealCheck(mNight))
-			holder.mNight.setText("저녁이 없습니다 : 야자가 없습니다!");
-		else
-			holder.mNight.setText(mNight.trim());
+			mNight = mData.mNight = "저녁이 없습니다 : 야자가 없습니다!";
+
+		holder.mMorning.setText(mMorning);
+		holder.mLunch.setText(mLunch);
+		holder.mNight.setText(mNight);
 
 		return convertView;
 	}
