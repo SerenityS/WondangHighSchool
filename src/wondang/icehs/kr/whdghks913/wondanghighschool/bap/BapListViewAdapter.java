@@ -133,10 +133,7 @@ class BapListViewAdapter extends BaseAdapter {
 				bapListLayout.setBackgroundColor(mContext.getResources()
 						.getColor(R.color.background));
 
-				if (position == 0)
-					Bap.mListView.setSelection(position);
-				else
-					Bap.mListView.setSelection(position - 1);
+				Bap.mListView.setSelection(position);
 
 			} else {
 				bapListLayout.setBackgroundColor(mContext.getResources()
