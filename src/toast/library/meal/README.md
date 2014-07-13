@@ -1,6 +1,14 @@
 ﻿    - Android Meal Library with Mir(whdghks913) -
 
 
+VERSION 2
+UPDATE 20140713
+
+대구 나이스 홈페이지의 구조변경에 대응한 새로운 메소드 생성
+getMealNew, getDateNew 사용가능
+getKcal, getPeople, getMonthMeal은 지원하지 않습니다
+
+
 
     - 한국어 버전 -
 
