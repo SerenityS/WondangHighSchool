@@ -3,6 +3,7 @@ package wondang.icehs.kr.whdghks913.wondanghighschool;
 import wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap;
 import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule;
 import wondang.icehs.kr.whdghks913.wondanghighschool.song.Song;
+import wondang.icehs.kr.whdghks913.wondanghighschool.teacher.Teacher;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -44,6 +45,7 @@ public class MainActivity extends SherlockActivity {
 				"학교로 전화하기");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.bap), "급식",
 				"오늘 나오는 급식은?");
+		mAdapter.addItem(null, "선생님 정보", "훌륭한 선생님의 정보를 확인합니다");
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -68,6 +70,9 @@ public class MainActivity extends SherlockActivity {
 				} else if (position == 4) {
 					// 급식
 					startActivity(new Intent(MainActivity.this, Bap.class));
+				} else if (position == 5) {
+					// 급식
+					startActivity(new Intent(MainActivity.this, Teacher.class));
 				}
 			}
 		});
