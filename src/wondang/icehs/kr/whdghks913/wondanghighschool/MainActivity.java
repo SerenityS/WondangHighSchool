@@ -3,6 +3,7 @@ package wondang.icehs.kr.whdghks913.wondanghighschool;
 import wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap;
 import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule;
 import wondang.icehs.kr.whdghks913.wondanghighschool.song.Song;
+import wondang.icehs.kr.whdghks913.wondanghighschool.teacher.Teacher;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -69,6 +70,9 @@ public class MainActivity extends SherlockActivity {
 				} else if (position == 4) {
 					// 급식
 					startActivity(new Intent(MainActivity.this, Bap.class));
+				} else if (position == 5) {
+					// 급식
+					startActivity(new Intent(MainActivity.this, Teacher.class));
 				}
 			}
 		});
