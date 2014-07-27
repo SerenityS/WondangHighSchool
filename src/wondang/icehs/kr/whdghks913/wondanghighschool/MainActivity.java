@@ -45,7 +45,6 @@ public class MainActivity extends SherlockActivity {
 				"학교로 전화하기");
 		mAdapter.addItem(getResources().getDrawable(R.drawable.bap), "급식",
 				"오늘 나오는 급식은?");
-		mAdapter.addItem(null, "선생님 정보", "훌륭한 선생님의 정보를 확인합니다");
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 

@@ -131,13 +131,13 @@ public class Bap extends Activity {
 				mHandler.sendEmptyMessage(0);
 
 				try {
-					calender = MealLibrary.getDate("ice.go.kr", "E100001786",
+					calender = MealLibrary.getDateNew("ice.go.kr", "E100001786",
 							"4", "04", "1");
-					morning = MealLibrary.getMeal("ice.go.kr", "E100001786",
+					morning = MealLibrary.getMealNew("ice.go.kr", "E100001786",
 							"4", "04", "1");
-					lunch = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
+					lunch = MealLibrary.getMealNew("ice.go.kr", "E100001786", "4",
 							"04", "2");
-					night = MealLibrary.getMeal("ice.go.kr", "E100001786", "4",
+					night = MealLibrary.getMealNew("ice.go.kr", "E100001786", "4",
 							"04", "3");
 
 					save("calender", calender);
