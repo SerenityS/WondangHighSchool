@@ -1,6 +1,5 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,10 +149,10 @@ class BapListViewAdapter extends BaseAdapter {
 			mMorning = mData.mMorning = "아침이 없습니다";
 
 		if (MealCheck(mLunch))
-			mLunch = mData.mLunch = "점심이 없습니다 : 4교시 하고 집에 갑니다!";
+			mLunch = mData.mLunch = "점심이 없습니다";
 
 		if (MealCheck(mNight))
-			mNight = mData.mNight = "저녁이 없습니다 : 야자가 없습니다!";
+			mNight = mData.mNight = "저녁이 없습니다";
 
 		holder.mMorning.setText(mMorning.trim());
 		holder.mLunch.setText(mLunch.trim());

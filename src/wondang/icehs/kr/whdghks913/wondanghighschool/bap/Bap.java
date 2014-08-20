@@ -1,6 +1,5 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 
-import java.lang.ref.WeakReference;
 import java.util.Calendar;
 
 import toast.library.meal.MealLibrary;
@@ -12,9 +11,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -33,7 +31,9 @@ public class Bap extends Activity {
 
 	private BapListViewAdapter mAdapter;
 	private ListView mListView;
-	private Handler mHandler;
+
+	// private Handler mHandler;
+	private ProcessTask mProcessTask = new ProcessTask();
 
 	private String[] calender, morning, lunch, night;
 
@@ -57,7 +57,7 @@ public class Bap extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bap);
 
-		mHandler = new MyHandler(this);
+		// mHandler = new MyHandler(this);
 		mHelper = new CroutonHelper(this);
 		mAdapter = new BapListViewAdapter(this);
 
@@ -94,7 +94,8 @@ public class Bap extends Activity {
 			lunch = restore("lunch");
 			night = restore("night");
 
-			mHandler.sendEmptyMessage(1);
+			getBapList();
+			// mHandler.sendEmptyMessage(1);
 
 			autoScroll();
 
@@ -108,12 +109,13 @@ public class Bap extends Activity {
 				lunch = new String[7];
 				night = new String[7];
 
-				sync();
+				mProcessTask.execute();
+
+				// sync();
 
 			} else {
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
-				mHelper.setAutoTouchCencle(true);
 				mHelper.show();
 			}
 		}
@@ -125,53 +127,37 @@ public class Bap extends Activity {
 		mListView.setSelection(dateIndex - 1);
 	}
 
-	private void sync() {
-		isSync = true;
-
-		mAdapter.clearData();
-
-		new Thread() {
-
-			@Override
-			public void run() {
-				mHandler.sendEmptyMessage(0);
-
-				try {
-					calender = MealLibrary.getDateNew("ice.go.kr",
-							"E100001786", "4", "04", "1");
-					morning = MealLibrary.getMealNew("ice.go.kr", "E100001786",
-							"4", "04", "1");
-					lunch = MealLibrary.getMealNew("ice.go.kr", "E100001786",
-							"4", "04", "2");
-					night = MealLibrary.getMealNew("ice.go.kr", "E100001786",
-							"4", "04", "3");
-
-					save("calender", calender);
-					save("morning", morning);
-					save("lunch", lunch);
-					save("night", night);
-
-					mHandler.sendEmptyMessage(1);
-
-					mHelper.setText(loadList);
-					mHelper.setStyle(Style.CONFIRM);
-					mHelper.show();
-
-				} catch (Exception ex) {
-					ex.printStackTrace();
-
-					mAdapter.clearData();
-					mAdapter.notifyDataSetChanged();
-
-					mHelper.setText(noMessage);
-					mHelper.setStyle(Style.ALERT);
-					mHelper.show();
-				}
-				mHandler.sendEmptyMessage(2);
-				isSync = false;
-			}
-		}.start();
-	}
+	/*
+	 * private void sync() { isSync = true;
+	 * 
+	 * mAdapter.clearData();
+	 * 
+	 * new Thread() {
+	 * 
+	 * @Override public void run() { // mHandler.sendEmptyMessage(0);
+	 * 
+	 * try { calender = MealLibrary.getDateNew("ice.go.kr", "E100001786", "4",
+	 * "04", "1"); morning = MealLibrary.getMealNew("ice.go.kr", "E100001786",
+	 * "4", "04", "1"); lunch = MealLibrary.getMealNew("ice.go.kr",
+	 * "E100001786", "4", "04", "2"); night =
+	 * MealLibrary.getMealNew("ice.go.kr", "E100001786", "4", "04", "3");
+	 * 
+	 * save("calender", calender); save("morning", morning); save("lunch",
+	 * lunch); save("night", night);
+	 * 
+	 * // mHandler.sendEmptyMessage(1);
+	 * 
+	 * mHelper.setText(loadList); mHelper.setStyle(Style.CONFIRM);
+	 * mHelper.show();
+	 * 
+	 * } catch (Exception ex) { ex.printStackTrace();
+	 * 
+	 * mAdapter.clearData(); mAdapter.notifyDataSetChanged();
+	 * 
+	 * mHelper.setText(noMessage); mHelper.setStyle(Style.ALERT);
+	 * mHelper.show(); } // mHandler.sendEmptyMessage(2); isSync = false; }
+	 * }.start(); }
+	 */
 
 	private String getDate(int num) {
 		if (num == 0)
@@ -243,13 +229,13 @@ public class Bap extends Activity {
 		if (ItemId == R.id.sync) {
 			if (isNetwork()) {
 				if (!isSync) {
-					sync();
+					// sync();
+					mProcessTask.execute();
 					item.setEnabled(false);
 				} else {
 					mHelper.clearCroutonsForActivity();
 					mHelper.setText(Syncing);
 					mHelper.setStyle(Style.INFO);
-					mHelper.setAutoTouchCencle(true);
 					mHelper.show();
 				}
 			} else {
@@ -258,7 +244,6 @@ public class Bap extends Activity {
 				mHelper.clearCroutonsForActivity();
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
-				mHelper.setAutoTouchCencle(true);
 				mHelper.show();
 			}
 		}
@@ -276,33 +261,102 @@ public class Bap extends Activity {
 		mHelper.cencle(true);
 	}
 
-	private class MyHandler extends Handler {
-		private final WeakReference<Bap> mActivity;
+	/*
+	 * private class MyHandler extends Handler { private final
+	 * WeakReference<Bap> mActivity;
+	 * 
+	 * public MyHandler(Bap bap) { mActivity = new WeakReference<Bap>(bap); }
+	 * 
+	 * @Override public void handleMessage(Message msg) { Bap activity =
+	 * mActivity.get(); if (activity != null) {
+	 * 
+	 * if (msg.what == 0) { if (mDialog == null) { mDialog = ProgressDialog
+	 * .show(Bap.this, "", loadingList); } } else if (msg.what == 1) { for (int
+	 * i = 0; i < 7; i++) { mAdapter.addItem(calender[i], getDate(i),
+	 * morning[i], lunch[i], night[i]); } mAdapter.notifyDataSetChanged(); }
+	 * else if (msg.what == 2) { mDialog.dismiss(); } } } }
+	 */
 
-		public MyHandler(Bap bap) {
-			mActivity = new WeakReference<Bap>(bap);
+	public void getBapList() {
+		for (int i = 0; i < 7; i++) {
+			mAdapter.addItem(calender[i], getDate(i), morning[i], lunch[i],
+					night[i]);
+		}
+	}
+
+	public class ProcessTask extends AsyncTask<String, Integer, Long> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+			if (mDialog == null)
+				mDialog = ProgressDialog.show(Bap.this, "", loadingList);
+
+			isSync = true;
+			mAdapter.clearData();
 		}
 
 		@Override
-		public void handleMessage(Message msg) {
-			Bap activity = mActivity.get();
-			if (activity != null) {
+		protected Long doInBackground(String... params) {
+			final String CountryCode = "ice.go.kr"; // 접속 할 교육청 도메인
+			final String schulCode = "E100001786"; // 학교 고유 코드
+			final String schulCrseScCode = "4"; // 학교 종류 코드 1
+			final String schulKndScCode = "04"; // 학교 종류 코드 2
 
-				if (msg.what == 0) {
-					if (mDialog == null) {
-						mDialog = ProgressDialog
-								.show(Bap.this, "", loadingList);
+			try {
+				calender = MealLibrary.getDateNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "1");
+				morning = MealLibrary.getMealNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "1");
+				lunch = MealLibrary.getMealNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "2");
+				night = MealLibrary.getMealNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "3");
+
+				save("calender", calender);
+				save("morning", morning);
+				save("lunch", lunch);
+				save("night", night);
+
+				isSync = false;
+
+			} catch (Exception e) {
+				Bap.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+
+						// 에러
+						mAdapter.clearData();
+						mAdapter.notifyDataSetChanged();
+
+						mHelper.setText(noMessage);
+						mHelper.setStyle(Style.ALERT);
+						mHelper.show();
+
+						isSync = false;
 					}
-				} else if (msg.what == 1) {
-					for (int i = 0; i < 7; i++) {
-						mAdapter.addItem(calender[i], getDate(i), morning[i],
-								lunch[i], night[i]);
-					}
-					mAdapter.notifyDataSetChanged();
-				} else if (msg.what == 2) {
-					mDialog.dismiss();
-				}
+				});
+				return -1l;
 			}
+			return 0l;
+		}
+
+		@Override
+		protected void onPostExecute(Long result) {
+			super.onPostExecute(result);
+
+			mDialog.dismiss();
+
+			if (result == -1l)
+				return;
+
+			getBapList();
+			mAdapter.notifyDataSetChanged();
+
+			mHelper.setText(loadList);
+			mHelper.setStyle(Style.CONFIRM);
+			mHelper.show();
 		}
 	}
 }
