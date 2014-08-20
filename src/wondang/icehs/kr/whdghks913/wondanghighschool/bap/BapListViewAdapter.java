@@ -78,6 +78,7 @@ class BapListViewAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		BapViewHolder holder;
+
 		if (convertView == null) {
 			holder = new BapViewHolder();
 

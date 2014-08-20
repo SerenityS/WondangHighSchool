@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,7 +34,7 @@ public class Bap extends Activity {
 	private ListView mListView;
 
 	// private Handler mHandler;
-	private ProcessTask mProcessTask = new ProcessTask();
+	private ProcessTask mProcessTask;
 
 	private String[] calender, morning, lunch, night;
 
@@ -109,6 +110,7 @@ public class Bap extends Activity {
 				lunch = new String[7];
 				night = new String[7];
 
+				mProcessTask = new ProcessTask();
 				mProcessTask.execute();
 
 				// sync();
@@ -223,14 +225,17 @@ public class Bap extends Activity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(android.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		int ItemId = item.getItemId();
 
 		if (ItemId == R.id.sync) {
 			if (isNetwork()) {
 				if (!isSync) {
 					// sync();
+
+					mProcessTask = new ProcessTask();
 					mProcessTask.execute();
+
 					item.setEnabled(false);
 				} else {
 					mHelper.clearCroutonsForActivity();
