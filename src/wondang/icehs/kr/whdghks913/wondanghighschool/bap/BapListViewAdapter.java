@@ -32,10 +32,13 @@ class BapListViewAdapter extends BaseAdapter {
 	private Context mContext = null;
 	private ArrayList<BapListData> mListData = new ArrayList<BapListData>();
 	private Calendar currentTime = Calendar.getInstance();
+	private final int MONTH, DAY_OF_MONTH;
 
 	public BapListViewAdapter(Context mContext) {
 		super();
 		this.mContext = mContext;
+		MONTH = currentTime.get(Calendar.MONTH);
+		DAY_OF_MONTH = currentTime.get(Calendar.DAY_OF_MONTH);
 	}
 
 	public void addItem(String mCalender, String mDate, String mMorning,
@@ -114,33 +117,28 @@ class BapListViewAdapter extends BaseAdapter {
 		holder.mCalender.setText(Calender);
 		holder.mDate.setText(mDate);
 
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy.MM.dd(E)",
-				Locale.KOREA);
-
 		try {
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy.MM.dd(E)",
+					Locale.KOREA);
+
 			Calendar Date = Calendar.getInstance();
 			Date.setTime(sdFormat.parse(Calender));
 
 			LinearLayout bapListLayout = (LinearLayout) convertView
 					.findViewById(R.id.bapListLayout);
 
-			if (Date.get(Calendar.YEAR) == currentTime.get(Calendar.YEAR)
-					&& Date.get(Calendar.MONTH) == currentTime
-							.get(Calendar.MONTH)
-					&& Date.get(Calendar.DAY_OF_MONTH) == currentTime
-							.get(Calendar.DAY_OF_MONTH)) {
+			if (Date.get(Calendar.MONTH) == MONTH
+					&& Date.get(Calendar.DAY_OF_MONTH) == DAY_OF_MONTH) {
 
 				bapListLayout.setBackgroundColor(mContext.getResources()
 						.getColor(R.color.background));
-
-				Bap.mListView.setSelection(position);
 
 			} else {
 				bapListLayout.setBackgroundColor(mContext.getResources()
 						.getColor(android.R.color.transparent));
 			}
 
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

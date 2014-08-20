@@ -1,6 +1,7 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 
 import java.lang.ref.WeakReference;
+import java.util.Calendar;
 
 import toast.library.meal.MealLibrary;
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
@@ -31,7 +32,7 @@ public class Bap extends Activity {
 	 */
 
 	private BapListViewAdapter mAdapter;
-	public static ListView mListView;
+	private ListView mListView;
 	private Handler mHandler;
 
 	private String[] calender, morning, lunch, night;
@@ -56,9 +57,14 @@ public class Bap extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bap);
 
-		mListView = (ListView) findViewById(R.id.mBapList);
-
+		mHandler = new MyHandler(this);
+		mHelper = new CroutonHelper(this);
 		mAdapter = new BapListViewAdapter(this);
+
+		bapList = getSharedPreferences("bapList", 0);
+		bapListeditor = bapList.edit();
+
+		mListView = (ListView) findViewById(R.id.mBapList);
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -82,13 +88,6 @@ public class Bap extends Activity {
 			}
 		});
 
-		bapList = getSharedPreferences("bapList", 0);
-		bapListeditor = bapList.edit();
-
-		mHandler = new MyHandler(this);
-
-		mHelper = new CroutonHelper(this);
-
 		if (bapList.getBoolean("checker", false)) {
 			calender = restore("calender");
 			morning = restore("morning");
@@ -96,6 +95,8 @@ public class Bap extends Activity {
 			night = restore("night");
 
 			mHandler.sendEmptyMessage(1);
+
+			autoScroll();
 
 			mHelper.setText(savedList);
 			mHelper.setStyle(Style.CONFIRM);
@@ -108,15 +109,20 @@ public class Bap extends Activity {
 				night = new String[7];
 
 				sync();
-			} else {
-				addErrorList();
 
+			} else {
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.setAutoTouchCencle(true);
 				mHelper.show();
 			}
 		}
+	}
+
+	private void autoScroll() {
+		Calendar Date = Calendar.getInstance();
+		int dateIndex = Date.get(Calendar.DAY_OF_WEEK);
+		mListView.setSelection(dateIndex - 1);
 	}
 
 	private void sync() {
@@ -131,14 +137,14 @@ public class Bap extends Activity {
 				mHandler.sendEmptyMessage(0);
 
 				try {
-					calender = MealLibrary.getDateNew("ice.go.kr", "E100001786",
-							"4", "04", "1");
+					calender = MealLibrary.getDateNew("ice.go.kr",
+							"E100001786", "4", "04", "1");
 					morning = MealLibrary.getMealNew("ice.go.kr", "E100001786",
 							"4", "04", "1");
-					lunch = MealLibrary.getMealNew("ice.go.kr", "E100001786", "4",
-							"04", "2");
-					night = MealLibrary.getMealNew("ice.go.kr", "E100001786", "4",
-							"04", "3");
+					lunch = MealLibrary.getMealNew("ice.go.kr", "E100001786",
+							"4", "04", "2");
+					night = MealLibrary.getMealNew("ice.go.kr", "E100001786",
+							"4", "04", "3");
 
 					save("calender", calender);
 					save("morning", morning);
@@ -149,18 +155,16 @@ public class Bap extends Activity {
 
 					mHelper.setText(loadList);
 					mHelper.setStyle(Style.CONFIRM);
-					mHelper.setAutoTouchCencle(true);
 					mHelper.show();
+
 				} catch (Exception ex) {
 					ex.printStackTrace();
 
 					mAdapter.clearData();
-
-					addErrorList();
+					mAdapter.notifyDataSetChanged();
 
 					mHelper.setText(noMessage);
 					mHelper.setStyle(Style.ALERT);
-					mHelper.setAutoTouchCencle(true);
 					mHelper.show();
 				}
 				mHandler.sendEmptyMessage(2);
@@ -220,9 +224,9 @@ public class Bap extends Activity {
 			return false;
 	}
 
-	private void addErrorList() {
-		mAdapter.addItem("알수 없음", "알수 없음", noMessage, noMessage, noMessage);
-	}
+	// private void addErrorList() {
+	// mAdapter.addItem("알수 없음", "알수 없음", noMessage, noMessage, noMessage);
+	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -249,7 +253,7 @@ public class Bap extends Activity {
 					mHelper.show();
 				}
 			} else {
-				addErrorList();
+				// addErrorList();
 
 				mHelper.clearCroutonsForActivity();
 				mHelper.setText(noMessage);
