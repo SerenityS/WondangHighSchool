@@ -56,8 +56,7 @@ public class BroadCast extends BroadcastReceiver {
 			mContext.startService(new Intent(mContext, updateService.class));
 
 		} else if ("ACTION_UPDATE_AUTO".equals(ACTION)) {
-			if (weekday == Calendar.FRIDAY || weekday == Calendar.SATURDAY
-					|| weekday == Calendar.SATURDAY) {
+			if (weekday == Calendar.SATURDAY || weekday == Calendar.SATURDAY) {
 				mContext.startService(new Intent(mContext, updateService.class));
 			}
 		}
