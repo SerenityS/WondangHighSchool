@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +106,7 @@ public class RssFull extends Fragment {
 			int count = 0;
 
 			do {
-				Log.i("test", "" + count);
+//				Log.i("test", "" + count);
 				switch (parserEvent) {
 
 				case XmlPullParser.START_TAG:
