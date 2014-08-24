@@ -8,6 +8,8 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.Webview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,7 +19,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
+
+import com.tistory.whdghks913.croutonhelper.CroutonHelper;
+
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 @SuppressLint("ValidFragment")
 public class RssInfo extends Fragment {
@@ -53,8 +58,7 @@ public class RssInfo extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View mView,
 					int position, long id) {
-				String url = ((TextView) mView.findViewById(R.id.board_date))
-						.getText().toString();
+				String url = mData.get(position).get("href");
 
 				Intent webViewIntent = new Intent(mContext, Webview.class);
 				webViewIntent.putExtra("url", url);
@@ -63,9 +67,30 @@ public class RssInfo extends Fragment {
 			}
 		});
 
-		mHTMLParser = new HTMLParser(getActivity(), mData, mSimpleAdapter);
-		mHTMLParser.start();
+		if (isNetwork()) {
+			mHTMLParser = new HTMLParser(getActivity(), mData, mSimpleAdapter);
+			mHTMLParser.start();
+
+		} else {
+			CroutonHelper mHelper = new CroutonHelper(getActivity());
+			mHelper.setText("인터넷이 연결되어 있지 않습니다");
+			mHelper.setStyle(Style.ALERT);
+			mHelper.show();
+		}
 
 		return view;
+	}
+
+	private boolean isNetwork() {
+		ConnectivityManager manager = (ConnectivityManager) mContext
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mobile = manager
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		NetworkInfo wifi = manager
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		if (wifi.isConnected() || mobile.isConnected())
+			return true;
+		return false;
 	}
 }

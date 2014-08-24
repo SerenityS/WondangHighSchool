@@ -15,6 +15,8 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +27,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.tistory.whdghks913.croutonhelper.CroutonHelper;
+
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 @SuppressLint("ValidFragment")
 public class RssFull extends Fragment {
@@ -52,13 +58,6 @@ public class RssFull extends Fragment {
 						"writer" }, new int[] { R.id.board_subject,
 						R.id.board_date, R.id.board_writer });
 		mListView.setAdapter(mAdapter);
-
-		if (mDialog == null)
-			mDialog = ProgressDialog.show(getActivity(), "로딩중", "잠시만 기다려 주세요");
-
-		ProcessTask mProcessTask = new ProcessTask();
-		mProcessTask.execute();
-
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -73,7 +72,31 @@ public class RssFull extends Fragment {
 			}
 		});
 
+		if (isNetwork()) {
+			ProcessTask mProcessTask = new ProcessTask();
+			mProcessTask.execute();
+
+		} else {
+			CroutonHelper mHelper = new CroutonHelper(getActivity());
+			mHelper.setText("인터넷이 연결되어 있지 않습니다");
+			mHelper.setStyle(Style.ALERT);
+			mHelper.show();
+		}
+
 		return view;
+	}
+
+	private boolean isNetwork() {
+		ConnectivityManager manager = (ConnectivityManager) mContext
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mobile = manager
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		NetworkInfo wifi = manager
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		if (wifi.isConnected() || mobile.isConnected())
+			return true;
+		return false;
 	}
 
 	private void rssParse(String url) throws Exception {
@@ -103,10 +126,8 @@ public class RssFull extends Fragment {
 					"yyyy년 MM월 dd일 HH시 mm분 ss초");
 			Date pubdate = null;
 
-			int count = 0;
-
 			do {
-//				Log.i("test", "" + count);
+				// Log.i("test", "" + count);
 				switch (parserEvent) {
 
 				case XmlPullParser.START_TAG:
@@ -192,7 +213,6 @@ public class RssFull extends Fragment {
 				}
 
 				parserEvent = mParser.next();
-				count++;
 
 			} while (parserEvent != XmlPullParser.END_DOCUMENT);
 
@@ -206,6 +226,10 @@ public class RssFull extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+
+			if (mDialog == null)
+				mDialog = ProgressDialog.show(getActivity(), "로딩중",
+						"잠시만 기다려 주세요");
 		}
 
 		@Override
