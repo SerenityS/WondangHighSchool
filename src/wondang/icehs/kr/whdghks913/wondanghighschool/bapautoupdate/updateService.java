@@ -133,40 +133,36 @@ public class updateService extends Service {
 					mCalendar.set(mCalendar.get(Calendar.YEAR),
 							mCalendar.get(Calendar.MONTH),
 							mCalendar.get(Calendar.DAY_OF_MONTH) + 2);
-
-					String year = Integer
-							.toString(mCalendar.get(Calendar.YEAR));
-					String month = Integer.toString(mCalendar
-							.get(Calendar.MONTH) + 1);
-					String day = Integer.toString(mCalendar
-							.get(Calendar.DAY_OF_MONTH));
-
-					if (month.length() <= 1)
-						month = "0" + month;
-
-					calender = MealLibrary.getDateNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "1", year, month,
-							day);
-					morning = MealLibrary.getMealNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "1", year, month,
-							day);
-					lunch = MealLibrary.getMealNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "2", year, month,
-							day);
-					night = MealLibrary.getMealNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "3", year, month,
-							day);
-
-				} else {
-					calender = MealLibrary.getDateNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "1");
-					morning = MealLibrary.getMealNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "1");
-					lunch = MealLibrary.getMealNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "2");
-					night = MealLibrary.getMealNew(CountryCode, schulCode,
-							schulCrseScCode, schulKndScCode, "3");
 				}
+
+				String year = Integer.toString(mCalendar.get(Calendar.YEAR));
+				String month = Integer
+						.toString(mCalendar.get(Calendar.MONTH) + 1);
+				String day = Integer.toString(mCalendar
+						.get(Calendar.DAY_OF_MONTH));
+
+				if (month.length() <= 1)
+					month = "0" + month;
+
+				calender = MealLibrary.getDateNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "1", year, month, day);
+				morning = MealLibrary.getMealNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "1", year, month, day);
+				lunch = MealLibrary.getMealNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "2", year, month, day);
+				night = MealLibrary.getMealNew(CountryCode, schulCode,
+						schulCrseScCode, schulKndScCode, "3", year, month, day);
+
+				// } else {
+				// calender = MealLibrary.getDateNew(CountryCode, schulCode,
+				// schulCrseScCode, schulKndScCode, "1");
+				// morning = MealLibrary.getMealNew(CountryCode, schulCode,
+				// schulCrseScCode, schulKndScCode, "1");
+				// lunch = MealLibrary.getMealNew(CountryCode, schulCode,
+				// schulCrseScCode, schulKndScCode, "2");
+				// night = MealLibrary.getMealNew(CountryCode, schulCode,
+				// schulCrseScCode, schulKndScCode, "3");
+				// }
 
 				save("calender", calender);
 				save("morning", morning);
