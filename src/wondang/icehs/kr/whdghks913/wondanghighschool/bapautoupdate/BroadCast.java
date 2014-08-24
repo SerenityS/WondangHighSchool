@@ -32,24 +32,23 @@ public class BroadCast extends BroadcastReceiver {
 		int weekday = mCalendar.get(Calendar.DAY_OF_WEEK);
 
 		if (Intent.ACTION_BOOT_COMPLETED.equals(ACTION)) {
-
 			if (weekday == Calendar.SUNDAY && updateLife == -1) {
 				// 급식 업데이트 호출
 				mContext.startService(new Intent(mContext, updateService.class));
 			} else if (weekday == Calendar.SATURDAY && updateLife == 0) {
 				// 급식 업데이트 호출
 				mContext.startService(new Intent(mContext, updateService.class));
-			} else if (updateLife == 1) {
+			}
+
+			updateAlarm updateAlarm = new updateAlarm(mContext);
+			if (updateLife == 1) {
 				// 자동 예약
-				updateAlarm updateAlarm = new updateAlarm(mContext);
 				updateAlarm.autoUpdate();
 			} else if (updateLife == 0) {
 				// 토요일 예약
-				updateAlarm updateAlarm = new updateAlarm(mContext);
 				updateAlarm.SaturdayUpdate();
 			} else if (updateLife == -1) {
 				// 일요일 예약
-				updateAlarm updateAlarm = new updateAlarm(mContext);
 				updateAlarm.SundayUpdate();
 			}
 
@@ -57,9 +56,9 @@ public class BroadCast extends BroadcastReceiver {
 			mContext.startService(new Intent(mContext, updateService.class));
 
 		} else if ("ACTION_UPDATE_AUTO".equals(ACTION)) {
-			if (weekday == Calendar.SATURDAY || weekday == Calendar.SATURDAY) {
+			if (weekday == Calendar.FRIDAY || weekday == Calendar.SATURDAY
+					|| weekday == Calendar.SATURDAY) {
 				mContext.startService(new Intent(mContext, updateService.class));
-
 			}
 		}
 	}
