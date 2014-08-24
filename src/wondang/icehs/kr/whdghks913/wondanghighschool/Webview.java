@@ -31,7 +31,7 @@ public class Webview extends Activity {
 		mWebSettings.setSaveFormData(false);
 		mWebSettings.setSupportZoom(true);
 		mWebSettings.setBuiltInZoomControls(true);
-		mWebSettings.setCacheMode(100);
+		mWebSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
 		mWebView.setWebChromeClient(new webViewChrome());
 		mWebView.setWebViewClient(new webViewClient());
@@ -49,6 +49,14 @@ public class Webview extends Activity {
 		Intent mIntent = getIntent();
 
 		mWebView.loadUrl(mIntent.getStringExtra("url"));
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		mWebView.clearCache(true);
+		mWebView.destroy();
 	}
 
 	public class webViewChrome extends WebChromeClient {

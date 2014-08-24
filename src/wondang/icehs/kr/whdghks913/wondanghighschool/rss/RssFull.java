@@ -10,9 +10,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import wondang.icehs.kr.whdghks913.wondanghighschool.Webview;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,7 +26,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 @SuppressLint("ValidFragment")
 public class RssFull extends Fragment {
@@ -65,7 +66,11 @@ public class RssFull extends Fragment {
 			public void onItemClick(AdapterView<?> av, View mView,
 					int position, long id) {
 				String link = mArrayList.get(position).get("link");
-				Toast.makeText(mContext, link, Toast.LENGTH_SHORT).show();
+
+				Intent webViewIntent = new Intent(mContext, Webview.class);
+				webViewIntent.putExtra("url", link);
+
+				startActivity(webViewIntent);
 			}
 		});
 
