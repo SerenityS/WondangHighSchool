@@ -9,7 +9,7 @@
             android:title="급식 자동 업데이트" />
 
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="0"
             android:dependency="autoBapUpdate"
             android:entries="@array/item_entries"
             android:entryValues="@array/item_entries_value"

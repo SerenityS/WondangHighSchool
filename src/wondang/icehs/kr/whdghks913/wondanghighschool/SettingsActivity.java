@@ -34,7 +34,7 @@ public class SettingsActivity extends PreferenceActivity {
 					.getString(mPreference.getKey(), ""));
 			mPreference
 					.setSummary(index >= 0 ? listPreference.getEntries()[index]
-							: "ÀÚµ¿");
+							: null);
 		}
 	}
 

@@ -16,22 +16,22 @@ public class BroadCast extends BroadcastReceiver {
 		String ACTION = mIntent.getAction();
 		mPref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
+		boolean autoUpdate = mPref.getBoolean("autoBapUpdate", false);
+		if (!autoUpdate)
+			return;
+
+		int updateLife = 1;
+
+		try {
+			updateLife = Integer.parseInt(mPref.getString("updateLife", "0"));
+		} catch (Exception e) {
+			return;
+		}
+
+		Calendar mCalendar = Calendar.getInstance();
+		int weekday = mCalendar.get(Calendar.DAY_OF_WEEK);
+
 		if (Intent.ACTION_BOOT_COMPLETED.equals(ACTION)) {
-			boolean autoUpdate = mPref.getBoolean("autoBapUpdate", false);
-			if (!autoUpdate)
-				return;
-
-			int updateLife = 1;
-
-			try {
-				updateLife = Integer.parseInt(mPref
-						.getString("updateLife", "1"));
-			} catch (Exception e) {
-				return;
-			}
-
-			Calendar mCalendar = Calendar.getInstance();
-			int weekday = mCalendar.get(Calendar.DAY_OF_WEEK);
 
 			if (weekday == Calendar.SUNDAY && updateLife == -1) {
 				// 급식 업데이트 호출
@@ -52,8 +52,15 @@ public class BroadCast extends BroadcastReceiver {
 				updateAlarm updateAlarm = new updateAlarm(mContext);
 				updateAlarm.SundayUpdate();
 			}
+
 		} else if ("ACTION_UPDATE".equals(ACTION)) {
 			mContext.startService(new Intent(mContext, updateService.class));
+
+		} else if ("ACTION_UPDATE_AUTO".equals(ACTION)) {
+			if (weekday == Calendar.SATURDAY || weekday == Calendar.SATURDAY) {
+				mContext.startService(new Intent(mContext, updateService.class));
+
+			}
 		}
 	}
 }

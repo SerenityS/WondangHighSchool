@@ -26,7 +26,7 @@ public class updateAlarm {
 		int day = mCalendar.get(Calendar.DAY_OF_MONTH);
 
 		Intent intent = new Intent(mContext, BroadCast.class);
-		intent.setAction("ACTION_UPDATE");
+		intent.setAction("ACTION_UPDATE_AUTO");
 		mIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
 		mCalendar.set(year, month, day + 1, 1, 0);
 		mAlarm.setRepeating(AlarmManager.RTC_WAKEUP,
