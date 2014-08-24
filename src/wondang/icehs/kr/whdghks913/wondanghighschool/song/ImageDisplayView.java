@@ -8,7 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.FloatMath;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -175,7 +174,7 @@ public class ImageDisplayView extends View implements OnTouchListener {
 
 	public void redraw() {
 		if (sourceBitmap == null) {
-			Log.d(TAG, "sourceBitmap is null in redraw().");
+			// Log.d(TAG, "sourceBitmap is null in redraw().");
 			return;
 		}
 
@@ -199,7 +198,7 @@ public class ImageDisplayView extends View implements OnTouchListener {
 		final int action = ev.getAction();
 
 		int pointerCount = ev.getPointerCount();
-		Log.d(TAG, "Pointer Count : " + pointerCount);
+		// Log.d(TAG, "Pointer Count : " + pointerCount);
 
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
@@ -242,7 +241,7 @@ public class ImageDisplayView extends View implements OnTouchListener {
 				if (oldPointerCount == 2) {
 
 				} else {
-					Log.d(TAG, "ACTION_MOVE : " + offsetX + ", " + offsetY);
+					// Log.d(TAG, "ACTION_MOVE : " + offsetX + ", " + offsetY);
 
 					/**
 					 * 크기를 줄여도 이동가능하게 주석처리
@@ -291,10 +290,10 @@ public class ImageDisplayView extends View implements OnTouchListener {
 
 				if (outScaleRatio < MIN_SCALE_RATIO
 						|| outScaleRatio > MAX_SCALE_RATIO) {
-					Log.d(TAG, "Invalid scaleRatio : " + outScaleRatio);
+					// Log.d(TAG, "Invalid scaleRatio : " + outScaleRatio);
 				} else {
-					Log.d(TAG, "Distance : " + distance + ", ScaleRatio : "
-							+ outScaleRatio);
+					// Log.d(TAG, "Distance : " + distance + ", ScaleRatio : "
+					// + outScaleRatio);
 					scaleImage(outScaleRatio);
 				}
 
@@ -337,7 +336,7 @@ public class ImageDisplayView extends View implements OnTouchListener {
 	 * @param inScaleRatio
 	 */
 	private void scaleImage(float inScaleRatio) {
-		Log.d(TAG, "scaleImage() called : " + inScaleRatio);
+		// Log.d(TAG, "scaleImage() called : " + inScaleRatio);
 
 		mMatrix.postScale(inScaleRatio, inScaleRatio, bitmapCenterX,
 				bitmapCenterY);
@@ -355,7 +354,7 @@ public class ImageDisplayView extends View implements OnTouchListener {
 	 * @param offsetY
 	 */
 	private void moveImage(float offsetX, float offsetY) {
-		Log.d(TAG, "moveImage() called : " + offsetX + ", " + offsetY);
+		// Log.d(TAG, "moveImage() called : " + offsetX + ", " + offsetY);
 
 		mMatrix.postTranslate(offsetX, offsetY);
 

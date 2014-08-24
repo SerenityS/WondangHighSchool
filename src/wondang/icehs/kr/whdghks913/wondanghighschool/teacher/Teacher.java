@@ -48,7 +48,7 @@ public class Teacher extends Activity {
 		addDB("이종환", "1학년 교무실", "204", "과학");
 		addDB("김영웅", "1학년 교무실", "402", "영어");
 		addDB("박재현", "수학 교과 연구실", "102", "수학");
-		
+
 		mListView = (ListView) findViewById(R.id.mList);
 		mAdapter = new TeacherAdapter(this);
 		mListView.setAdapter(mAdapter);
