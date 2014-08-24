@@ -1,8 +1,11 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,13 +17,19 @@ public class MadeBy extends Activity {
 
 	private CroutonHelper mHelper;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_made_by);
 
-		mHelper = new CroutonHelper(this);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setHomeButtonEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
 
+		mHelper = new CroutonHelper(this);
 		mHelper.setText("이 앱을 만든이 정보입니다");
 		mHelper.show();
 	}

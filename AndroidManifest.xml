@@ -31,16 +31,19 @@
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.WondangInfo"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="원당고 소개"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.song.Song"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="교가"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.MadeBy"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="만든이"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.SettingsActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Webview"
@@ -50,16 +53,19 @@
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="급식"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Call"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="연락처"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="일정"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.teacher.Teacher"
@@ -70,11 +76,13 @@
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.SettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="설정"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.rss.InfoRSSActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="학교 정보"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
 
         <receiver android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bapautoupdate.BroadCast" >

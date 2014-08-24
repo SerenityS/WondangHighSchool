@@ -1,9 +1,12 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.bapautoupdate.updateAlarm;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -13,6 +16,7 @@ import android.preference.PreferenceManager;
 
 public class SettingsActivity extends PreferenceActivity {
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,6 +26,12 @@ public class SettingsActivity extends PreferenceActivity {
 		setOnPreferenceClick(findPreference("openSource"));
 		setOnPreferenceChange(findPreference("updateLife"));
 		setOnPreferenceChange(findPreference("autoBapUpdate"));
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setHomeButtonEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	private void setOnPreferenceChange(Preference mPreference) {

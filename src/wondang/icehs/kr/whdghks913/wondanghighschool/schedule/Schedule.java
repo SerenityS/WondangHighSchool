@@ -4,12 +4,15 @@ import java.lang.ref.WeakReference;
 import java.util.Calendar;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,10 +44,17 @@ public class Schedule extends Activity {
 	private Calendar mCalendar;
 	private SharedPreferences ScheduleList, Info;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setHomeButtonEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
 
 		mListView = (ListView) findViewById(R.id.mScheduleList);
 		mAdapter = new ScheduleListViewAdapter(this);

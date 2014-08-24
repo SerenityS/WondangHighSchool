@@ -1,8 +1,11 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.song;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,10 +27,17 @@ public class Song extends Activity {
 
 	private CroutonHelper mHelper;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_song);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setHomeButtonEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
 
 		ScrollImage = (ScrollView) findViewById(R.id.ScrollImage);
 		mImage = (ImageDisplayView) findViewById(R.id.imageView);
