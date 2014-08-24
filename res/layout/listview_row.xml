@@ -26,7 +26,7 @@
                 android:paddingTop="4dip"
                 android:text="제목"
                 android:textColor="#000"
-                android:textSize="18dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -43,7 +43,7 @@
                     android:paddingTop="4dip"
                     android:text="작성일"
                     android:textColor="#000"
-                    android:textSize="10dp" />
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/board_writer"
@@ -55,7 +55,7 @@
                     android:paddingTop="4dip"
                     android:text="작성자"
                     android:textColor="#000"
-                    android:textSize="10dp" />
+                    android:textSize="15dp" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
