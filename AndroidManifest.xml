@@ -57,6 +57,10 @@
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.teacher.Teacher"
             android:label="선생님 검색"
             android:theme="@style/Theme.White" />
+        <activity
+            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.SettingsActivity"
+            android:label="설정"
+            android:theme="@style/Theme.White" />
     </application>
 
 </manifest>

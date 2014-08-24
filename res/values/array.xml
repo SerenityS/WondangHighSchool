@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="item_entries">
+        <item>자동</item>
+        <item>매주 토요일</item>
+        <item>매주 일요일</item>
+    </string-array>
+    <string-array name="item_entries_value">
+        <item>auto</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+
+</resources>

@@ -94,8 +94,11 @@ public class MainActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int ItemId = item.getItemId();
 
-		if (ItemId == R.id.info) {
-			startActivity(new Intent(this, MadeBy.class));
+		// if (ItemId == R.id.info) {
+		// startActivity(new Intent(this, MadeBy.class));
+		// } else
+		if (ItemId == R.id.setting) {
+			startActivity(new Intent(this, SettingsActivity.class));
 		}
 
 		return super.onOptionsItemSelected(item);
