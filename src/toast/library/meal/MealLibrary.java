@@ -21,6 +21,20 @@ public class MealLibrary {
 	 * 대구 나이스 홈페이지 구조 변경으로 라이브러리 업데이트
 	 */
 	public static String[] getMealNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getMealNewSub(content, url);
+	}
+
+	public static String[] getMealNew(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
 
 		String[] content = new String[7];
@@ -29,6 +43,10 @@ public class MealLibrary {
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
 
+		return getMealNewSub(content, url);
+	}
+
+	private static String[] getMealNewSub(String[] content, String url) {
 		try {
 			source = new Source(new URL(url));
 		} catch (MalformedURLException e) {
@@ -104,6 +122,24 @@ public class MealLibrary {
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
 
+		return getDateNewSub(date, url);
+	}
+
+	public static String[] getDateNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+
+		String[] date = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getDateNewSub(date, url);
+	}
+
+	private static String[] getDateNewSub(String[] date, String url) {
 		try {
 			source = new Source(new URL(url));
 		} catch (MalformedURLException e) {
