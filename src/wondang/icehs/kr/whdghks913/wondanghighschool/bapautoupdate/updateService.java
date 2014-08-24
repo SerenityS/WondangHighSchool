@@ -42,8 +42,11 @@ public class updateService extends Service {
 			if (onlyWIFI) {
 				if (!isWifi()) {
 					// wifi 연결 안됨 - 실패
-					if (showNotifi)
-						mNotification(updateService.this, WIFI_ERROR);
+					if (showNotifi) {
+						updateAlarm updateAlarm = new updateAlarm(this);
+						updateAlarm.wifiOFF();
+						mNotification(this, WIFI_ERROR);
+					}
 					stopSelf();
 				}
 			}
@@ -58,11 +61,10 @@ public class updateService extends Service {
 
 		} else {
 			// 네트워크 연결 안됨 - 실패
-
 			if (showNotifi) {
 				updateAlarm updateAlarm = new updateAlarm(this);
 				updateAlarm.wifiOFF();
-				mNotification(updateService.this, NET_ERROR);
+				mNotification(this, NET_ERROR);
 			}
 			stopSelf();
 		}
@@ -252,13 +254,11 @@ public class updateService extends Service {
 
 		if (notifiCode == WIFI_ERROR) {
 			mCompatBuilder.setContentTitle("WIFI 연결 안됨");
-			mCompatBuilder
-					.setContentText("WIFI 연결이 되어 있지 않습니다 다시 시도하려면 누르세요");
+			mCompatBuilder.setContentText("WIFI 연결이 되어 있지 않습니다 다시 시도하려면 누르세요");
 
 		} else if (notifiCode == NET_ERROR) {
 			mCompatBuilder.setContentTitle("네트워크 연결 안됨");
-			mCompatBuilder
-					.setContentText("인터넷에 접속할수 없습니다 다시 시도하려면 누르세요");
+			mCompatBuilder.setContentText("인터넷에 접속할수 없습니다 다시 시도하려면 누르세요");
 
 		} else if (notifiCode == GET_ERROR) {
 			mCompatBuilder.setContentTitle("급식 가져오기 실패");
