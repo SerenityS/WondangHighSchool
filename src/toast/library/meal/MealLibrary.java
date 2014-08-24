@@ -9,8 +9,8 @@ import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 
 /*
- * VERSION 2
- * UPDATE 20140713
+ * VERSION 3
+ * UPDATE 20140824
  * 
  * @author Mir(whdghks913)
  */
