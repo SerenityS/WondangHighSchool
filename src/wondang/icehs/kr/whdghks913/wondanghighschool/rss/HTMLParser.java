@@ -16,7 +16,10 @@ import android.os.AsyncTask;
 import android.widget.SimpleAdapter;
 
 public class HTMLParser {
-	private String mUrl = "http://wondanghs.tistory.com/category/정보?page=";
+	/**
+	 * mUrl = http://wondanghs.tistory.com/category/정보?page=1
+	 */
+	private String mUrl = "http://wondanghs.tistory.com/category/%EC%A0%95%EB%B3%B4?page=";
 	private Context mContext;
 	private Source mSource;
 	private ArrayList<HashMap<String, String>> mData;
@@ -110,8 +113,8 @@ public class HTMLParser {
 			el = mTable.getAllElements(HTMLElementName.LI).get(i);
 			data = new HashMap<String, String>();
 
-			String title = el.getAllElements(HTMLElementName.A).get(
-					0).getContent().toString();
+			String title = el.getAllElements(HTMLElementName.A).get(0)
+					.getContent().toString();
 
 			data.put("title", RemoveHTMLTag(title));
 
@@ -120,8 +123,8 @@ public class HTMLParser {
 							.getAttributeValue("href").toString();
 			data.put("href", href);
 
-			data.put("date", el.getAllElements("time").get(0)
-					.getContent().toString());
+			data.put("date", el.getAllElements("time").get(0).getContent()
+					.toString());
 
 			mData.add(data);
 		}
