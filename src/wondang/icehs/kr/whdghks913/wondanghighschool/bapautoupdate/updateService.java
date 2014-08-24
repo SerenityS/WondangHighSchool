@@ -143,6 +143,8 @@ public class updateService extends Service {
 
 				if (month.length() <= 1)
 					month = "0" + month;
+				if (day.length() <= 1)
+					day = "0" + day;
 
 				calender = MealLibrary.getDateNew(CountryCode, schulCode,
 						schulCrseScCode, schulKndScCode, "1", year, month, day);
