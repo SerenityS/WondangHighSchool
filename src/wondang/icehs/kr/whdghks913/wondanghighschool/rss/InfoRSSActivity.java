@@ -4,6 +4,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,6 +63,11 @@ public class InfoRSSActivity extends FragmentActivity implements
 			return new RssInfo(mContext);
 		}
 		return null;
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
 	}
 
 }

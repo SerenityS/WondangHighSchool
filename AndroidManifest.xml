@@ -64,6 +64,7 @@
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.rss.InfoRSSActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="학교 정보"
             android:theme="@style/Theme.White" />
 
