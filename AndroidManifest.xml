@@ -29,37 +29,46 @@
         </activity>
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.WondangInfo"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="원당고 소개"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.song.Song"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="교가"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.MadeBy"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="만든이"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Webview"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="급식"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Call"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="연락처"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="일정"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.teacher.Teacher"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="선생님 검색"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.SettingsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="설정"
             android:theme="@style/Theme.White" />
         <activity
