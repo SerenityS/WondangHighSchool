@@ -1,8 +1,11 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
+import wondang.icehs.kr.whdghks913.wondanghighschool.bapautoupdate.updateAlarm;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -18,18 +21,20 @@ public class SettingsActivity extends PreferenceActivity {
 
 		setOnPreferenceClick(findPreference("openSource"));
 		setOnPreferenceChange(findPreference("updateLife"));
-		setOnPreferenceChange(findPreference("updateWiFi"));
+		setOnPreferenceChange(findPreference("autoBapUpdate"));
 	}
 
 	private void setOnPreferenceChange(Preference mPreference) {
 		mPreference.setOnPreferenceChangeListener(onPreferenceChangeListener);
 
 		if (mPreference instanceof ListPreference) {
-			onPreferenceChangeListener.onPreferenceChange(
-					mPreference,
-					PreferenceManager.getDefaultSharedPreferences(
-							mPreference.getContext()).getString(
-							mPreference.getKey(), ""));
+			ListPreference listPreference = (ListPreference) mPreference;
+			int index = listPreference.findIndexOfValue(PreferenceManager
+					.getDefaultSharedPreferences(mPreference.getContext())
+					.getString(mPreference.getKey(), ""));
+			mPreference
+					.setSummary(index >= 0 ? listPreference.getEntries()[index]
+							: "자동");
 		}
 	}
 
@@ -55,8 +60,51 @@ public class SettingsActivity extends PreferenceActivity {
 
 				preference
 						.setSummary(index >= 0 ? listPreference.getEntries()[index]
-								: null);
+								: "자동");
 
+				updateAlarm updateAlarm = new updateAlarm(SettingsActivity.this);
+				updateAlarm.cancle();
+
+				if (index == 0) {
+					updateAlarm.autoUpdate();
+				} else if (index == 1) {
+					updateAlarm.SaturdayUpdate();
+				} else if (index == 2) {
+					updateAlarm.SundayUpdate();
+				}
+
+			} else if (preference instanceof CheckBoxPreference) {
+				SharedPreferences mPref = PreferenceManager
+						.getDefaultSharedPreferences(SettingsActivity.this);
+
+				if (!mPref.getBoolean("autoBapUpdate", false)
+						&& preference.isEnabled()) {
+					int updateLife = 1;
+
+					try {
+						updateLife = Integer.parseInt(findPreference(
+								"openSource").getSharedPreferences().getString(
+								"updateLife", "1"));
+					} catch (Exception e) {
+
+					}
+
+					updateAlarm updateAlarm = new updateAlarm(
+							SettingsActivity.this);
+
+					if (updateLife == 1) {
+						updateAlarm.autoUpdate();
+					} else if (updateLife == 0) {
+						updateAlarm.SaturdayUpdate();
+					} else if (updateLife == -1) {
+						updateAlarm.SundayUpdate();
+					}
+
+				} else {
+					updateAlarm updateAlarm = new updateAlarm(
+							SettingsActivity.this);
+					updateAlarm.cancle();
+				}
 			}
 
 			return true;

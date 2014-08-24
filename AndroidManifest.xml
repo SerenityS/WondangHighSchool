@@ -10,6 +10,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -61,6 +62,16 @@
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.SettingsActivity"
             android:label="설정"
             android:theme="@style/Theme.White" />
+
+        <receiver android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bapautoupdate.BroadCast" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bapautoupdate.updateService"
+            android:label="자동 업데이트 서비스" />
     </application>
 
 </manifest>

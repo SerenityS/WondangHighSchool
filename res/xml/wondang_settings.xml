@@ -9,11 +9,16 @@
             android:title="급식 자동 업데이트" />
 
         <ListPreference
+            android:defaultValue="1"
             android:dependency="autoBapUpdate"
             android:entries="@array/item_entries"
             android:entryValues="@array/item_entries_value"
             android:key="updateLife"
             android:title="업데이트 주기" />
+        <Preference
+            android:dependency="autoBapUpdate"
+            android:summary="토,일 업데이트시 전원이 꺼져있으면 자동 업데이트가 이루어 지지 않을수 있습니다\n업데이트는 AM 1:00에 이루어 집니다"
+            android:title="업데이트 안내" />
 
         <CheckBoxPreference
             android:dependency="autoBapUpdate"
@@ -31,6 +36,13 @@
             android:key="openSource"
             android:summary="오픈소스 라이센스를 확인합니다"
             android:title="오픈소스 라이센스" />
+        <Preference
+            android:summary="이 어플의 모든 소스와, 작업 현황을 확인할 수 있습니다"
+            android:title="어플 오픈소스" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://bitbucket.org/whdghks913/wondanghighschool" />
+        </Preference>
         <Preference
             android:key="appInfo"
             android:summary="개발자 정보를 확인합니다"

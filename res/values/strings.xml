@@ -12,11 +12,12 @@
 \n-사이트 설명 : It is an open source library released under both the Eclipse Public License (EPL) and GNU Lesser General Public License (LGPL). You are therefore free to use it in commercial applications subject to the terms detailed in either one of these licence documents.
 \n
 \n
-\n2. Android Meal Library 2.0.0
+\n2. Android Meal Library
 \n
 \n-License : Open Source, Public Library
 \n-사이트 : http://itmir.tistory.com
 \n-사이트 설명 : 오픈소스 및 공개 라이브러리
+\n-비고 : Android Meal Library는 직접 만든 라이브러리입니다
 \n
 \n
 \n3. Crouton
@@ -33,7 +34,12 @@
 \n5. 멀티터치 이미지뷰
 \n-License : Do it Android 예제 소스
 \n-사이트 : android-town.org
-\n-비고 : 일부 소스를 수정해 사용</string>
+\n-비고 : 일부 소스를 수정해 사용
+\n
+\n
+\n6. 급식 업데이트시 상단바 이미지
+\n-License: Free for non commercial use
+\n-사이트 : https://www.iconfinder.com/icons/176629/download_internet_manager_metroui_icon#size=128</string>
     <string name="shareBap_title">급식 공유하기</string>
     <string name="shareBap_message_title">%1$s의 급식</string>
     <string name="shareBap_message_msg">%1$s의 급식 목록
