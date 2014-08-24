@@ -37,14 +37,18 @@
 \n-비고 : 일부 소스를 수정해 사용
 \n
 \n
-\n6. 급식 업데이트시 상단바 이미지
-\n-License: Free for non commercial use
-\n-사이트 : https://www.iconfinder.com/icons/176629/download_internet_manager_metroui_icon#size=128</string>
+\n6. 이미지
+\n-상단바 아이콘 License : Free for non commercial use
+\n-상단바 아이콘 사이트 : https://www.iconfinder.com/icons/176629/download_internet_manager_metroui_icon#size=128
+\n-대외정보 아이콘 License : Creative Commons (Attribution 3.0 Unported)
+\n-대외정보 이미지 사이트 : https://www.iconfinder.com/icons/309964/rss_social_icon_socialpack_ubercons_icon#size=128</string>
     <string name="shareBap_title">급식 공유하기</string>
     <string name="shareBap_message_title">%1$s의 급식</string>
     <string name="shareBap_message_msg">%1$s의 급식 목록
 \n\n아침 : %2$s
 \n\n점심 : %3$s
 \n\n저녁 : %4$s</string>
+    <string name="rss_full">게시글 전체</string>
+    <string name="rss_info">대외 정보</string>
 
 </resources>

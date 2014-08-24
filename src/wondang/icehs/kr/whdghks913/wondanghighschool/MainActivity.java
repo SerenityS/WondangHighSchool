@@ -1,10 +1,11 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap;
+import wondang.icehs.kr.whdghks913.wondanghighschool.rss.InfoRSSActivity;
 import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule;
 import wondang.icehs.kr.whdghks913.wondanghighschool.song.Song;
-import wondang.icehs.kr.whdghks913.wondanghighschool.teacher.Teacher;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,16 +36,17 @@ public class MainActivity extends SherlockActivity {
 		mAdapter = new ListViewAdapter(this);
 		mListView.setAdapter(mAdapter);
 
-		mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),
-				"원당고 소개", "인천 원당고등학교를 소개합니다");
-		mAdapter.addItem(getResources().getDrawable(R.drawable.song), "교가",
+		Resources mRes = getResources();
+		mAdapter.addItem(mRes.getDrawable(R.drawable.ic_launcher), "원당고 소개",
+				"인천 원당고등학교를 소개합니다");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.song), "교가",
 				"우리 학교 교가 확인하기");
-		mAdapter.addItem(getResources().getDrawable(R.drawable.calender), "일정",
+		mAdapter.addItem(mRes.getDrawable(R.drawable.calender), "일정",
 				"학교의 일정을 확인 할 수 있습니다");
-		mAdapter.addItem(getResources().getDrawable(R.drawable.call), "연락처",
-				"학교로 전화하기");
-		mAdapter.addItem(getResources().getDrawable(R.drawable.bap), "급식",
-				"오늘 나오는 급식은?");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.call), "연락처", "학교로 전화하기");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.bap), "급식", "오늘 나오는 급식은?");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.rss), "대외정보",
+				"대외정보를 확인합니다");
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -70,8 +72,9 @@ public class MainActivity extends SherlockActivity {
 					// 급식
 					startActivity(new Intent(MainActivity.this, Bap.class));
 				} else if (position == 5) {
-					// 급식
-					startActivity(new Intent(MainActivity.this, Teacher.class));
+					// 대외정보
+					startActivity(new Intent(MainActivity.this,
+							InfoRSSActivity.class));
 				}
 			}
 		});
