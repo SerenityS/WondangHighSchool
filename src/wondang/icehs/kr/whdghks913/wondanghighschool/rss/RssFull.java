@@ -55,7 +55,7 @@ public class RssFull extends Fragment {
 		mListView = (ListView) view.findViewById(R.id.mListView);
 		mAdapter = new SimpleAdapter(mContext, mArrayList,
 				R.layout.listview_row, new String[] { "subject", "date",
-						"writer" }, new int[] { R.id.board_subject,
+						"category" }, new int[] { R.id.board_subject,
 						R.id.board_date, R.id.board_writer });
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -116,9 +116,10 @@ public class RssFull extends Fragment {
 
 			boolean inTitle = false; // 제목여부판단
 			boolean inItem = false; // 아이템변경 판단
-			boolean inWriter = false; // 작성자 판단
+//			boolean inWriter = false; // 작성자 판단
 			boolean inDate = false; // 작성일
 			boolean inLink = false; // 링크
+			boolean inCategory = false; // 카테고리
 			// boolean inContent = false; // 내용
 
 			// XML 날짜 형식 변환하기
@@ -145,11 +146,15 @@ public class RssFull extends Fragment {
 					if (tag.compareTo("link") == 0) {
 						inLink = true;
 					}
-					// 만약 dc:creator 이거나 author 태그라면
-					if (tag.compareTo("dc:creator") == 0
-							|| tag.compareTo("author") == 0) {
-						inWriter = true;
+					// 만약 category 로 시작하는 태그라면
+					if (tag.compareTo("category") == 0) {
+						inCategory = true;
 					}
+//					// 만약 dc:creator 이거나 author 태그라면
+//					if (tag.compareTo("dc:creator") == 0
+//							|| tag.compareTo("author") == 0) {
+//						inWriter = true;
+//					}
 					// 만약 pubDate 태그라면
 					if (tag.compareTo("pubDate") == 0) {
 						inDate = true;
@@ -165,19 +170,22 @@ public class RssFull extends Fragment {
 					// 제목
 					if (inItem && inTitle) {
 						mHash.put("subject", mParser.getText());
-
 					}
 					// 작성일
 					if (inItem && inDate) {
 						pubdate = new Date(Date.parse(mParser.getText()));
 						mHash.put("date", sdf.format(pubdate));
 					}
-					// 작성자
-					if (inItem && inWriter) {
-						mHash.put("writer", mParser.getText());
-					}
+//					// 작성자
+//					if (inItem && inWriter) {
+//						mHash.put("writer", mParser.getText());
+//					}
+					// 링크
 					if (inItem && inLink) {
 						mHash.put("link", mParser.getText());
+					}
+					if (inItem && inCategory) {
+						mHash.put("category", mParser.getText());
 					}
 					// // 내용
 					// if (inItem && inContent) {
@@ -196,15 +204,18 @@ public class RssFull extends Fragment {
 					if (tag.compareTo("title") == 0) {
 						inTitle = false;
 					}
-					if (tag.compareTo("dc:creator") == 0
-							|| tag.compareTo("author") == 0) {
-						inWriter = false;
-					}
+//					if (tag.compareTo("dc:creator") == 0
+//							|| tag.compareTo("author") == 0) {
+//						inWriter = false;
+//					}
 					if (tag.compareTo("pubDate") == 0) {
 						inDate = false;
 					}
 					if (tag.compareTo("link") == 0) {
 						inLink = false;
+					}
+					if (tag.compareTo("category") == 0) {
+						inCategory = false;
 					}
 					// if (tag.compareTo("description") == 0) {
 					// inContent = false;
