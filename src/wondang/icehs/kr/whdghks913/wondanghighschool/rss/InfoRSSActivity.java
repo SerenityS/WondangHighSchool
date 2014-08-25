@@ -35,7 +35,8 @@ public class InfoRSSActivity extends FragmentActivity implements
 						android.R.layout.simple_list_item_1,
 						android.R.id.text1, new String[] {
 								getString(R.string.rss_full),
-								getString(R.string.rss_info) }), this);
+								getString(R.string.rss_info),
+								getString(R.string.rss_noti) }), this);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			actionBar.setHomeButtonEnabled(true);
@@ -69,7 +70,18 @@ public class InfoRSSActivity extends FragmentActivity implements
 		case 0:
 			return new RssFull(mContext);
 		case 1:
-			return new RssInfo(mContext);
+			/**
+			 * mUrl = http://wondanghs.tistory.com/category/대회정보?page=
+			 */
+			return new RssInfo(
+					mContext,
+					"http://wondanghs.tistory.com/category/%EB%8C%80%ED%9A%8C%EC%A0%95%EB%B3%B4?page=");
+		case 2:
+			/**
+			 * mUrl = http://wondanghs.tistory.com/category/알림판?page=
+			 */
+			return new RssInfo(mContext,
+					"http://wondanghs.tistory.com/category/%EC%95%8C%EB%A6%BC%ED%8C%90?page=");
 		}
 		return null;
 	}

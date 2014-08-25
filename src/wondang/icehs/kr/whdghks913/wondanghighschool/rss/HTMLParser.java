@@ -16,10 +16,7 @@ import android.os.AsyncTask;
 import android.widget.SimpleAdapter;
 
 public class HTMLParser {
-	/**
-	 * mUrl = http://wondanghs.tistory.com/category/Á¤º¸?page=1
-	 */
-	private String mUrl = "http://wondanghs.tistory.com/category/%EC%A0%95%EB%B3%B4?page=";
+	private String mUrl;
 	private Context mContext;
 	private Source mSource;
 	private ArrayList<HashMap<String, String>> mData;
@@ -28,10 +25,11 @@ public class HTMLParser {
 
 	public HTMLParser(Context mContext,
 			ArrayList<HashMap<String, String>> mData,
-			SimpleAdapter mSimpleAdapter) {
+			SimpleAdapter mSimpleAdapter, String url) {
 		this.mContext = mContext;
 		this.mData = mData;
 		this.mSimpleAdapter = mSimpleAdapter;
+		this.mUrl = url;
 	}
 
 	public void start() {

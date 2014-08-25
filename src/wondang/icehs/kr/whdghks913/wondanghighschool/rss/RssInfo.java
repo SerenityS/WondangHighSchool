@@ -33,8 +33,11 @@ public class RssInfo extends Fragment {
 	private ListView mListView;
 	private HTMLParser mHTMLParser;
 
-	public RssInfo(Context context) {
-		mContext = context;
+	private final String url;
+
+	public RssInfo(Context context, String url) {
+		this.mContext = context;
+		this.url = url;
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class RssInfo extends Fragment {
 		});
 
 		if (isNetwork()) {
-			mHTMLParser = new HTMLParser(getActivity(), mData, mSimpleAdapter);
+			mHTMLParser = new HTMLParser(getActivity(), mData, mSimpleAdapter, url);
 			mHTMLParser.start();
 
 		} else {

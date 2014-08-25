@@ -48,7 +48,8 @@
 \n\n아침 : %2$s
 \n\n점심 : %3$s
 \n\n저녁 : %4$s</string>
-    <string name="rss_full">게시글 전체</string>
+    <string name="rss_full">최근 30개 게시글</string>
     <string name="rss_info">대회 정보</string>
+    <string name="rss_noti">알림판</string>
 
 </resources>
