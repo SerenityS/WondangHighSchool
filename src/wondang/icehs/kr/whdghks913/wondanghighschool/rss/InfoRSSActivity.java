@@ -10,9 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 public class InfoRSSActivity extends FragmentActivity implements
 		ActionBar.OnNavigationListener {
@@ -89,17 +87,6 @@ public class InfoRSSActivity extends FragmentActivity implements
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// NavUtils.navigateUpFromSameTask(this);
-			Toast.makeText(this, "¼û°ÜÁø EasterEgg ¹ß°ß!", Toast.LENGTH_LONG).show();
-			return false;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 }

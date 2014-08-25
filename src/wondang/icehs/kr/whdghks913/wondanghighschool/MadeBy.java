@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.tistory.whdghks913.croutonhelper.CroutonHelper;
 
@@ -58,6 +59,12 @@ public class MadeBy extends Activity {
 					});
 			alert.setMessage(R.string.license);
 			alert.show();
+
+		} else if (ItemId == android.R.id.home) {
+			// NavUtils.navigateUpFromSameTask(this);
+			Toast.makeText(this, "숨겨진 EasterEgg를 발견했습니다~~ 축하드립니다~",
+					Toast.LENGTH_LONG).show();
+			return false;
 		}
 
 		return super.onOptionsItemSelected(item);
