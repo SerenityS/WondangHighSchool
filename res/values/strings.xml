@@ -49,6 +49,6 @@
 \n\n점심 : %3$s
 \n\n저녁 : %4$s</string>
     <string name="rss_full">게시글 전체</string>
-    <string name="rss_info">대외 정보</string>
+    <string name="rss_info">대회 정보</string>
 
 </resources>

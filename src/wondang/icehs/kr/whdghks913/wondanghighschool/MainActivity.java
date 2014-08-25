@@ -45,8 +45,8 @@ public class MainActivity extends SherlockActivity {
 				"학교의 일정을 확인 할 수 있습니다");
 		mAdapter.addItem(mRes.getDrawable(R.drawable.call), "연락처", "학교로 전화하기");
 		mAdapter.addItem(mRes.getDrawable(R.drawable.bap), "급식", "오늘 나오는 급식은?");
-		mAdapter.addItem(mRes.getDrawable(R.drawable.rss), "대외정보",
-				"대외정보를 확인합니다");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.rss),
+				mRes.getString(R.string.rss_info), "대회정보를 확인합니다");
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -72,7 +72,7 @@ public class MainActivity extends SherlockActivity {
 					// 급식
 					startActivity(new Intent(MainActivity.this, Bap.class));
 				} else if (position == 5) {
-					// 대외정보
+					// 대회정보
 					startActivity(new Intent(MainActivity.this,
 							InfoRSSActivity.class));
 				}
