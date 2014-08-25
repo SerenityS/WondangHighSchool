@@ -24,6 +24,7 @@ public class SettingsActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.wondang_settings);
 
 		setOnPreferenceClick(findPreference("openSource"));
+		setOnPreferenceClick(findPreference("infoAutoUpdate"));
 		setOnPreferenceChange(findPreference("updateLife"));
 		setOnPreferenceChange(findPreference("autoBapUpdate"));
 
@@ -87,6 +88,12 @@ public class SettingsActivity extends PreferenceActivity {
 				SharedPreferences mPref = PreferenceManager
 						.getDefaultSharedPreferences(SettingsActivity.this);
 
+				if (mPref.getBoolean("firstOfAutoUpdate", true)) {
+					mPref.edit().putBoolean("firstOfAutoUpdate", false)
+							.commit();
+					showNotifi();
+				}
+
 				if (!mPref.getBoolean("autoBapUpdate", false)
 						&& preference.isEnabled()) {
 					int updateLife = 1;
@@ -143,10 +150,26 @@ public class SettingsActivity extends PreferenceActivity {
 				alert.setMessage(R.string.license);
 				alert.show();
 
+			} else if ("infoAutoUpdate".equals(getKey)) {
+				showNotifi();
 			}
 
 			return true;
 		}
 	};
+
+	private void showNotifi() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(
+				SettingsActivity.this);
+		alert.setTitle("급식 자동 업데이트 안내");
+		alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		alert.setMessage(R.string.info_autoUpdate);
+		alert.show();
+	}
 
 }
