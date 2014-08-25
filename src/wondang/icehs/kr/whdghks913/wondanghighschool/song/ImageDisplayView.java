@@ -65,6 +65,11 @@ public class ImageDisplayView extends View implements OnTouchListener {
 	float distanceThreshold = 3.0F;
 
 	/**
+	 * 멀티터치로 크기를 변경한후 한손을 떼면 움직이지 않도록 설정
+	 */
+	private static boolean isMir = false;
+
+	/**
 	 * 생성자
 	 * 
 	 * @param context
@@ -214,6 +219,8 @@ public class ImageDisplayView extends View implements OnTouchListener {
 				oldDistance = 0.0F;
 
 				isScrolling = true;
+
+				isMir = true;
 			}
 
 			return true;
@@ -247,7 +254,8 @@ public class ImageDisplayView extends View implements OnTouchListener {
 					 * 크기를 줄여도 이동가능하게 주석처리
 					 */
 					// if (totalScaleRatio > 1.0F) {
-					moveImage(-offsetX, -offsetY);
+					if (!isMir)
+						moveImage(-offsetX, -offsetY);
 					// }
 
 					startX = curX;
@@ -255,6 +263,8 @@ public class ImageDisplayView extends View implements OnTouchListener {
 				}
 
 			} else if (pointerCount == 2) {
+
+				isMir = true;
 
 				float x1 = ev.getX(0);
 				float y1 = ev.getY(0);
@@ -307,6 +317,7 @@ public class ImageDisplayView extends View implements OnTouchListener {
 		case MotionEvent.ACTION_UP:
 
 			if (pointerCount == 1) {
+				isMir = false;
 
 				float curX = ev.getX();
 				float curY = ev.getY();
