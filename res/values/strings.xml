@@ -51,5 +51,15 @@
     <string name="rss_full">최근 30개 게시글</string>
     <string name="rss_info">대회 정보</string>
     <string name="rss_noti">알림판</string>
+    <string name="changeLog">최근 변경 내역 : 2014-08-25
+\n
+\n
+\n[2.0]
+\n- 설정창 적용 (이제 깔끔한 설정창을 만나볼수 있습니다!)
+\n- 급식 자동 업데이트 기능 추가 (설정 화면에서 활성화 할수 있습니다)
+\n- 메인 화면에서 가로모드 지원
+\n- 대회 정보 기능 추가
+\n- 이스터에그 추가 (어플내 숨겨져있는 버튼을 찾아 이스터 에그를 발견해 보세요!)
+\n- 기타 급식 오류, 악보 오류 수정</string>
 
 </resources>

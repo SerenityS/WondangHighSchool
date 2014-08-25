@@ -4,9 +4,16 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap;
 import wondang.icehs.kr.whdghks913.wondanghighschool.rss.InfoRSSActivity;
 import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule;
 import wondang.icehs.kr.whdghks913.wondanghighschool.song.Song;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -83,6 +90,35 @@ public class MainActivity extends SherlockActivity {
 		mHelper.setText("환영합니다~!");
 		mHelper.setStyle(Style.INFO);
 		mHelper.show();
+
+		try {
+			final SharedPreferences mPref = PreferenceManager
+					.getDefaultSharedPreferences(this);
+
+			PackageManager packageManager = this.getPackageManager();
+			PackageInfo infor = packageManager.getPackageInfo(getPackageName(),
+					PackageManager.GET_META_DATA);
+			final int code = infor.versionCode;
+
+			if (mPref.getInt("versionCode", 0) != code) {
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				alert.setTitle("어플이 업데이트 되었습니다!");
+				alert.setPositiveButton("확인",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								mPref.edit().putInt("versionCode", code)
+										.commit();
+								dialog.dismiss();
+							}
+						});
+				alert.setMessage(R.string.changeLog);
+				alert.show();
+			}
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
