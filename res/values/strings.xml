@@ -40,8 +40,15 @@
 \n6. 이미지
 \n-상단바 아이콘 License : Free for non commercial use
 \n-상단바 아이콘 사이트 : https://www.iconfinder.com/icons/176629/download_internet_manager_metroui_icon#size=128
-\n-대외정보 아이콘 License : Creative Commons (Attribution 3.0 Unported)
-\n-대외정보 이미지 사이트 : https://www.iconfinder.com/icons/309964/rss_social_icon_socialpack_ubercons_icon#size=128</string>
+\n
+\n-대외정보 이미지 License : Creative Commons (Attribution 3.0 Unported)
+\n-대외정보 이미지 사이트 : https://www.iconfinder.com/icons/309964/rss_social_icon_socialpack_ubercons_icon#size=128
+\n
+\n-시간표 이미지 License : Creative Commons (Attribution 3.0 Unported)
+\n-시간표 이미지 사이트 : https://www.iconfinder.com/icons/291047/clock_han_handwatch_time_watch_icon#size=128
+\n
+\n-일정 이미지 License : Creative Commons (Attribution 3.0 Unported)
+\n-일정 이미지 사이트 : https://www.iconfinder.com/icons/281090/calendar_date_day_event_graficheria_month_schedule_icon#size=128</string>
     <string name="shareBap_title">급식 공유하기</string>
     <string name="shareBap_message_title">%1$s의 급식</string>
     <string name="shareBap_message_msg">%1$s의 급식 목록
