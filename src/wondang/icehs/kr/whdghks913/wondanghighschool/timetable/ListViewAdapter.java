@@ -1,26 +1,21 @@
-package wondang.icehs.kr.whdghks913.wondanghighschool;
+package wondang.icehs.kr.whdghks913.wondanghighschool.timetable;
 
 import java.util.ArrayList;
 
+import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 class ViewHolder {
-	public ImageView mListImage;
-
-	public TextView mListLargeText;
-
-	public TextView mListMediumText;
+	public TextView choose_class;
 }
 
 public class ListViewAdapter extends BaseAdapter {
-	private Context mContext = null;
+	private Context mContext;
 	public ArrayList<ListData> mListData = new ArrayList<ListData>();
 
 	public ListViewAdapter(Context mContext) {
@@ -28,11 +23,11 @@ public class ListViewAdapter extends BaseAdapter {
 		this.mContext = mContext;
 	}
 
-	public void addItem(Drawable icon, String mTitle, String mText) {
+	public void addItem(String choose_class, String dbName, String tableName) {
 		ListData addInfo = new ListData();
-		addInfo.mIcon = icon;
-		addInfo.mTitle = mTitle;
-		addInfo.mText = mText;
+		addInfo.choose_class = choose_class;
+		addInfo.dbName = dbName;
+		addInfo.tableName = tableName;
 
 		mListData.add(addInfo);
 	}
@@ -60,14 +55,10 @@ public class ListViewAdapter extends BaseAdapter {
 
 			LayoutInflater inflater = (LayoutInflater) mContext
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.main_list_item, null);
+			convertView = inflater.inflate(R.layout.timetable_class_row, null);
 
-			holder.mListImage = (ImageView) convertView
-					.findViewById(R.id.mListImage);
-			holder.mListLargeText = (TextView) convertView
-					.findViewById(R.id.mListLargeText);
-			holder.mListMediumText = (TextView) convertView
-					.findViewById(R.id.mListMediumText);
+			holder.choose_class = (TextView) convertView
+					.findViewById(R.id.choose_class);
 
 			convertView.setTag(holder);
 		} else {
@@ -75,18 +66,7 @@ public class ListViewAdapter extends BaseAdapter {
 		}
 
 		ListData mData = mListData.get(position);
-
-		if (mData.mIcon == null) {
-			holder.mListImage.setImageDrawable(null);
-			holder.mListImage.setVisibility(View.GONE);
-
-		} else {
-			holder.mListImage.setImageDrawable(mData.mIcon);
-			holder.mListImage.setVisibility(View.VISIBLE);
-		}
-
-		holder.mListLargeText.setText(mData.mTitle);
-		holder.mListMediumText.setText(mData.mText);
+		holder.choose_class.setText(mData.choose_class);
 
 		return convertView;
 	}
@@ -97,7 +77,7 @@ class ListData {
 	 * 리스트 정보를 담고 있을 객체 생성
 	 */
 
-	public Drawable mIcon;
-	public String mTitle;
-	public String mText;
+	public String choose_class;
+	public String dbName;
+	public String tableName;
 }

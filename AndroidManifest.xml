@@ -84,6 +84,17 @@
             android:label="학교 정보"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
+        <activity
+            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableGrade"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="시간표(학년)"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
+            android:theme="@style/Theme.White" />
+        <activity
+            android:name="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableClass"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="시간표(반)"
+            android:theme="@style/Theme.White" />
 
         <receiver android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bapautoupdate.BroadCast" >
             <intent-filter>

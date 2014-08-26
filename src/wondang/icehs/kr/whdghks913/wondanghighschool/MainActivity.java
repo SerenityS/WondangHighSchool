@@ -4,6 +4,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap;
 import wondang.icehs.kr.whdghks913.wondanghighschool.rss.InfoRSSActivity;
 import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule;
 import wondang.icehs.kr.whdghks913.wondanghighschool.song.Song;
+import wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableGrade;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -54,6 +55,8 @@ public class MainActivity extends SherlockActivity {
 		mAdapter.addItem(mRes.getDrawable(R.drawable.bap), "급식", "오늘 나오는 급식은?");
 		mAdapter.addItem(mRes.getDrawable(R.drawable.rss),
 				mRes.getString(R.string.rss_info), "대회정보를 확인합니다");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.timetable), "시간표",
+				"학급 시간표를 확인합니다");
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -82,6 +85,10 @@ public class MainActivity extends SherlockActivity {
 					// 대회정보
 					startActivity(new Intent(MainActivity.this,
 							InfoRSSActivity.class));
+				} else if (position == 6) {
+					// 시간표
+					startActivity(new Intent(MainActivity.this,
+							TimeTableGrade.class));
 				}
 			}
 		});
