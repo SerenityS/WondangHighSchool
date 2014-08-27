@@ -23,11 +23,10 @@ public class ListViewAdapter extends BaseAdapter {
 		this.mContext = mContext;
 	}
 
-	public void addItem(String choose_class, String dbName, String tableName) {
+	public void addItem(String choose_class, String dbName) {
 		ListData addInfo = new ListData();
 		addInfo.choose_class = choose_class;
 		addInfo.dbName = dbName;
-		addInfo.tableName = tableName;
 
 		mListData.add(addInfo);
 	}
@@ -79,5 +78,4 @@ class ListData {
 
 	public String choose_class;
 	public String dbName;
-	public String tableName;
 }
