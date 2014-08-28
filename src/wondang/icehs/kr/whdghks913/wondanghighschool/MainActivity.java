@@ -47,16 +47,16 @@ public class MainActivity extends SherlockActivity {
 		Resources mRes = getResources();
 		mAdapter.addItem(mRes.getDrawable(R.drawable.ic_launcher), "원당고 소개",
 				"인천 원당고등학교를 소개합니다");
-		mAdapter.addItem(mRes.getDrawable(R.drawable.song), "교가",
-				"우리 학교 교가 확인하기");
-		mAdapter.addItem(mRes.getDrawable(R.drawable.calender), "일정",
-				"학교의 일정을 확인 할 수 있습니다");
-		mAdapter.addItem(mRes.getDrawable(R.drawable.call), "연락처", "학교로 전화하기");
 		mAdapter.addItem(mRes.getDrawable(R.drawable.bap), "급식", "오늘 나오는 급식은?");
-		mAdapter.addItem(mRes.getDrawable(R.drawable.rss),
-				mRes.getString(R.string.rss_info), "대회정보를 확인합니다");
 		mAdapter.addItem(mRes.getDrawable(R.drawable.timetable), "시간표",
 				"학급 시간표를 확인합니다");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.calender), "일정",
+				"학교의 일정을 확인 할 수 있습니다");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.rss),
+				mRes.getString(R.string.rss_info), "대회정보를 확인합니다");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.song), "교가",
+				"우리 학교 교가 확인하기");
+		mAdapter.addItem(mRes.getDrawable(R.drawable.call), "연락처", "학교로 전화하기");
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -70,25 +70,25 @@ public class MainActivity extends SherlockActivity {
 					startActivity(new Intent(MainActivity.this,
 							WondangInfo.class));
 				} else if (position == 1) {
-					// 교가
-					startActivity(new Intent(MainActivity.this, Song.class));
-				} else if (position == 2) {
-					// 일정 확인하기
-					startActivity(new Intent(MainActivity.this, Schedule.class));
-				} else if (position == 3) {
-					// 전화 하기
-					startActivity(new Intent(MainActivity.this, Call.class));
-				} else if (position == 4) {
 					// 급식
 					startActivity(new Intent(MainActivity.this, Bap.class));
-				} else if (position == 5) {
-					// 대회정보
-					startActivity(new Intent(MainActivity.this,
-							InfoRSSActivity.class));
-				} else if (position == 6) {
+				} else if (position == 2) {
 					// 시간표
 					startActivity(new Intent(MainActivity.this,
 							TimeTableGrade.class));
+				} else if (position == 3) {
+					// 일정
+					startActivity(new Intent(MainActivity.this, Schedule.class));
+				} else if (position == 4) {
+					// 대회정보
+					startActivity(new Intent(MainActivity.this,
+							InfoRSSActivity.class));
+				} else if (position == 5) {
+					// 교가
+					startActivity(new Intent(MainActivity.this, Song.class));
+				} else if (position == 6) {
+					// 연락처
+					startActivity(new Intent(MainActivity.this, Call.class));
 				}
 			}
 		});
