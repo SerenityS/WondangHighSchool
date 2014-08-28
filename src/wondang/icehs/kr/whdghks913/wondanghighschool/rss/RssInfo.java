@@ -49,7 +49,7 @@ public class RssInfo extends Fragment {
 		mListView = (ListView) view.findViewById(R.id.mListView);
 
 		mSimpleAdapter = new SimpleAdapter(mContext, mData,
-				R.layout.listview_row,
+				R.layout.rss_listview_row,
 				new String[] { "title", "href", "date" },
 				new int[] { R.id.board_subject, R.id.board_writer,
 						R.id.board_date, });

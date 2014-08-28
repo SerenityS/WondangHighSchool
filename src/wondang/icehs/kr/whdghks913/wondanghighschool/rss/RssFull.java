@@ -54,7 +54,7 @@ public class RssFull extends Fragment {
 
 		mListView = (ListView) view.findViewById(R.id.mListView);
 		mAdapter = new SimpleAdapter(mContext, mArrayList,
-				R.layout.listview_row, new String[] { "subject", "date",
+				R.layout.rss_listview_row, new String[] { "subject", "date",
 						"category" }, new int[] { R.id.board_subject,
 						R.id.board_date, R.id.board_writer });
 		mListView.setAdapter(mAdapter);
