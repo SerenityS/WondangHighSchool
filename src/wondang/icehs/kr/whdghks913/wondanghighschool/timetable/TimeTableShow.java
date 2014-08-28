@@ -70,9 +70,7 @@ public class TimeTableShow extends Fragment {
 			String subject = mCursor.getString(1);
 			String room = mCursor.getString(2);
 
-			if ("자습".equals(subject))
-				room = "교실";
-			else if (subject.indexOf("\n") != -1)
+			if (subject.indexOf("\n") != -1)
 				subject = subject.replace("\n", "(") + ")";
 
 			mAdapter.addItem(period, subject, room);
@@ -90,8 +88,10 @@ public class TimeTableShow extends Fragment {
 		boolean fileInfo = !(new File(mFilePath, dbName).exists());
 		boolean versionInfo = mPref.getInt("dbVersion", 0) != dbVersion;
 
-		if (fileInfo || versionInfo)
+		if (fileInfo || versionInfo) {
+			mPref.edit().putInt("dbVersion", dbVersion).commit();
 			return true;
+		}
 		return false;
 	}
 }
