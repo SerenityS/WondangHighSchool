@@ -91,7 +91,7 @@
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableScrollTab"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="시간표"
-            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.TimeTableGrade"
+            android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableGrade"
             android:theme="@style/Theme.White" />
 
         <receiver android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bapautoupdate.BroadCast" >
