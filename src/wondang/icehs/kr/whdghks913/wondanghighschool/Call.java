@@ -27,7 +27,7 @@ public class Call extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_call);
+		setContentView(R.layout.listview);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			ActionBar actionBar = getActionBar();
@@ -35,7 +35,7 @@ public class Call extends Activity {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
-		mListView = (ListView) findViewById(R.id.mContactsList);
+		mListView = (ListView) findViewById(R.id.mListView);
 
 		mAdapter = new ListViewAdapter(this);
 		mListView.setAdapter(mAdapter);

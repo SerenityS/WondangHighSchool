@@ -94,7 +94,7 @@ public class TimeTableGrade extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View view = inflater.inflate(R.layout.activity_rss_fullrss, null);
+			View view = inflater.inflate(R.layout.listview, null);
 
 			mListView = (ListView) view.findViewById(R.id.mListView);
 
