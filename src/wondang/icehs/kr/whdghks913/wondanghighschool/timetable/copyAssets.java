@@ -6,29 +6,27 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
-import android.preference.PreferenceManager;
 
 public class copyAssets {
 
-	private void assetsFileCopy(Context mContext, String mFilePath,
-			String mFileName, int version) {
+	/**
+	 * @mFilePath = /sdcard/WondangHS/
+	 * @mFileName = WondangTimeTableG1.db
+	 */
+	public void assetsFileCopy(Context mContext, String mFilePath,
+			String mFileName) {
+
 		File dbFile = new File(mFilePath + mFileName);
-		SharedPreferences mPref = PreferenceManager
-				.getDefaultSharedPreferences(mContext);
 
-		if (!dbFile.exists()
-				|| mPref.getInt(mFileName + "_dbVersion", 0) != version) {
-			// 파일이 없거나 버전이 높아지면
-			mPref.edit().putInt(mFileName + "_dbVersion", version).commit();
-
+		// 파일이 없으면
+		if (!dbFile.exists()) {
 			File mFolder = new File(mFilePath);
+			// 폴더도 없으면 폴더를 만든다
 			if (!mFolder.exists())
 				mFolder.mkdirs();
 
 			AssetManager mAssetM = mContext.getResources().getAssets();
-			dbFile.delete();
 			InputStream mInput = null;
 			FileOutputStream mOutput = null;
 			long filesize = 0;
@@ -49,8 +47,10 @@ public class copyAssets {
 				// error
 			} finally {
 				try {
-					mInput.close();
-					mOutput.close();
+					if (mInput != null)
+						mInput.close();
+					if (mOutput != null)
+						mOutput.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

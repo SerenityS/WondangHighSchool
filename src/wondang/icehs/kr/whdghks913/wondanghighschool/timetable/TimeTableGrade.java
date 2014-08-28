@@ -26,7 +26,10 @@ import android.widget.TextView;
 public class TimeTableGrade extends FragmentActivity implements
 		ActionBar.OnNavigationListener {
 
-	@SuppressLint("NewApi")
+	/**
+	 * DropdownMenu를 구현하기 위한 클래스
+	 */
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,6 +78,9 @@ public class TimeTableGrade extends FragmentActivity implements
 		super.onConfigurationChanged(newConfig);
 	}
 
+	/**
+	 * 반 선택을 위한 클래스
+	 */
 	@SuppressLint("ValidFragment")
 	public class TimeTableClass extends Fragment {
 		private Context mContext;
@@ -117,7 +123,7 @@ public class TimeTableGrade extends FragmentActivity implements
 
 			for (int i = 1; i <= 10; i++) {
 				mAdapter.addItem(Grade + "학년 " + i + "반", "WondangTimeTableG"
-						+ Grade, "grade" + Grade + "class" + i);
+						+ Grade, "Grade" + Grade + "Class" + i);
 			}
 
 			return view;

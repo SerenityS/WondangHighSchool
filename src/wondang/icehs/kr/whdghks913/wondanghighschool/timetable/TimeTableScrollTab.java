@@ -13,12 +13,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 public class TimeTableScrollTab extends FragmentActivity {
-	public final static String[] DAY = { "월요일", "화요일", "수요일", "목요일", "금요일" };
+	public final String[] DAY = { "월요일", "화요일", "수요일", "목요일", "금요일" };
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
 
-	String dbName, tableName;
+	String mFileName, tableName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class TimeTableScrollTab extends FragmentActivity {
 		setContentView(R.layout.activity_timetablescrolltab);
 
 		Intent mIntent = getIntent();
-		dbName = mIntent.getStringExtra("dbName");
+		mFileName = mIntent.getStringExtra("dbName");
 		tableName = mIntent.getStringExtra("tableName");
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -34,18 +34,16 @@ public class TimeTableScrollTab extends FragmentActivity {
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-
-		// PagerTitleStrip mStrip = (PagerTitleStrip)
-		// findViewById(R.id.pager_title_strip);
-		// mStrip.setTextColor(Color.DKGRAY);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+
 		if (mViewPager.getChildCount() > 0) {
 			Calendar calendar = Calendar.getInstance();
 			int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
 			if (dayOfWeek > 1 && dayOfWeek < 7) {
 				mViewPager.setCurrentItem(dayOfWeek - 2);
 			} else {
@@ -64,7 +62,7 @@ public class TimeTableScrollTab extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			return new TimeTableShow(mContext, position);
+			return new TimeTableShow(mContext, position, mFileName, tableName);
 		}
 
 		@Override
