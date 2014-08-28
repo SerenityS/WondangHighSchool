@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -56,6 +58,8 @@ public class TimeTableShow extends Fragment {
 		mAdapter = new TimeTableShowAdapter(mContext);
 		mListView = (ListView) view.findViewById(R.id.mListView);
 		mListView.setAdapter(mAdapter);
+		mListView.setDivider(new ColorDrawable(Color. TRANSPARENT));
+		mListView.setDividerHeight(20);
 
 		/**
 		 * DB에 저장된 시간표를 가져온다
