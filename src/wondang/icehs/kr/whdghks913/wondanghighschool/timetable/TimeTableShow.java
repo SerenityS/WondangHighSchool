@@ -25,7 +25,7 @@ public class TimeTableShow extends Fragment {
 
 	public final String mFilePath = Environment.getExternalStorageDirectory()
 			.getAbsolutePath() + "/WondangHS/";
-	public final int dbVersion = 0;
+	public final int dbVersion = 1;
 
 	private SQLiteDatabase mSQDB;
 
@@ -70,7 +70,8 @@ public class TimeTableShow extends Fragment {
 			String subject = mCursor.getString(1);
 			String room = mCursor.getString(2);
 
-			if (subject.indexOf("\n") != -1)
+			if (subject != null && !subject.isEmpty()
+					&& subject.indexOf("\n") != -1)
 				subject = subject.replace("\n", "(") + ")";
 
 			mAdapter.addItem(period, subject, room);
@@ -85,7 +86,7 @@ public class TimeTableShow extends Fragment {
 		SharedPreferences mPref = PreferenceManager
 				.getDefaultSharedPreferences(mContext);
 
-		boolean fileInfo = !(new File(mFilePath, dbName).exists());
+		boolean fileInfo = !(new File(mFilePath + dbName).exists());
 		boolean versionInfo = mPref.getInt("dbVersion", 0) != dbVersion;
 
 		if (fileInfo || versionInfo) {

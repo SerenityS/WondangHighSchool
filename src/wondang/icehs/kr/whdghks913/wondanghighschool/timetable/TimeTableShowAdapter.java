@@ -73,7 +73,13 @@ public class TimeTableShowAdapter extends BaseAdapter {
 
 		holder.Time.setText(mData.Time + "±³½Ã");
 		holder.Subject.setText(mData.Subject);
-		holder.Room.setText(mData.Room);
+
+		if (mData.Room == null)
+			holder.Room.setVisibility(View.GONE);
+		else {
+			holder.Room.setVisibility(View.VISIBLE);
+			holder.Room.setText(mData.Room);
+		}
 
 		return convertView;
 	}
