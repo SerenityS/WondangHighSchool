@@ -88,7 +88,7 @@
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableScrollTab"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="시간표 뷰어"
+            android:label="시간표"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.TimeTableGrade"
             android:theme="@style/Theme.White" />
 

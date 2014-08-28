@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,19 +28,14 @@ public class TimeTableGrade extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rss_main);
 
-		// Set up the action bar to show a dropdown list.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-		// Set up the dropdown list navigation in the action bar.
-		actionBar.setListNavigationCallbacks(
-		// Specify a SpinnerAdapter to populate the dropdown
-		// list.
-				new ArrayAdapter<String>(getActionBarThemedContextCompat(),
-						android.R.layout.simple_list_item_1,
-						android.R.id.text1,
-						new String[] { "1학년", "2학년", "3학년", }), this);
+		actionBar.setListNavigationCallbacks(new ArrayAdapter<String>(
+				getActionBarThemedContextCompat(),
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				new String[] { "1학년", "2학년", "3학년", }), this);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			actionBar.setHomeButtonEnabled(true);
@@ -58,8 +54,6 @@ public class TimeTableGrade extends FragmentActivity implements
 
 	@Override
 	public boolean onNavigationItemSelected(int position, long id) {
-		// When the given dropdown item is selected, show its contents in the
-		// container view.
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.container,
@@ -108,6 +102,12 @@ public class TimeTableGrade extends FragmentActivity implements
 						int position, long id) {
 					String dbName = mAdapter.mListData.get(position).dbName;
 					String tableName = mAdapter.mListData.get(position).tableName;
+
+					Intent mIntent = new Intent(mContext,
+							TimeTableScrollTab.class);
+					mIntent.putExtra("dbName", dbName);
+					mIntent.putExtra("tableName", tableName);
+					startActivity(mIntent);
 				}
 			});
 
@@ -115,7 +115,6 @@ public class TimeTableGrade extends FragmentActivity implements
 				mAdapter.addItem(Grade + "학년 " + i + "반", "WondangTimeTableG"
 						+ Grade, "grade" + Grade + "class" + i);
 			}
-			// mAdapter.addItem(null, "교무실 (대표전화)", "032-569-0723");
 
 			return view;
 		}
