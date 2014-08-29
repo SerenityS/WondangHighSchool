@@ -15,7 +15,8 @@
             android:entryValues="@array/item_entries_value"
             android:key="updateLife"
             android:title="업데이트 주기" />
-        <Preference
+
+        <Preference
             android:dependency="autoBapUpdate"
             android:key="infoAutoUpdate"
             android:summary="토,일 업데이트시 전원이 꺼져있으면 자동 업데이트가 이루어 지지 않을수 있습니다\n업데이트는 AM 1:00에 이루어 집니다"
@@ -31,6 +32,13 @@
             android:key="updateWiFi"
             android:summary="업데이트시 Wi-Fi가 아니라면 2시간뒤 다시 시도합니다"
             android:title="Wi-Fi로만 업데이트" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="시간표" >
+        <Preference
+            android:key="deleteGradeClass"
+            android:summary="설정되어 있는 학급 정보를 제거합니다"
+            android:title="학급 정보 삭제" >
+        </Preference>
     </PreferenceCategory>
     <PreferenceCategory android:title="어플 정보" >
         <Preference

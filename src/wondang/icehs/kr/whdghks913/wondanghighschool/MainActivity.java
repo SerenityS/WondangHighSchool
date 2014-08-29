@@ -5,6 +5,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.rss.InfoRSSActivity;
 import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule;
 import wondang.icehs.kr.whdghks913.wondanghighschool.song.Song;
 import wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableGrade;
+import wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableScrollTab;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,8 +75,21 @@ public class MainActivity extends SherlockActivity {
 					startActivity(new Intent(MainActivity.this, Bap.class));
 				} else if (position == 2) {
 					// 시간표
-					startActivity(new Intent(MainActivity.this,
-							TimeTableGrade.class));
+					SharedPreferences mPref = PreferenceManager
+							.getDefaultSharedPreferences(MainActivity.this);
+
+					if (mPref.getBoolean("YourGradeClass", false)) {
+						Intent mIntent = new Intent(MainActivity.this,
+								TimeTableScrollTab.class);
+						mIntent.putExtra("Grade", mPref.getInt("YourGrade", 1));
+						mIntent.putExtra("WClass", mPref.getInt("YourClass", 2));
+						startActivity(mIntent);
+
+					} else {
+						startActivity(new Intent(MainActivity.this,
+								TimeTableGrade.class));
+					}
+
 				} else if (position == 3) {
 					// 일정
 					startActivity(new Intent(MainActivity.this, Schedule.class));

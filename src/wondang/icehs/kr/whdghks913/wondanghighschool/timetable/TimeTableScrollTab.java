@@ -3,12 +3,18 @@ package wondang.icehs.kr.whdghks913.wondanghighschool.timetable;
 import java.util.Calendar;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import wondang.icehs.kr.whdghks913.wondanghighschool.SettingsActivity;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -49,6 +55,44 @@ public class TimeTableScrollTab extends FragmentActivity {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			actionBar.setHomeButtonEnabled(true);
 			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
+
+		final SharedPreferences mPref = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		if (!mPref.getBoolean("YourGradeClass", false)
+				&& !mPref.getBoolean("DontShowGradeClass", false)) {
+
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setTitle("학급 정보 설정");
+			alert.setPositiveButton("확인", new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					SharedPreferences.Editor mEdit = mPref.edit();
+					mEdit.putInt("YourGrade", Grade);
+					mEdit.putInt("YourClass", WClass);
+					mEdit.putBoolean("YourGradeClass", true).commit();
+
+					dialog.dismiss();
+				}
+			});
+			alert.setNegativeButton("취소", null);
+			alert.setNeutralButton("다시표시안함", new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					SharedPreferences.Editor mEdit = mPref.edit();
+					mEdit.remove("YourGradeClass");
+					mEdit.remove("YourGrade");
+					mEdit.remove("YourClass");
+					mEdit.putBoolean("DontShowGradeClass", true).commit();
+
+					dialog.dismiss();
+
+				}
+			});
+			alert.setMessage(R.string.yourGradeClass);
+			alert.show();
 		}
 	}
 
@@ -108,6 +152,8 @@ public class TimeTableScrollTab extends FragmentActivity {
 
 		if (id == R.id.today) {
 			setCurrentItem();
+		} else if (id == R.id.mSetting) {
+			startActivity(new Intent(this, SettingsActivity.class));
 		}
 
 		return super.onOptionsItemSelected(item);

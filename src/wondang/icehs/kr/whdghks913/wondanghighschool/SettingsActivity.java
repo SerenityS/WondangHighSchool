@@ -25,6 +25,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 		setOnPreferenceClick(findPreference("openSource"));
 		setOnPreferenceClick(findPreference("infoAutoUpdate"));
+		setOnPreferenceClick(findPreference("deleteGradeClass"));
 		setOnPreferenceChange(findPreference("updateLife"));
 		setOnPreferenceChange(findPreference("autoBapUpdate"));
 
@@ -152,6 +153,15 @@ public class SettingsActivity extends PreferenceActivity {
 
 			} else if ("infoAutoUpdate".equals(getKey)) {
 				showNotifi();
+			} else if ("deleteGradeClass".equals(getKey)) {
+				SharedPreferences.Editor mEdit = PreferenceManager
+						.getDefaultSharedPreferences(SettingsActivity.this)
+						.edit();
+				mEdit.remove("YourGrade");
+				mEdit.remove("YourClass");
+				mEdit.remove("YourGradeClass");
+				mEdit.remove("DontShowGradeClass");
+				mEdit.commit();
 			}
 
 			return true;
