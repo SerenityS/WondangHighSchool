@@ -16,6 +16,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,6 +56,18 @@ public class Bap extends Activity {
 	private final String Syncing = "지금 로딩중입니다";
 
 	private boolean isSync = false;
+
+	private Calendar mCalendar;
+	private final int MONTH, DAY_OF_MONTH;
+
+	public Bap() {
+		mCalendar = Calendar.getInstance();
+		MONTH = mCalendar.get(Calendar.MONTH);
+		DAY_OF_MONTH = mCalendar.get(Calendar.DAY_OF_MONTH);
+
+		Log.d("MONTH", "" + MONTH);
+		Log.d("DAY_OF_MONTH", "" + DAY_OF_MONTH);
+	}
 
 	@SuppressLint("NewApi")
 	@Override
@@ -100,10 +113,7 @@ public class Bap extends Activity {
 		});
 
 		if (bapList.getBoolean("checker", false)) {
-			calender = restore("calender");
-			morning = restore("morning");
-			lunch = restore("lunch");
-			night = restore("night");
+			restoreBap();
 
 			getBapList();
 			// mHandler.sendEmptyMessage(1);
@@ -131,6 +141,13 @@ public class Bap extends Activity {
 				mHelper.show();
 			}
 		}
+	}
+
+	private void restoreBap() {
+		calender = restore("calender");
+		morning = restore("morning");
+		lunch = restore("lunch");
+		night = restore("night");
 	}
 
 	private void autoScroll() {
@@ -261,6 +278,42 @@ public class Bap extends Activity {
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
+		} else if (ItemId == R.id.past) {
+			int year = mCalendar.get(Calendar.YEAR);
+			int month = mCalendar.get(Calendar.MONTH);
+			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+
+			mCalendar.set(year, month, day - 7);
+
+			if (MONTH == mCalendar.get(Calendar.MONTH)
+					&& DAY_OF_MONTH == mCalendar.get(Calendar.DAY_OF_MONTH)) {
+				mAdapter.clearData();
+				restoreBap();
+				getBapList();
+				autoScroll();
+			} else {
+				mProcessTask = new ProcessTask();
+				mProcessTask.execute();
+			}
+
+		} else if (ItemId == R.id.future) {
+
+			int year = mCalendar.get(Calendar.YEAR);
+			int month = mCalendar.get(Calendar.MONTH);
+			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+
+			mCalendar.set(year, month, day + 7);
+
+			if (MONTH == mCalendar.get(Calendar.MONTH)
+					&& DAY_OF_MONTH == mCalendar.get(Calendar.DAY_OF_MONTH)) {
+				mAdapter.clearData();
+				restoreBap();
+				getBapList();
+				autoScroll();
+			} else {
+				mProcessTask = new ProcessTask();
+				mProcessTask.execute();
+			}
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -297,6 +350,7 @@ public class Bap extends Activity {
 			mAdapter.addItem(calender[i], getDate(i), morning[i], lunch[i],
 					night[i]);
 		}
+		mAdapter.notifyDataSetChanged();
 	}
 
 	public class ProcessTask extends AsyncTask<String, Integer, Long> {
@@ -319,20 +373,35 @@ public class Bap extends Activity {
 			final String schulCrseScCode = "4"; // 학교 종류 코드 1
 			final String schulKndScCode = "04"; // 학교 종류 코드 2
 
+			int num_year = mCalendar.get(Calendar.YEAR);
+			int num_month = mCalendar.get(Calendar.MONTH);
+			int num_day = mCalendar.get(Calendar.DAY_OF_MONTH);
+
+			final String year = Integer.toString(num_year);
+			String month = Integer.toString(num_month + 1);
+			String day = Integer.toString(num_day);
+
+			if (month.length() <= 1)
+				month = "0" + month;
+			if (day.length() <= 1)
+				day = "0" + day;
+
 			try {
 				calender = MealLibrary.getDateNew(CountryCode, schulCode,
-						schulCrseScCode, schulKndScCode, "1");
+						schulCrseScCode, schulKndScCode, "1", year, month, day);
 				morning = MealLibrary.getMealNew(CountryCode, schulCode,
-						schulCrseScCode, schulKndScCode, "1");
+						schulCrseScCode, schulKndScCode, "1", year, month, day);
 				lunch = MealLibrary.getMealNew(CountryCode, schulCode,
-						schulCrseScCode, schulKndScCode, "2");
+						schulCrseScCode, schulKndScCode, "2", year, month, day);
 				night = MealLibrary.getMealNew(CountryCode, schulCode,
-						schulCrseScCode, schulKndScCode, "3");
+						schulCrseScCode, schulKndScCode, "3", year, month, day);
 
-				save("calender", calender);
-				save("morning", morning);
-				save("lunch", lunch);
-				save("night", night);
+				if (MONTH == num_month && DAY_OF_MONTH == num_day) {
+					save("calender", calender);
+					save("morning", morning);
+					save("lunch", lunch);
+					save("night", night);
+				}
 
 				isSync = false;
 
@@ -362,12 +431,12 @@ public class Bap extends Activity {
 			super.onPostExecute(result);
 
 			mDialog.dismiss();
+			mDialog = null;
 
 			if (result == -1l)
 				return;
 
 			getBapList();
-			mAdapter.notifyDataSetChanged();
 
 			mHelper.setText(loadList);
 			mHelper.setStyle(Style.CONFIRM);

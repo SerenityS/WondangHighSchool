@@ -1,6 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/past"
+        android:icon="@drawable/ic_menu_back"
+        android:orderInCategory="1"
+        android:showAsAction="ifRoom"
+        android:title="저번주 급식"/>
+    <item
+        android:id="@+id/future"
+        android:icon="@drawable/ic_menu_forward"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom"
+        android:title="다음주 급식"/>
+    <item
         android:id="@+id/sync"
         android:icon="@android:drawable/ic_menu_rotate"
         android:orderInCategory="100"
