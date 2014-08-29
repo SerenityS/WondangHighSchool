@@ -90,5 +90,14 @@
 \n-확인 : 다음부터 이 학급으로 바로 접속합니다(설정에서 제거 가능)
 \n-취소 : 이 학급으로 접속하지 않으며, 다른 학급 접속시 다시 물어봅니다
 \n-다시표시안함 : 학급으로 바로 접속 기능을 비활성화 합니다</string>
+    <string name="shareTimeTable_message_title">%1$s 시간표 공유</string>
+    <string name="shareTimeTable_message_message">%1$s 시간표
+\n1교시 : %2$s (%3$s)
+\n2교시 : %4$s (%5$s)
+\n3교시 : %6$s (%7$s)
+\n4교시 : %8$s (%9$s)
+\n5교시 : %10$s (%11$s)
+\n6교시 : %12$s (%13$s)
+\n7교시 : %14$s (%15$s)</string>
 
 </resources>

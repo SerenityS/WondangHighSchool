@@ -23,7 +23,7 @@ import android.widget.ListView;
 public class TimeTableShow extends Fragment {
 	private Context mContext;
 	private final int DayOfWeek;
-	private final String dbName = "WondangTimeTable.db",
+	public final String dbName = "WondangTimeTable.db",
 			tableName = "WondangTimeTable";
 	private final int Grade, WClass;
 
@@ -31,10 +31,10 @@ public class TimeTableShow extends Fragment {
 			.getAbsolutePath() + "/WondangHS/";
 	public final int dbVersion = 1;
 
-	private SQLiteDatabase mSQDB;
+	public static SQLiteDatabase mSQDB;
 
 	private ListView mListView;
-	private TimeTableShowAdapter mAdapter;
+	public TimeTableShowAdapter mAdapter;
 
 	public TimeTableShow(Context mContext, int DayOfWeek, int Grade, int WClass) {
 		this.mContext = mContext;

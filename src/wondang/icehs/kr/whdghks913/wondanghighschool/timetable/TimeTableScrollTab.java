@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,6 +21,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -154,9 +156,65 @@ public class TimeTableScrollTab extends FragmentActivity {
 			setCurrentItem();
 		} else if (id == R.id.mSetting) {
 			startActivity(new Intent(this, SettingsActivity.class));
+		} else if (id == R.id.mShare) {
+			showShareIntent();
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void showShareIntent() {
+		/**
+		 * DB에 저장된 시간표를 가져온다
+		 */
+		String SQL = "select * from WondangTimeTable";
+
+		Cursor mCursor = TimeTableShow.mSQDB.rawQuery(SQL, null);
+
+		/**
+		 * 요일 설정
+		 */
+		mCursor.moveToPosition((mViewPager.getCurrentItem() * 7) + 1);
+
+		String[] TimeTable = new String[14];
+
+		for (int period = 1; period <= 7; period++) {
+			String subject, room;
+
+			if (Grade == 1) {
+				subject = mCursor.getString((WClass * 2) - 2);
+				room = mCursor.getString((WClass * 2) - 1);
+			} else if (Grade == 2) {
+				subject = mCursor.getString(18 + (WClass * 2));
+				room = mCursor.getString(19 + (WClass * 2));
+			} else {
+				subject = mCursor.getString(39 + WClass);
+				room = "교실";
+			}
+
+			if (subject != null && !subject.isEmpty()
+					&& subject.indexOf("\n") != -1)
+				subject = subject.replace("\n", "(") + ")";
+
+			TimeTable[(period * 2) - 2] = subject;
+			TimeTable[(period * 2) - 1] = room;
+
+			mCursor.moveToNext();
+		}
+
+		String title = String.format(
+				getString(R.string.shareTimeTable_message_title),
+				DAY[mViewPager.getCurrentItem()]);
+		Intent msg = new Intent(Intent.ACTION_SEND);
+		msg.addCategory(Intent.CATEGORY_DEFAULT);
+		msg.putExtra(Intent.EXTRA_TITLE, title);
+		msg.putExtra(Intent.EXTRA_TEXT, String.format(
+				getString(R.string.shareTimeTable_message_message),
+				DAY[mViewPager.getCurrentItem()], TimeTable[0], TimeTable[1],
+				TimeTable[2], TimeTable[3], TimeTable[4], TimeTable[5],
+				TimeTable[6], TimeTable[7], TimeTable[8], TimeTable[9],
+				TimeTable[10], TimeTable[11], TimeTable[12], TimeTable[13]));
+		msg.setType("text/plain");
+		startActivity(Intent.createChooser(msg, title));
+	}
 }

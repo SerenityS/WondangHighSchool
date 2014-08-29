@@ -7,9 +7,15 @@
         android:showAsAction="ifRoom"
         android:title="설정"/>
     <item
+        android:id="@+id/mShare"
+        android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom"
+        android:title="공유"/>
+    <item
         android:id="@+id/today"
         android:icon="@android:drawable/ic_menu_today"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:showAsAction="ifRoom"
         android:title="오늘"/>
 

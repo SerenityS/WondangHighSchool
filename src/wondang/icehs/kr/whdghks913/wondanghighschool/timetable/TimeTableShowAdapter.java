@@ -40,7 +40,7 @@ public class TimeTableShowAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public ListData getItem(int position) {
 		return mListData.get(position);
 	}
 
