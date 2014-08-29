@@ -7,12 +7,10 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -20,8 +18,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -64,15 +60,13 @@ public class Bap extends Activity {
 	private boolean isSync = false;
 
 	private Calendar mCalendar;
-	private final int MONTH, DAY_OF_MONTH;
+	private final int YEAR, MONTH, DAY_OF_MONTH;
 
 	public Bap() {
 		mCalendar = Calendar.getInstance();
+		YEAR = mCalendar.get(Calendar.YEAR);
 		MONTH = mCalendar.get(Calendar.MONTH);
 		DAY_OF_MONTH = mCalendar.get(Calendar.DAY_OF_MONTH);
-
-		Log.d("MONTH", "" + MONTH);
-		Log.d("DAY_OF_MONTH", "" + DAY_OF_MONTH);
 	}
 
 	@SuppressLint("NewApi")
@@ -285,20 +279,11 @@ public class Bap extends Activity {
 				mHelper.show();
 			}
 		} else if (ItemId == R.id.past) {
-			int year = mCalendar.get(Calendar.YEAR);
-			int month = mCalendar.get(Calendar.MONTH);
-			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
-
 			mCalendar.add(Calendar.DAY_OF_MONTH, -7);
 
 			loadOrUpdate();
 
 		} else if (ItemId == R.id.future) {
-
-			int year = mCalendar.get(Calendar.YEAR);
-			int month = mCalendar.get(Calendar.MONTH);
-			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
-
 			mCalendar.add(Calendar.DAY_OF_MONTH, 7);
 
 			loadOrUpdate();
@@ -325,12 +310,14 @@ public class Bap extends Activity {
 	}
 
 	private void loadOrUpdate() {
-		if (MONTH == mCalendar.get(Calendar.MONTH)
+		if (YEAR == mCalendar.get(Calendar.YEAR)
+				&& MONTH == mCalendar.get(Calendar.MONTH)
 				&& DAY_OF_MONTH == mCalendar.get(Calendar.DAY_OF_MONTH)) {
 			mAdapter.clearData();
 			restoreBap();
 			getBapList();
 			autoScroll();
+			mAdapter.notifyDataSetChanged();
 		} else {
 			mProcessTask = new ProcessTask();
 			mProcessTask.execute();
@@ -414,7 +401,8 @@ public class Bap extends Activity {
 				night = MealLibrary.getMealNew(CountryCode, schulCode,
 						schulCrseScCode, schulKndScCode, "3", year, month, day);
 
-				if (MONTH == num_month && DAY_OF_MONTH == num_day) {
+				if (YEAR == num_year && MONTH == num_month
+						&& DAY_OF_MONTH == num_day) {
 					save("calender", calender);
 					save("morning", morning);
 					save("lunch", lunch);

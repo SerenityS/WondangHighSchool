@@ -31,11 +31,12 @@ class BapListViewAdapter extends BaseAdapter {
 	private Context mContext = null;
 	private ArrayList<BapListData> mListData = new ArrayList<BapListData>();
 	private Calendar currentTime = Calendar.getInstance();
-	private final int MONTH, DAY_OF_MONTH;
+	private final int YEAR, MONTH, DAY_OF_MONTH;
 
 	public BapListViewAdapter(Context mContext) {
 		super();
 		this.mContext = mContext;
+		YEAR = currentTime.get(Calendar.YEAR);
 		MONTH = currentTime.get(Calendar.MONTH);
 		DAY_OF_MONTH = currentTime.get(Calendar.DAY_OF_MONTH);
 	}
@@ -127,7 +128,8 @@ class BapListViewAdapter extends BaseAdapter {
 			LinearLayout bapListLayout = (LinearLayout) convertView
 					.findViewById(R.id.bapListLayout);
 
-			if (Date.get(Calendar.MONTH) == MONTH
+			if (Date.get(Calendar.YEAR) == YEAR
+					&& Date.get(Calendar.MONTH) == MONTH
 					&& Date.get(Calendar.DAY_OF_MONTH) == DAY_OF_MONTH) {
 
 				bapListLayout.setBackgroundColor(mContext.getResources()
