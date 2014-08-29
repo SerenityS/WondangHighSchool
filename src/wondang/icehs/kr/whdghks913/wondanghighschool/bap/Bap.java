@@ -7,8 +7,12 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -17,12 +21,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.DatePicker;
 import android.widget.ListView;
 
 import com.tistory.whdghks913.croutonhelper.CroutonHelper;
@@ -263,7 +269,7 @@ public class Bap extends Activity {
 					mProcessTask = new ProcessTask();
 					mProcessTask.execute();
 
-					item.setEnabled(false);
+					// item.setEnabled(false);
 				} else {
 					mHelper.clearCroutonsForActivity();
 					mHelper.setText(Syncing);
@@ -283,18 +289,9 @@ public class Bap extends Activity {
 			int month = mCalendar.get(Calendar.MONTH);
 			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
 
-			mCalendar.set(year, month, day - 7);
+			mCalendar.add(Calendar.DAY_OF_MONTH, -7);
 
-			if (MONTH == mCalendar.get(Calendar.MONTH)
-					&& DAY_OF_MONTH == mCalendar.get(Calendar.DAY_OF_MONTH)) {
-				mAdapter.clearData();
-				restoreBap();
-				getBapList();
-				autoScroll();
-			} else {
-				mProcessTask = new ProcessTask();
-				mProcessTask.execute();
-			}
+			loadOrUpdate();
 
 		} else if (ItemId == R.id.future) {
 
@@ -302,21 +299,42 @@ public class Bap extends Activity {
 			int month = mCalendar.get(Calendar.MONTH);
 			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
 
-			mCalendar.set(year, month, day + 7);
+			mCalendar.add(Calendar.DAY_OF_MONTH, 7);
 
-			if (MONTH == mCalendar.get(Calendar.MONTH)
-					&& DAY_OF_MONTH == mCalendar.get(Calendar.DAY_OF_MONTH)) {
-				mAdapter.clearData();
-				restoreBap();
-				getBapList();
-				autoScroll();
-			} else {
-				mProcessTask = new ProcessTask();
-				mProcessTask.execute();
-			}
+			loadOrUpdate();
+
+		} else if (ItemId == R.id.setCalendar) {
+			int year = mCalendar.get(Calendar.YEAR);
+			int month = mCalendar.get(Calendar.MONTH);
+			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+
+			DatePickerDialog mDialog = new DatePickerDialog(this,
+					new OnDateSetListener() {
+
+						@Override
+						public void onDateSet(DatePicker view, int year,
+								int monthOfYear, int dayOfMonth) {
+							mCalendar.set(year, monthOfYear, dayOfMonth);
+							loadOrUpdate();
+						}
+					}, year, month, day);
+			mDialog.show();
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void loadOrUpdate() {
+		if (MONTH == mCalendar.get(Calendar.MONTH)
+				&& DAY_OF_MONTH == mCalendar.get(Calendar.DAY_OF_MONTH)) {
+			mAdapter.clearData();
+			restoreBap();
+			getBapList();
+			autoScroll();
+		} else {
+			mProcessTask = new ProcessTask();
+			mProcessTask.execute();
+		}
 	}
 
 	@Override
