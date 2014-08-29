@@ -22,8 +22,10 @@ import android.widget.ListView;
 @SuppressLint("ValidFragment")
 public class TimeTableShow extends Fragment {
 	private Context mContext;
-	private final int position;
-	private final String dbName, tableName;
+	private final int DayOfWeek;
+	private final String dbName = "WondangTimeTable.db",
+			tableName = "WondangTimeTable";
+	private final int Grade, WClass;
 
 	public final String mFilePath = Environment.getExternalStorageDirectory()
 			.getAbsolutePath() + "/WondangHS/";
@@ -34,12 +36,11 @@ public class TimeTableShow extends Fragment {
 	private ListView mListView;
 	private TimeTableShowAdapter mAdapter;
 
-	public TimeTableShow(Context mContext, int position, String mFileName,
-			String tableName) {
+	public TimeTableShow(Context mContext, int DayOfWeek, int Grade, int WClass) {
 		this.mContext = mContext;
-		this.position = position;
-		this.dbName = mFileName + ".db";
-		this.tableName = tableName;
+		this.DayOfWeek = DayOfWeek;
+		this.Grade = Grade;
+		this.WClass = WClass;
 	}
 
 	@Override
@@ -58,21 +59,33 @@ public class TimeTableShow extends Fragment {
 		mAdapter = new TimeTableShowAdapter(mContext);
 		mListView = (ListView) view.findViewById(R.id.mListView);
 		mListView.setAdapter(mAdapter);
-		mListView.setDivider(new ColorDrawable(Color. TRANSPARENT));
+		mListView.setDivider(new ColorDrawable(Color.TRANSPARENT));
 		mListView.setDividerHeight(20);
 
 		/**
 		 * DB에 저장된 시간표를 가져온다
 		 */
-		String SQL = "select period, subject, room " + " from " + tableName;
+		String SQL = "select * from " + tableName;
 
 		Cursor mCursor = mSQDB.rawQuery(SQL, null);
-		mCursor.moveToPosition(position * 7);
+		/**
+		 * 요일 설정
+		 */
+		mCursor.moveToPosition((DayOfWeek * 7) + 1);
 
-		for (int i = 0; i < 7; i++) {
-			int period = mCursor.getInt(0);
-			String subject = mCursor.getString(1);
-			String room = mCursor.getString(2);
+		for (int period = 1; period <= 7; period++) {
+			String subject, room;
+
+			if (Grade == 1) {
+				subject = mCursor.getString((WClass * 2) - 2);
+				room = mCursor.getString((WClass * 2) - 1);
+			} else if (Grade == 2) {
+				subject = mCursor.getString(18 + (WClass * 2));
+				room = mCursor.getString(19 + (WClass * 2));
+			} else {
+				subject = mCursor.getString(39 + WClass);
+				room = null;
+			}
 
 			if (subject != null && !subject.isEmpty()
 					&& subject.indexOf("\n") != -1)

@@ -23,7 +23,8 @@ public class TimeTableScrollTab extends FragmentActivity {
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
 
-	String mFileName, tableName;
+	// String mFileName, tableName;
+	public int Grade, WClass;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -32,8 +33,9 @@ public class TimeTableScrollTab extends FragmentActivity {
 		setContentView(R.layout.activity_timetablescrolltab);
 
 		Intent mIntent = getIntent();
-		mFileName = mIntent.getStringExtra("dbName");
-		tableName = mIntent.getStringExtra("tableName");
+
+		Grade = mIntent.getIntExtra("Grade", 1);
+		WClass = mIntent.getIntExtra("WClass", 2);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getApplicationContext(), getSupportFragmentManager());
@@ -41,8 +43,10 @@ public class TimeTableScrollTab extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
+		ActionBar actionBar = getActionBar();
+		actionBar.setTitle(Grade + "학년 " + WClass + "반 시간표");
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			ActionBar actionBar = getActionBar();
 			actionBar.setHomeButtonEnabled(true);
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
@@ -67,7 +71,7 @@ public class TimeTableScrollTab extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			return new TimeTableShow(mContext, position, mFileName, tableName);
+			return new TimeTableShow(mContext, position, Grade, WClass);
 		}
 
 		@Override

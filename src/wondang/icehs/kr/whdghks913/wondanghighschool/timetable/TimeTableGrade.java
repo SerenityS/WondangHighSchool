@@ -110,20 +110,19 @@ public class TimeTableGrade extends FragmentActivity implements
 				@Override
 				public void onItemClick(AdapterView<?> parent, View v,
 						int position, long id) {
-					String dbName = mAdapter.mListData.get(position).dbName;
-					String tableName = mAdapter.mListData.get(position).tableName;
+					int Grade = mAdapter.mListData.get(position).Grade;
+					int WClass = mAdapter.mListData.get(position).WClass;
 
 					Intent mIntent = new Intent(mContext,
 							TimeTableScrollTab.class);
-					mIntent.putExtra("dbName", dbName);
-					mIntent.putExtra("tableName", tableName);
+					mIntent.putExtra("Grade", Grade);
+					mIntent.putExtra("WClass", WClass);
 					startActivity(mIntent);
 				}
 			});
 
 			for (int i = 1; i <= 10; i++) {
-				mAdapter.addItem(Grade + "학년 " + i + "반", "WondangTimeTableG"
-						+ Grade, "Grade" + Grade + "Class" + i);
+				mAdapter.addItem(Grade + "학년 " + i + "반", Grade, i);
 			}
 
 			return view;
@@ -143,11 +142,11 @@ public class TimeTableGrade extends FragmentActivity implements
 			this.mContext = mContext;
 		}
 
-		public void addItem(String choose_class, String dbName, String tableName) {
+		public void addItem(String choose_class, int Grade, int WClass) {
 			ListData addInfo = new ListData();
 			addInfo.choose_class = choose_class;
-			addInfo.dbName = dbName;
-			addInfo.tableName = tableName;
+			addInfo.Grade = Grade;
+			addInfo.WClass = WClass;
 
 			mListData.add(addInfo);
 		}
@@ -199,7 +198,7 @@ public class TimeTableGrade extends FragmentActivity implements
 		 */
 
 		public String choose_class;
-		public String dbName;
-		public String tableName;
+		public int Grade;
+		public int WClass;
 	}
 }
