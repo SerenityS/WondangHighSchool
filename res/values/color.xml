@@ -2,4 +2,10 @@
 
     <color name="background">#80ffd700</color>
 
+    <!-- 구글나우 카드 형식 -->
+    <integer name="card_press_fade_duration">500</integer>
+
+    <color name="selection_highlight_color">#ffc9ebf8</color>
+    <color name="card_pressed_bg_white">#fff8f8f8</color>
+
 </resources>
