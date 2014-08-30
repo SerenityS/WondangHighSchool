@@ -95,11 +95,6 @@ public class TimeTableScrollTab extends FragmentActivity {
 			alert.setMessage(R.string.yourGradeClass);
 			alert.show();
 		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
 
 		if (mViewPager.getChildCount() > 0) {
 			setCurrentItem();
