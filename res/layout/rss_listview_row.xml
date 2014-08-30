@@ -8,56 +8,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/board_subject"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="5dip"
-            android:paddingTop="5dip" >
+            android:paddingBottom="2dip"
+            android:paddingLeft="6dip"
+            android:paddingTop="4dip"
+            android:text="제목"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/board_subject"
+                android:id="@+id/board_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:paddingBottom="2dip"
                 android:paddingLeft="6dip"
                 android:paddingTop="4dip"
-                android:text="제목"
+                android:text="작성일"
                 android:textColor="#000"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="15dp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:id="@+id/board_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:paddingBottom="2dip"
-                    android:paddingLeft="6dip"
-                    android:paddingTop="4dip"
-                    android:text="작성일"
-                    android:textColor="#000"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/board_writer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:paddingBottom="2dip"
-                    android:paddingRight="6dip"
-                    android:paddingTop="4dip"
-                    android:text="작성자"
-                    android:textColor="#000"
-                    android:textSize="15dp" />
-            </RelativeLayout>
-        </LinearLayout>
+            <TextView
+                android:id="@+id/board_writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="2dip"
+                android:paddingRight="6dip"
+                android:paddingTop="4dip"
+                android:text="작성자"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

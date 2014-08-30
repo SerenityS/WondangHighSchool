@@ -15,6 +15,8 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -72,6 +74,10 @@ public class RssFull extends Fragment {
 			}
 		});
 
+		mListView.setDivider(null);
+		mListView.setDividerHeight(20);
+		mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+
 		if (isNetwork()) {
 			ProcessTask mProcessTask = new ProcessTask();
 			mProcessTask.execute();
@@ -116,7 +122,7 @@ public class RssFull extends Fragment {
 
 			boolean inTitle = false; // 제목여부판단
 			boolean inItem = false; // 아이템변경 판단
-//			boolean inWriter = false; // 작성자 판단
+			// boolean inWriter = false; // 작성자 판단
 			boolean inDate = false; // 작성일
 			boolean inLink = false; // 링크
 			boolean inCategory = false; // 카테고리
@@ -150,11 +156,11 @@ public class RssFull extends Fragment {
 					if (tag.compareTo("category") == 0) {
 						inCategory = true;
 					}
-//					// 만약 dc:creator 이거나 author 태그라면
-//					if (tag.compareTo("dc:creator") == 0
-//							|| tag.compareTo("author") == 0) {
-//						inWriter = true;
-//					}
+					// // 만약 dc:creator 이거나 author 태그라면
+					// if (tag.compareTo("dc:creator") == 0
+					// || tag.compareTo("author") == 0) {
+					// inWriter = true;
+					// }
 					// 만약 pubDate 태그라면
 					if (tag.compareTo("pubDate") == 0) {
 						inDate = true;
@@ -176,10 +182,10 @@ public class RssFull extends Fragment {
 						pubdate = new Date(Date.parse(mParser.getText()));
 						mHash.put("date", sdf.format(pubdate));
 					}
-//					// 작성자
-//					if (inItem && inWriter) {
-//						mHash.put("writer", mParser.getText());
-//					}
+					// // 작성자
+					// if (inItem && inWriter) {
+					// mHash.put("writer", mParser.getText());
+					// }
 					// 링크
 					if (inItem && inLink) {
 						mHash.put("link", mParser.getText());
@@ -204,10 +210,10 @@ public class RssFull extends Fragment {
 					if (tag.compareTo("title") == 0) {
 						inTitle = false;
 					}
-//					if (tag.compareTo("dc:creator") == 0
-//							|| tag.compareTo("author") == 0) {
-//						inWriter = false;
-//					}
+					// if (tag.compareTo("dc:creator") == 0
+					// || tag.compareTo("author") == 0) {
+					// inWriter = false;
+					// }
 					if (tag.compareTo("pubDate") == 0) {
 						inDate = false;
 					}
