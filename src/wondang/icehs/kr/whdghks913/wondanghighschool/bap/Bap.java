@@ -120,6 +120,7 @@ public class Bap extends Activity {
 
 			autoScroll();
 
+			mHelper.clearCroutonsForActivity();
 			mHelper.setText(savedList);
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
@@ -136,6 +137,7 @@ public class Bap extends Activity {
 				// sync();
 
 			} else {
+				mHelper.clearCroutonsForActivity();
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
@@ -424,6 +426,7 @@ public class Bap extends Activity {
 						mAdapter.clearData();
 						mAdapter.notifyDataSetChanged();
 
+						mHelper.clearCroutonsForActivity();
 						mHelper.setText(noMessage);
 						mHelper.setStyle(Style.ALERT);
 						mHelper.show();
@@ -448,6 +451,7 @@ public class Bap extends Activity {
 
 			getBapList();
 
+			mHelper.clearCroutonsForActivity();
 			mHelper.setText(loadList);
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
