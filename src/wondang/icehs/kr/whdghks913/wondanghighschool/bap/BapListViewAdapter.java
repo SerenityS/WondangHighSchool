@@ -17,13 +17,9 @@ import android.widget.TextView;
 
 class BapViewHolder {
 	public TextView mMorning;
-
 	public TextView mLunch;
-
 	public TextView mNight;
-
 	public TextView mDate;
-
 	public TextView mCalender;
 }
 
@@ -56,10 +52,6 @@ class BapListViewAdapter extends BaseAdapter {
 	public void clearData() {
 		mListData.clear();
 	}
-
-	// public void sort() {
-	// Collections.sort(mListData, BapListData.ALPHA_COMPARATOR);
-	// }
 
 	@Override
 	public int getCount() {
@@ -96,6 +88,7 @@ class BapListViewAdapter extends BaseAdapter {
 			holder.mNight = (TextView) convertView.findViewById(R.id.mNight);
 
 			convertView.setTag(holder);
+
 		} else {
 			holder = (BapViewHolder) convertView.getTag();
 		}
@@ -103,12 +96,15 @@ class BapListViewAdapter extends BaseAdapter {
 		BapListData mData = mListData.get(position);
 
 		String mDate = mData.mDate;
+
 		if ("일요일".equals(mDate)) {
 			holder.mCalender.setTextColor(Color.RED);
 			holder.mDate.setTextColor(Color.RED);
+
 		} else if ("토요일".equals(mDate)) {
 			holder.mCalender.setTextColor(Color.BLUE);
 			holder.mDate.setTextColor(Color.BLUE);
+
 		} else {
 			holder.mCalender.setTextColor(Color.BLACK);
 			holder.mDate.setTextColor(Color.BLACK);
@@ -181,15 +177,4 @@ class BapListData {
 	public String mMorning;
 	public String mLunch;
 	public String mNight;
-
-	// public static final Comparator<BapListData> ALPHA_COMPARATOR = new
-	// Comparator<BapListData>() {
-	// private final Collator sCollator = Collator.getInstance();
-	//
-	// @Override
-	// public int compare(BapListData mListDate_1, BapListData mListDate_2) {
-	// return sCollator.compare(mListDate_1.mCalender,
-	// mListDate_2.mCalender);
-	// }
-	// };
 }

@@ -36,10 +36,9 @@ public class Bap extends Activity {
 	 * 한번 급식정보를 받을때마다 272kb 데이터 소모
 	 */
 
-	private BapListViewAdapter mAdapter;
 	private ListView mListView;
+	private BapListViewAdapter mAdapter;
 
-	// private Handler mHandler;
 	private ProcessTask mProcessTask;
 
 	private String[] calender, morning, lunch, night;
@@ -81,7 +80,6 @@ public class Bap extends Activity {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
-		// mHandler = new MyHandler(this);
 		mHelper = new CroutonHelper(this);
 		mAdapter = new BapListViewAdapter(this);
 
@@ -114,16 +112,14 @@ public class Bap extends Activity {
 
 		if (bapList.getBoolean("checker", false)) {
 			restoreBap();
-
 			getBapList();
-			// mHandler.sendEmptyMessage(1);
-
 			autoScroll();
 
 			mHelper.clearCroutonsForActivity();
 			mHelper.setText(savedList);
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
+
 		} else {
 			if (isNetwork()) {
 				calender = new String[7];
@@ -133,8 +129,6 @@ public class Bap extends Activity {
 
 				mProcessTask = new ProcessTask();
 				mProcessTask.execute();
-
-				// sync();
 
 			} else {
 				mHelper.clearCroutonsForActivity();
@@ -158,38 +152,6 @@ public class Bap extends Activity {
 		mListView.setSelection(dateIndex - 1);
 	}
 
-	/*
-	 * private void sync() { isSync = true;
-	 * 
-	 * mAdapter.clearData();
-	 * 
-	 * new Thread() {
-	 * 
-	 * @Override public void run() { // mHandler.sendEmptyMessage(0);
-	 * 
-	 * try { calender = MealLibrary.getDateNew("ice.go.kr", "E100001786", "4",
-	 * "04", "1"); morning = MealLibrary.getMealNew("ice.go.kr", "E100001786",
-	 * "4", "04", "1"); lunch = MealLibrary.getMealNew("ice.go.kr",
-	 * "E100001786", "4", "04", "2"); night =
-	 * MealLibrary.getMealNew("ice.go.kr", "E100001786", "4", "04", "3");
-	 * 
-	 * save("calender", calender); save("morning", morning); save("lunch",
-	 * lunch); save("night", night);
-	 * 
-	 * // mHandler.sendEmptyMessage(1);
-	 * 
-	 * mHelper.setText(loadList); mHelper.setStyle(Style.CONFIRM);
-	 * mHelper.show();
-	 * 
-	 * } catch (Exception ex) { ex.printStackTrace();
-	 * 
-	 * mAdapter.clearData(); mAdapter.notifyDataSetChanged();
-	 * 
-	 * mHelper.setText(noMessage); mHelper.setStyle(Style.ALERT);
-	 * mHelper.show(); } // mHandler.sendEmptyMessage(2); isSync = false; }
-	 * }.start(); }
-	 */
-
 	private String getDate(int num) {
 		if (num == 0)
 			return "일요일";
@@ -212,6 +174,7 @@ public class Bap extends Activity {
 		for (int i = 0; i < value.length; i++) {
 			bapListeditor.putString(name + "_" + i, value[i]);
 		}
+
 		bapListeditor.putBoolean("checker", true);
 		bapListeditor.putInt(name, value.length);
 
@@ -264,26 +227,23 @@ public class Bap extends Activity {
 		if (ItemId == R.id.sync) {
 			if (isNetwork()) {
 				if (!isSync) {
-					// sync();
-
 					mProcessTask = new ProcessTask();
 					mProcessTask.execute();
 
-					// item.setEnabled(false);
 				} else {
 					mHelper.clearCroutonsForActivity();
 					mHelper.setText(Syncing);
 					mHelper.setStyle(Style.INFO);
 					mHelper.show();
 				}
-			} else {
-				// addErrorList();
 
+			} else {
 				mHelper.clearCroutonsForActivity();
 				mHelper.setText(noMessage);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
+
 		} else if (ItemId == R.id.past) {
 			mCalendar.add(Calendar.DAY_OF_MONTH, -7);
 
@@ -319,11 +279,13 @@ public class Bap extends Activity {
 		if (YEAR == mCalendar.get(Calendar.YEAR)
 				&& MONTH == mCalendar.get(Calendar.MONTH)
 				&& DAY_OF_MONTH == mCalendar.get(Calendar.DAY_OF_MONTH)) {
+
 			mAdapter.clearData();
 			restoreBap();
 			getBapList();
 			autoScroll();
 			mAdapter.notifyDataSetChanged();
+
 		} else {
 			mProcessTask = new ProcessTask();
 			mProcessTask.execute();
@@ -340,27 +302,12 @@ public class Bap extends Activity {
 		mHelper.cencle(true);
 	}
 
-	/*
-	 * private class MyHandler extends Handler { private final
-	 * WeakReference<Bap> mActivity;
-	 * 
-	 * public MyHandler(Bap bap) { mActivity = new WeakReference<Bap>(bap); }
-	 * 
-	 * @Override public void handleMessage(Message msg) { Bap activity =
-	 * mActivity.get(); if (activity != null) {
-	 * 
-	 * if (msg.what == 0) { if (mDialog == null) { mDialog = ProgressDialog
-	 * .show(Bap.this, "", loadingList); } } else if (msg.what == 1) { for (int
-	 * i = 0; i < 7; i++) { mAdapter.addItem(calender[i], getDate(i),
-	 * morning[i], lunch[i], night[i]); } mAdapter.notifyDataSetChanged(); }
-	 * else if (msg.what == 2) { mDialog.dismiss(); } } } }
-	 */
-
 	public void getBapList() {
 		for (int i = 0; i < 7; i++) {
 			mAdapter.addItem(calender[i], getDate(i), morning[i], lunch[i],
 					night[i]);
 		}
+
 		mAdapter.notifyDataSetChanged();
 	}
 
@@ -422,7 +369,7 @@ public class Bap extends Activity {
 					@Override
 					public void run() {
 
-						// 에러
+						// 파싱 에러
 						mAdapter.clearData();
 						mAdapter.notifyDataSetChanged();
 
@@ -434,6 +381,7 @@ public class Bap extends Activity {
 						isSync = false;
 					}
 				});
+
 				return -1l;
 			}
 			return 0l;
