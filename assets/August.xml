@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<map>
-
-    <string name="18" >개학식</string>
-    <string name="18_Day" >월</string>
-	
-    <int name="days" value="31" />
-</map>

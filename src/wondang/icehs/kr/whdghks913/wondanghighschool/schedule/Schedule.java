@@ -1,288 +1,150 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.schedule;
 
-import java.lang.ref.WeakReference;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.tistory.whdghks913.croutonhelper.CroutonHelper;
 
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class Schedule extends Activity {
-	private final String loadingList = "데이터를 가져오고 있습니다..";
-	private final String monthError = "이전/다음 달이 없습니다";
-	private final String noData = "데이터가 존재하지 않습니다,\n추후 업데이트로 데이터가 추가됩니다";
 
-	private ScheduleListViewAdapter mAdapter;
-	private ListView mListView;
-	private Handler mHandler;
-
+	private ArrayList<Item> mItem = new ArrayList<Item>();
+	private ListView mListview;
 	private CroutonHelper mHelper;
 
-	private ProgressDialog mDialog;
-
-	private Calendar mCalendar;
-	private SharedPreferences ScheduleList, Info;
-
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_schedule);
+		setContentView(R.layout.schedule_listview);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			ActionBar actionBar = getActionBar();
-			actionBar.setHomeButtonEnabled(true);
-			actionBar.setDisplayHomeAsUpEnabled(true);
-		}
-
-		mListView = (ListView) findViewById(R.id.mScheduleList);
-		mAdapter = new ScheduleListViewAdapter(this);
-		mListView.setAdapter(mAdapter);
-		mListView.setOnItemClickListener(new OnItemClickListener() {
+		mListview = (ListView) findViewById(R.id.mListView);
+		mListview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> av, View mView,
-					int position, long id) {
-				ScheduleListData mData = mAdapter.getItem(position);
-				getTime(mData.year, mData.month, mData.day);
-			}
-		});
-
-		mHandler = new MyHandler(this);
-
-		mCalendar = Calendar.getInstance();
-
-		Info = getSharedPreferences("Info", 0);
-
-		mHelper = new CroutonHelper(this);
-		mHelper.setText("학교 일정 내용 입니다.\n터치해서 남은 날짜를 확인 할 수 있습니다");
-		mHelper.setStyle(Style.INFO);
-		mHelper.setAutoTouchCencle(true);
-		mHelper.show();
-
-		sync();
-	}
-
-	private void sync() {
-		mAdapter.clearData();
-
-		new Thread() {
-
-			@Override
-			public void run() {
-				mHandler.sendEmptyMessage(0);
+			public void onItemClick(AdapterView<?> av, View view, int position,
+					long ld) {
+				EntryItem mEntryItem = (EntryItem) mItem.get(position);
+				SimpleDateFormat sdFormat = new SimpleDateFormat(
+						"yyyy.MM.dd (E)", Locale.KOREA);
+				Calendar mCalendar = Calendar.getInstance();
 
 				try {
-					PackageManager packageManager = Schedule.this
-							.getPackageManager();
-					PackageInfo infor = packageManager.getPackageInfo(
-							getPackageName(), PackageManager.GET_META_DATA);
-					final int code = infor.versionCode;
-
-					if (Info.getInt("update_code", 0) != code || isDataCheck()) {
-						PreferenceData mData = new PreferenceData();
-
-						mData.copyDB(Schedule.this, getPackageName(),
-								"March.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"April.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"May.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"June.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"July.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"August.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"September.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"October.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"November.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"December.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"January.xml", true);
-						mData.copyDB(Schedule.this, getPackageName(),
-								"February.xml", true);
-
-						Info.edit().putInt("update_code", code).commit();
-					}
-				} catch (NameNotFoundException e) {
+					mCalendar.setTime(sdFormat.parse(mEntryItem.mSummary));
+				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 
-				mHandler.sendEmptyMessage(1);
+				getTime(mCalendar.get(Calendar.YEAR),
+						mCalendar.get(Calendar.MONTH),
+						mCalendar.get(Calendar.DAY_OF_MONTH));
 			}
-		}.start();
-	}
+		});
 
-	private boolean isDataCheck() {
-		for (int i = 0; i < 10; i++) {
-			ScheduleList = getSharedPreferences(getMonth(i), 0);
+		mItem.add(new SectionItem("2014년 3월 일정"));
+		mItem.add(new EntryItem("3.1절", "2014.03.01 (토)", true));
+		mItem.add(new EntryItem("입학식", "2014.03.03 (월)"));
+		mItem.add(new EntryItem("전국 연합 학력 평가 (전학년)", "2014.03.12 (수)"));
+		mItem.add(new EntryItem("학부모 총회", "2014.03.14 (금)"));
+		mItem.add(new EntryItem("현장 학습 (1~2학년)", "2014.03.26 (수)"));
+		mItem.add(new EntryItem("현장 학습 (1~2학년)", "2014.03.27 (목)"));
+		mItem.add(new EntryItem("현장 학습 (1~2학년)", "2014.03.28 (금)"));
 
-			if (ScheduleList.getInt("days", 9999) != 9999) {
-				ScheduleList = null;
-				return true;
-			}
-		}
-		ScheduleList = null;
-		return false;
-	}
+		mItem.add(new SectionItem("2014년 4월 일정"));
+		mItem.add(new EntryItem("전국 연합 학력 평가 (3학년)", "2014.04.10 (목)"));
+		mItem.add(new EntryItem("영어 듣기 평가 (1학년)", "2014.04.15 (화)"));
+		mItem.add(new EntryItem("영어 듣기 평가 (2학년)", "2014.04.16 (수)"));
+		mItem.add(new EntryItem("영어 듣기 평가 (3학년)", "2014.04.17 (목)"));
+		mItem.add(new EntryItem("1학기 1회고사", "2014.04.28 (월)"));
+		mItem.add(new EntryItem("1학기 1회고사", "2014.04.29 (화)"));
+		mItem.add(new EntryItem("1학기 1회고사", "2014.04.30 (수)"));
 
-	private String getMonth(int month) {
-		String Month = null;
+		mItem.add(new SectionItem("2014년 5월 일정"));
+		mItem.add(new EntryItem("어린이날", "2014.05.05 (월)", true));
+		mItem.add(new EntryItem("석가탄신일", "2014.05.06 (화)", true));
+		mItem.add(new EntryItem("교내체육대회(1학년, 2학년) / 현장학습(3학년)",
+				"2014.05.09 (금)"));
 
-		switch (month) {
-		case 0:
-			Month = "January";
-			break;
-		case 1:
-			Month = "February";
-			break;
-		case 2:
-			Month = "March";
-			break;
-		case 3:
-			Month = "April";
-			break;
-		case 4:
-			Month = "May";
-			break;
-		case 5:
-			Month = "June";
-			break;
-		case 6:
-			Month = "July";
-			break;
-		case 7:
-			Month = "August";
-			break;
-		case 8:
-			Month = "September";
-			break;
-		case 9:
-			Month = "October";
-			break;
-		case 10:
-			Month = "November";
-			break;
-		case 11:
-			Month = "December";
-			break;
-		}
-		return Month;
-	}
+		mItem.add(new SectionItem("2014년 6월 일정"));
+		mItem.add(new EntryItem("지방 선거", "2014.06.04 (수)", true));
+		mItem.add(new EntryItem("개교 기념일", "2014.06.05 (목)", true));
+		mItem.add(new EntryItem("현충일", "2014.06.06 (금)", true));
+		mItem.add(new EntryItem("대수능모의평가(3학년) / 전국연합학력평가(1학년, 2학년)",
+				"2014.06.12 (목)"));
+		mItem.add(new EntryItem("국가 수준 학업 성취도 평가 (2학년)", "2014.06.24 (화)"));
 
-	private String getMonthKorean(int month) {
-		switch (month) {
-		case 0:
-			return "2015년 1월";
-		case 1:
-			return "2015년 2월";
-		case 2:
-			return "2014년 3월";
-		case 3:
-			return "2014년 4월";
-		case 4:
-			return "2014년 5월";
-		case 5:
-			return "2014년 6월";
-		case 6:
-			return "2014년 7월";
-		case 7:
-			return "2014년 8월";
-		case 8:
-			return "2014년 9월";
-		case 9:
-			return "2014년 10월";
-		case 10:
-			return "2014년 11월";
-		case 11:
-			return "2014년 12월";
-		}
-		return null;
-	}
+		mItem.add(new SectionItem("2014년 7월 일정"));
+		mItem.add(new EntryItem("1학기 2회고사", "2014.07.04 (금)"));
+		mItem.add(new EntryItem("1학기 2회고사", "2014.07.07 (월)"));
+		mItem.add(new EntryItem("1학기 2회고사", "2014.07.08 (화)"));
+		mItem.add(new EntryItem("1학기 2회고사", "2014.07.09 (수)"));
+		mItem.add(new EntryItem("전국 연합 학력 평가 (3학년)", "2014.07.10 (목)"));
+		mItem.add(new EntryItem("여름방학식", "2014.07.21 (월)", true));
 
-	@Override
-	protected void onPause() {
-		super.onPause();
+		mItem.add(new SectionItem("2014년 8월 일정"));
+		mItem.add(new EntryItem("개학식", "2014.08.18 (월)"));
 
-		if (mDialog != null)
-			mDialog.dismiss();
+		mItem.add(new SectionItem("2014년 9월 일정"));
+		mItem.add(new EntryItem("대수능모의평가(3학년) / 전국연합학력평가(1학년, 2학년)",
+				"2014.09.03 (수)"));
+		mItem.add(new EntryItem("추석 연휴", "2014.09.07 (일)", true));
+		mItem.add(new EntryItem("추석", "2014.09.08 (월)", true));
+		mItem.add(new EntryItem("추석 연휴", "2014.09.09 (화)", true));
+		mItem.add(new EntryItem("추석 연휴", "2014.09.10 (수)", true));
+		mItem.add(new EntryItem("영어 듣기 능력 평가 (1학년)", "2014.09.16 (화)"));
+		mItem.add(new EntryItem("영어 듣기 능력 평가 (2학년)", "2014.09.17 (수)"));
+		mItem.add(new EntryItem("영어 듣기 능력 평가 (3학년)", "2014.09.18 (목)"));
 
-		mHelper.cencle(true);
-	}
+		mItem.add(new SectionItem("2014년 10월 일정"));
+		mItem.add(new EntryItem("개천절", "2014.10.03 (금)", true));
+		mItem.add(new EntryItem("전국 연합 학력 평가(3학년)", "2014.10.07 (화)"));
+		mItem.add(new EntryItem("한글날", "2014.10.09 (목)", true));
+		mItem.add(new EntryItem("2학기 1회고사", "2014.10.13 (월)"));
+		mItem.add(new EntryItem("2학기 1회고사", "2014.10.14 (화)"));
+		mItem.add(new EntryItem("2학기 1회고사", "2014.10.15 (수)"));
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.schedule, menu);
+		mItem.add(new SectionItem("2014년 11월 일정"));
+		mItem.add(new EntryItem("대학 수학 능력 시험 (수능)", "2014.11.13 (목)"));
+		mItem.add(new EntryItem("2학기 2회고사(3학년)", "2014.11.17 (월)"));
+		mItem.add(new EntryItem("2학기 2회고사(3학년) / 전국 연합 학력 평가 (1학년, 2학년)",
+				"2014.11.18 (화)"));
+		mItem.add(new EntryItem("2학기 2회고사(3학년)", "2014.11.19 (수)"));
+		mItem.add(new EntryItem("2학기 2회고사(3학년)", "2014.11.20 (목)"));
 
-		return super.onCreateOptionsMenu(menu);
-	}
+		mItem.add(new SectionItem("2014년 12월 일정"));
+		mItem.add(new EntryItem("졸업사정회", "2014.12.08 (월)"));
+		mItem.add(new EntryItem("2학기 2회고사(1학년, 2학년)", "2014.12.15 (월)"));
+		mItem.add(new EntryItem("2학기 2회고사(1학년, 2학년)", "2014.12.16 (화)"));
+		mItem.add(new EntryItem("2학기 2회고사(1학년, 2학년)", "2014.12.17 (수)"));
+		mItem.add(new EntryItem("2학기 2회고사(1학년, 2학년)", "2014.12.18 (목)"));
+		mItem.add(new EntryItem("한마음 으뜸제", "2014.12.29 (월)"));
+		mItem.add(new EntryItem("겨울 방학식", "2014.12.31 (수)", true));
 
-	@Override
-	public boolean onOptionsItemSelected(android.view.MenuItem item) {
-		int ItemId = item.getItemId();
+		mItem.add(new SectionItem("2015년 1월 일정"));
+		mItem.add(new EntryItem("신정", "2015.01.01 (목)", true));
 
-		if (ItemId == R.id.back) {
-			int year = mCalendar.get(Calendar.YEAR);
-			int month = mCalendar.get(Calendar.MONTH);
-			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+		mItem.add(new SectionItem("2015년 2월 일정"));
+		mItem.add(new EntryItem("개학식", "2015.02.09 (월)"));
+		mItem.add(new EntryItem("졸업식 / 종업식", "2015.02.13 (금)", true));
+		mItem.add(new EntryItem("설 연휴", "2015.02.18 (수)", true));
+		mItem.add(new EntryItem("설", "2015.02.19 (목)", true));
+		mItem.add(new EntryItem("설 연휴", "2015.02.20 (금)", true));
 
-			if (--month < 0) {
-				mHelper.clearCroutonsForActivity();
-				mHelper.setText(monthError);
-				mHelper.setStyle(Style.ALERT);
-				mHelper.show();
-			} else {
-				mCalendar.set(year, month, day);
-				sync();
-			}
+		EntryAdapter adapter = new EntryAdapter(this, mItem);
+		mListview.setAdapter(adapter);
 
-		} else if (ItemId == R.id.forward) {
-			int year = mCalendar.get(Calendar.YEAR);
-			int month = mCalendar.get(Calendar.MONTH);
-			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
-
-			if (++month > 11) {
-				mHelper.clearCroutonsForActivity();
-				mHelper.setText(monthError);
-				mHelper.setStyle(Style.ALERT);
-				mHelper.show();
-			} else {
-				mCalendar.set(year, month, day);
-				sync();
-			}
-
-		} else if (ItemId == R.id.sync) {
-			sync();
-		}
-
-		return super.onOptionsItemSelected(item);
+		mHelper = new CroutonHelper(this);
 	}
 
 	private void getTime(int year, int month, int day) {
@@ -314,72 +176,7 @@ public class Schedule extends Activity {
 		mHelper.show();
 	}
 
-	private class MyHandler extends Handler {
-		private final WeakReference<Schedule> mActivity;
-
-		public MyHandler(Schedule Schedule) {
-			mActivity = new WeakReference<Schedule>(Schedule);
-		}
-
-		@Override
-		public void handleMessage(Message msg) {
-			Schedule activity = mActivity.get();
-			if (activity != null) {
-
-				if (msg.what == 0) {
-					if (mDialog == null) {
-						mDialog = ProgressDialog.show(Schedule.this, "",
-								loadingList);
-					}
-
-				} else if (msg.what == 1) {
-					int month = mCalendar.get(Calendar.MONTH);
-
-					ScheduleList = getSharedPreferences(getMonth(month), 0);
-
-					int days = ScheduleList.getInt("days", 9999);
-
-					if (days != 9999) {
-
-						for (int i = 1; i < days; i++) {
-							String toString = Integer.toString(i);
-							String Schedule = ScheduleList.getString(toString,
-									null);
-
-							if (Schedule == null)
-								continue;
-
-							String dayOfWeek = ScheduleList.getString(toString
-									+ "_Day", null);
-							boolean isHoliday = ScheduleList.getBoolean(
-									toString + "_Day_holiday", false);
-
-							if (i < 10)
-								toString = "0" + toString;
-
-							int year = mCalendar.get(Calendar.YEAR);
-							if (month == 0 || month == 1)
-								year = 2015;
-
-							mAdapter.addItem(toString + "일", dayOfWeek,
-									Schedule, isHoliday, year,
-									mCalendar.get(Calendar.MONTH), i);
-						}
-					} else {
-						mHelper.clearCroutonsForActivity();
-						mHelper.setText(noData);
-						mHelper.setStyle(Style.ALERT);
-						mHelper.show();
-					}
-
-					((TextView) findViewById(R.id.mMonth))
-							.setText(getMonthKorean(mCalendar
-									.get(Calendar.MONTH)));
-
-					mAdapter.notifyDataSetChanged();
-					mDialog.dismiss();
-				}
-			}
-		}
+	public interface Item {
+		public boolean isSection();
 	}
 }
