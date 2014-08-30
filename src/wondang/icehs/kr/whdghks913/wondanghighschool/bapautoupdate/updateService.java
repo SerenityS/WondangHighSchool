@@ -29,6 +29,16 @@ public class updateService extends Service {
 	private final int GET_ERROR = -3;
 	private final int SUCCESS = 1;
 
+	private Calendar mCalendar;
+
+	private final int MONTH, DAY_OF_MONTH;
+
+	public updateService() {
+		mCalendar = Calendar.getInstance();
+		MONTH = mCalendar.get(Calendar.MONTH);
+		DAY_OF_MONTH = mCalendar.get(Calendar.DAY_OF_MONTH);
+	}
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -126,7 +136,6 @@ public class updateService extends Service {
 			final String schulKndScCode = "04"; // 학교 종류 코드 2
 
 			try {
-				Calendar mCalendar = Calendar.getInstance();
 				int weekday = mCalendar.get(Calendar.DAY_OF_WEEK);
 
 				if (weekday == Calendar.SATURDAY) {
@@ -215,6 +224,10 @@ public class updateService extends Service {
 
 		bapListeditor.putBoolean("checker", true);
 		bapListeditor.putInt(name, value.length);
+
+		bapListeditor.putInt("updateMonth", MONTH);
+		bapListeditor.putInt("updateDay", DAY_OF_MONTH);
+
 		bapListeditor.commit();
 	}
 

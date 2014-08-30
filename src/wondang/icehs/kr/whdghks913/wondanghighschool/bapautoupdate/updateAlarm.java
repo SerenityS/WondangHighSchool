@@ -30,7 +30,7 @@ public class updateAlarm {
 		mIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
 		mCalendar.set(year, month, day + 1, 1, 0);
 		mAlarm.setRepeating(AlarmManager.RTC_WAKEUP,
-				mCalendar.getTimeInMillis(), 24 * 60 * 60 * 1000, mIntent);
+				mCalendar.getTimeInMillis(), 3 * 24 * 60 * 60 * 1000, mIntent);
 	}
 
 	public void SundayUpdate() {

@@ -20,7 +20,7 @@ public class BroadCast extends BroadcastReceiver {
 		if (!autoUpdate)
 			return;
 
-		int updateLife = 1;
+		int updateLife = 0;
 
 		try {
 			updateLife = Integer.parseInt(mPref.getString("updateLife", "0"));
@@ -32,12 +32,19 @@ public class BroadCast extends BroadcastReceiver {
 		int weekday = mCalendar.get(Calendar.DAY_OF_WEEK);
 
 		if (Intent.ACTION_BOOT_COMPLETED.equals(ACTION)) {
+			/**
+			 * 부팅후 실행
+			 */
 			if (weekday == Calendar.SUNDAY && updateLife == -1) {
 				// 급식 업데이트 호출
-				mContext.startService(new Intent(mContext, updateService.class));
+				if (haveToUpdate(mContext, mCalendar))
+					mContext.startService(new Intent(mContext,
+							updateService.class));
 			} else if (weekday == Calendar.SATURDAY && updateLife == 0) {
 				// 급식 업데이트 호출
-				mContext.startService(new Intent(mContext, updateService.class));
+				if (haveToUpdate(mContext, mCalendar))
+					mContext.startService(new Intent(mContext,
+							updateService.class));
 			}
 
 			updateAlarm updateAlarm = new updateAlarm(mContext);
@@ -53,12 +60,37 @@ public class BroadCast extends BroadcastReceiver {
 			}
 
 		} else if ("ACTION_UPDATE".equals(ACTION)) {
-			mContext.startService(new Intent(mContext, updateService.class));
-
+			/**
+			 * 업데이트 액션
+			 */
+			if (haveToUpdate(mContext, mCalendar)) {
+				mContext.startService(new Intent(mContext, updateService.class));
+			}
 		} else if ("ACTION_UPDATE_AUTO".equals(ACTION)) {
-			if (weekday == Calendar.SATURDAY || weekday == Calendar.SATURDAY) {
+			/**
+			 * 자동 업데이트 액션
+			 */
+			if (haveToUpdate(mContext, mCalendar)) {
 				mContext.startService(new Intent(mContext, updateService.class));
 			}
 		}
+	}
+
+	private boolean haveToUpdate(Context mContext, Calendar mCalendar) {
+		SharedPreferences bapList = mContext.getSharedPreferences("bapList", 0);
+
+		int mCalendarMonth = mCalendar.get(Calendar.MONTH);
+		int mCalendarDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+
+		int updateMonth = bapList.getInt("updateMonth", 0);
+		int updateDay = bapList.getInt("updateDay", 0);
+
+		if (updateMonth == 0 && updateDay == 0)
+			return true;
+
+		if (updateMonth == mCalendarMonth && updateDay == mCalendarDay)
+			return false;
+
+		return true;
 	}
 }

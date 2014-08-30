@@ -212,6 +212,10 @@ public class Bap extends Activity {
 		}
 		bapListeditor.putBoolean("checker", true);
 		bapListeditor.putInt(name, value.length);
+
+		bapListeditor.putInt("updateMonth", MONTH);
+		bapListeditor.putInt("updateDay", DAY_OF_MONTH);
+
 		bapListeditor.commit();
 	}
 

@@ -72,7 +72,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 				preference
 						.setSummary(index >= 0 ? listPreference.getEntries()[index]
-								: "자동");
+								: "매주 토요일");
 
 				updateAlarm updateAlarm = new updateAlarm(SettingsActivity.this);
 				updateAlarm.cancle();
