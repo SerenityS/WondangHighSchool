@@ -38,6 +38,7 @@
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.song.Song"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:icon="@drawable/song"
             android:label="교가"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
@@ -54,18 +55,21 @@
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.bap.Bap"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:icon="@drawable/bap"
             android:label="급식"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.Call"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:icon="@drawable/call"
             android:label="연락처"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.schedule.Schedule"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:icon="@drawable/calender"
             android:label="일정"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
@@ -78,18 +82,21 @@
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.rss.InfoRSSActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:icon="@drawable/rss"
             android:label="학교 정보"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableGrade"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:icon="@drawable/timetable"
             android:label="시간표(학년,반)"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.MainActivity"
             android:theme="@style/Theme.White" />
         <activity
             android:name="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableScrollTab"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:icon="@drawable/timetable"
             android:label="시간표"
             android:parentActivityName="wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableGrade"
             android:theme="@style/Theme.White" />
