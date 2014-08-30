@@ -51,7 +51,7 @@ public class Bap extends Activity {
 	private ProgressDialog mDialog;
 
 	private final String savedList = "저장된 정보를 불러왔습니다\n과거 정보일경우 새로고침 해주세요";
-	private final String noMessage = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
+	private final String noNetwork = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
 	private final String loadingList = "급식 정보를 받아오고 있습니다...";
 	private final String loadList = "인터넷에서 급식 정보를 받아왔습니다";
 	private final String Syncing = "지금 로딩중입니다";
@@ -132,7 +132,7 @@ public class Bap extends Activity {
 
 			} else {
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText(noMessage);
+				mHelper.setText(noNetwork);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
@@ -209,7 +209,7 @@ public class Bap extends Activity {
 	}
 
 	// private void addErrorList() {
-	// mAdapter.addItem("알수 없음", "알수 없음", noMessage, noMessage, noMessage);
+	// mAdapter.addItem("알수 없음", "알수 없음", noNetwork, noNetwork, noNetwork);
 	// }
 
 	@Override
@@ -239,37 +239,61 @@ public class Bap extends Activity {
 
 			} else {
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText(noMessage);
+				mHelper.setText(noNetwork);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
 
 		} else if (ItemId == R.id.past) {
-			mCalendar.add(Calendar.DAY_OF_MONTH, -7);
+			if (isNetwork()) {
+				mCalendar.add(Calendar.DAY_OF_MONTH, -7);
 
-			loadOrUpdate();
+				loadOrUpdate();
+
+			} else {
+				mHelper.clearCroutonsForActivity();
+				mHelper.setText(noNetwork);
+				mHelper.setStyle(Style.ALERT);
+				mHelper.show();
+			}
 
 		} else if (ItemId == R.id.future) {
-			mCalendar.add(Calendar.DAY_OF_MONTH, 7);
+			if (isNetwork()) {
+				mCalendar.add(Calendar.DAY_OF_MONTH, 7);
 
-			loadOrUpdate();
+				loadOrUpdate();
+
+			} else {
+				mHelper.clearCroutonsForActivity();
+				mHelper.setText(noNetwork);
+				mHelper.setStyle(Style.ALERT);
+				mHelper.show();
+			}
 
 		} else if (ItemId == R.id.setCalendar) {
-			int year = mCalendar.get(Calendar.YEAR);
-			int month = mCalendar.get(Calendar.MONTH);
-			int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+			if (isNetwork()) {
+				int year = mCalendar.get(Calendar.YEAR);
+				int month = mCalendar.get(Calendar.MONTH);
+				int day = mCalendar.get(Calendar.DAY_OF_MONTH);
 
-			DatePickerDialog mDialog = new DatePickerDialog(this,
-					new OnDateSetListener() {
+				DatePickerDialog mDialog = new DatePickerDialog(this,
+						new OnDateSetListener() {
 
-						@Override
-						public void onDateSet(DatePicker view, int year,
-								int monthOfYear, int dayOfMonth) {
-							mCalendar.set(year, monthOfYear, dayOfMonth);
-							loadOrUpdate();
-						}
-					}, year, month, day);
-			mDialog.show();
+							@Override
+							public void onDateSet(DatePicker view, int year,
+									int monthOfYear, int dayOfMonth) {
+								mCalendar.set(year, monthOfYear, dayOfMonth);
+								loadOrUpdate();
+							}
+						}, year, month, day);
+				mDialog.show();
+
+			} else {
+				mHelper.clearCroutonsForActivity();
+				mHelper.setText(noNetwork);
+				mHelper.setStyle(Style.ALERT);
+				mHelper.show();
+			}
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -374,7 +398,7 @@ public class Bap extends Activity {
 						mAdapter.notifyDataSetChanged();
 
 						mHelper.clearCroutonsForActivity();
-						mHelper.setText(noMessage);
+						mHelper.setText(noNetwork);
 						mHelper.setStyle(Style.ALERT);
 						mHelper.show();
 
