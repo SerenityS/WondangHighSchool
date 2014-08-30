@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <PreferenceCategory android:title="사용자 정보" >
+        <EditTextPreference
+            android:defaultValue="사용자 이름을 설정하세요"
+            android:key="userName"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="사용자 이름 설정" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="급식 업데이트" >
         <CheckBoxPreference
             android:defaultValue="false"

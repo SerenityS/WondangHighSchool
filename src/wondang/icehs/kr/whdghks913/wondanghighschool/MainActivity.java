@@ -107,8 +107,16 @@ public class MainActivity extends SherlockActivity {
 			}
 		});
 
+		String userName = PreferenceManager.getDefaultSharedPreferences(this)
+				.getString("userName", null);
+
 		mHelper = new CroutonHelper(this);
-		mHelper.setText("환영합니다~!");
+
+		if (userName == null || "".equals(userName))
+			mHelper.setText("환영합니다~!");
+		else
+			mHelper.setText(userName + "님 환영합니다~!");
+
 		mHelper.setStyle(Style.INFO);
 		mHelper.show();
 

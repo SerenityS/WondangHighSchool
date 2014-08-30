@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -28,6 +29,7 @@ public class SettingsActivity extends PreferenceActivity {
 		setOnPreferenceClick(findPreference("deleteGradeClass"));
 		setOnPreferenceChange(findPreference("updateLife"));
 		setOnPreferenceChange(findPreference("autoBapUpdate"));
+		setOnPreferenceChange(findPreference("userName"));
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			ActionBar actionBar = getActionBar();
@@ -47,6 +49,9 @@ public class SettingsActivity extends PreferenceActivity {
 			mPreference
 					.setSummary(index >= 0 ? listPreference.getEntries()[index]
 							: null);
+		} else if (mPreference instanceof EditTextPreference) {
+			onPreferenceChangeListener.onPreferenceChange(mPreference,
+					((EditTextPreference) mPreference).getText());
 		}
 	}
 
@@ -60,7 +65,10 @@ public class SettingsActivity extends PreferenceActivity {
 		public boolean onPreferenceChange(Preference preference, Object newValue) {
 			String stringValue = newValue.toString();
 
-			if (preference instanceof ListPreference) {
+			if (preference instanceof EditTextPreference) {
+				preference.setSummary(stringValue);
+
+			} else if (preference instanceof ListPreference) {
 
 				/**
 				 * ListPreference의 경우 stringValue가 entryValues이기 때문에 바로 Summary를
