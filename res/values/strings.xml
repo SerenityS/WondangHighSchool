@@ -61,6 +61,9 @@
 \n설정 - 개발자에게 메일 보내기 메뉴로 메일 전송이 가능합니다
 \n
 \n
+\n[2.5] : 급식 업데이트
+\n- 급식을 터치하면 급식을 자세히 볼수 있습니다
+\n
 \n[2.4] : 학사일정 업데이트, 마이너패치
 \n- 학사 일정이 표시되는 화면을 갈아엎었습니다 새로운 화면을 사용할수 있습니다!
 \n- 급식등 일부 기능이 개선되었습니다
@@ -100,6 +103,7 @@
     <string name="shareBap_title">급식 공유하기</string>
     <string name="shareBap_message_title">%1$s의 급식</string>
     <string name="shareBap_message_msg">%1$s의 급식 목록
+\n
 \n\n아침 : %2$s
 \n\n점심 : %3$s
 \n\n저녁 : %4$s</string>
@@ -123,11 +127,21 @@
     <string name="Syncing">지금 로딩중입니다</string>
     <string name="bapInfoAlert_title">급식 자세히 보기</string>
     <string name="bapInfoAlert_share">공유하기</string>
-    <string name="bapInfoAlert_msg">%1$s 급식 목록
-\n
-\n\n아침 : %2$s
-\n\n점심 : %3$s
-\n\n저녁 : %4$s</string>
+    <string name="allergy_title">알레르기 정보</string>
+    <string name="allergy_msg">
+①난류
+\n②우유
+\n③메밀
+\n④땅콩
+\n⑤대두
+\n⑥밀
+\n⑦고등어
+\n⑧게
+\n⑨새우
+\n⑩돼지고기
+\n⑪복숭아
+\n⑫토마토
+\n⑬아황산염</string>
 
     <!-- 급식 자동업데이트관련 -->
     <string name="bapUpdateNotification_ticker">원당고등학교 급식 업데이트중</string>

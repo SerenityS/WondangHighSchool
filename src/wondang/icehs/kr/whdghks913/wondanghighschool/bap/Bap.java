@@ -96,23 +96,34 @@ public class Bap extends Activity {
 				final String mMorning = mData.mMorning;
 				final String mLunch = mData.mLunch;
 				final String mNight = mData.mNight;
+				final String mShareBapMsg = String.format(
+						getString(R.string.shareBap_message_msg), mCalender,
+						mMorning, mLunch, mNight);
 
 				AlertDialog.Builder alert = new AlertDialog.Builder(Bap.this);
 				alert.setTitle(R.string.bapInfoAlert_title);
 				alert.setPositiveButton(R.string.EXIT, null);
+				alert.setNeutralButton(R.string.allergy_title,
+						new OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								allergyAlert();
+								dialog.dismiss();
+							}
+						});
 				alert.setNegativeButton(R.string.bapInfoAlert_share,
 						new OnClickListener() {
 
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								bapShare(mCalender, mMorning, mLunch, mNight);
+								bapShare(mCalender, mShareBapMsg);
 								dialog.dismiss();
 							}
 						});
-				alert.setMessage(String.format(
-						getString(R.string.bapInfoAlert_msg), mCalender,
-						mMorning, mLunch, mNight));
+				alert.setMessage(mShareBapMsg);
 				alert.show();
 			}
 		});
@@ -146,15 +157,20 @@ public class Bap extends Activity {
 		}
 	}
 
-	private void bapShare(String mCalender, String mMorning, String mLunch,
-			String mNight) {
+	public void allergyAlert() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(Bap.this);
+		alert.setTitle(R.string.allergy_title);
+		alert.setPositiveButton(R.string.EXIT, null);
+		alert.setMessage(R.string.allergy_msg);
+		alert.show();
+	}
+
+	private void bapShare(String mCalender, String mShareBapMsg) {
 		Intent msg = new Intent(Intent.ACTION_SEND);
 		msg.addCategory(Intent.CATEGORY_DEFAULT);
 		msg.putExtra(Intent.EXTRA_TITLE, String.format(
 				getString(R.string.shareBap_message_title), mCalender));
-		msg.putExtra(Intent.EXTRA_TEXT, String.format(
-				getString(R.string.shareBap_message_msg), mCalender, mMorning,
-				mLunch, mNight));
+		msg.putExtra(Intent.EXTRA_TEXT, mShareBapMsg);
 		msg.setType("text/plain");
 		startActivity(Intent.createChooser(msg,
 				getString(R.string.shareBap_title)));
