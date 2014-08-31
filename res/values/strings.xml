@@ -121,6 +121,13 @@
     <string name="loadingList">급식 정보를 받아오고 있습니다...</string>
     <string name="loadList">인터넷에서 급식 정보를 받아왔습니다</string>
     <string name="Syncing">지금 로딩중입니다</string>
+    <string name="bapInfoAlert_title">급식 자세히 보기</string>
+    <string name="bapInfoAlert_share">공유하기</string>
+    <string name="bapInfoAlert_msg">%1$s 급식 목록
+\n
+\n\n아침 : %2$s
+\n\n점심 : %3$s
+\n\n저녁 : %4$s</string>
 
     <!-- 급식 자동업데이트관련 -->
     <string name="bapUpdateNotification_ticker">원당고등학교 급식 업데이트중</string>

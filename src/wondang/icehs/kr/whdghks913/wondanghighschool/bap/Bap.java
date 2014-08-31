@@ -7,10 +7,13 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -87,20 +90,30 @@ public class Bap extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> av, View view, int position,
 					long id) {
-				BapListData mData = mAdapter.getItem(position);
+				final BapListData mData = mAdapter.getItem(position);
 
-				Intent msg = new Intent(Intent.ACTION_SEND);
-				msg.addCategory(Intent.CATEGORY_DEFAULT);
-				msg.putExtra(Intent.EXTRA_TITLE, String.format(
-						getString(R.string.shareBap_message_title),
-						mData.mCalender));
-				msg.putExtra(Intent.EXTRA_TEXT, String.format(
-						getString(R.string.shareBap_message_msg),
-						mData.mCalender, mData.mMorning, mData.mLunch,
-						mData.mNight));
-				msg.setType("text/plain");
-				startActivity(Intent.createChooser(msg,
-						getString(R.string.shareBap_title)));
+				final String mCalender = mData.mCalender;
+				final String mMorning = mData.mMorning;
+				final String mLunch = mData.mLunch;
+				final String mNight = mData.mNight;
+
+				AlertDialog.Builder alert = new AlertDialog.Builder(Bap.this);
+				alert.setTitle(R.string.bapInfoAlert_title);
+				alert.setPositiveButton(R.string.EXIT, null);
+				alert.setNegativeButton(R.string.bapInfoAlert_share,
+						new OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								bapShare(mCalender, mMorning, mLunch, mNight);
+								dialog.dismiss();
+							}
+						});
+				alert.setMessage(String.format(
+						getString(R.string.bapInfoAlert_msg), mCalender,
+						mMorning, mLunch, mNight));
+				alert.show();
 			}
 		});
 
@@ -131,6 +144,20 @@ public class Bap extends Activity {
 				mHelper.show();
 			}
 		}
+	}
+
+	private void bapShare(String mCalender, String mMorning, String mLunch,
+			String mNight) {
+		Intent msg = new Intent(Intent.ACTION_SEND);
+		msg.addCategory(Intent.CATEGORY_DEFAULT);
+		msg.putExtra(Intent.EXTRA_TITLE, String.format(
+				getString(R.string.shareBap_message_title), mCalender));
+		msg.putExtra(Intent.EXTRA_TEXT, String.format(
+				getString(R.string.shareBap_message_msg), mCalender, mMorning,
+				mLunch, mNight));
+		msg.setType("text/plain");
+		startActivity(Intent.createChooser(msg,
+				getString(R.string.shareBap_title)));
 	}
 
 	private void restoreBap() {
