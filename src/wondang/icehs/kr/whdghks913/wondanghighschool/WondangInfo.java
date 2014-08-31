@@ -61,8 +61,8 @@ public class WondangInfo extends SherlockActivity {
 			mVideo.start();
 
 			AlertDialog.Builder alert = new AlertDialog.Builder(this);
-			alert.setTitle("소게 영상");
-			alert.setPositiveButton("닫기",
+			alert.setTitle(R.string.wondang_movies);
+			alert.setPositiveButton(R.string.EXIT,
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {

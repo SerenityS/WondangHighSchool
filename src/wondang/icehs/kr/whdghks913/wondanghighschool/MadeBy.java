@@ -31,7 +31,7 @@ public class MadeBy extends Activity {
 		}
 
 		mHelper = new CroutonHelper(this);
-		mHelper.setText("이 앱을 만든이 정보입니다");
+		mHelper.setText(R.string.madeby_info);
 		mHelper.show();
 	}
 

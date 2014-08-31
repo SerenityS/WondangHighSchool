@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 어플 기본 String -->
+    <string name="OK">확인</string>
+    <string name="EXIT">닫기</string>
+    <string name="Loading_title">로딩중...</string>
+    <string name="Loading_summary">잠시만 기다려 주세요</string>
+
+    <!-- 원당고 관련 -->
     <string name="app_name">인천 원당고등학교</string>
+    <string name="license_title">라이센스 정보</string>
     <string name="license">오픈소스 라이센스 정보
 \n
 \n
@@ -49,25 +57,6 @@
 \n
 \n-일정 이미지 License : Creative Commons (Attribution 3.0 Unported)
 \n-일정 이미지 사이트 : https://www.iconfinder.com/icons/281090/calendar_date_day_event_graficheria_month_schedule_icon#size=128</string>
-    <string name="shareBap_title">급식 공유하기</string>
-    <string name="shareBap_message_title">%1$s의 급식</string>
-    <string name="shareBap_message_msg">%1$s의 급식 목록
-\n\n아침 : %2$s
-\n\n점심 : %3$s
-\n\n저녁 : %4$s</string>
-    <string name="rss_full">최근 30개 게시글</string>
-    <string name="rss_info">대회 정보</string>
-    <string name="rss_noti">알림판</string>
-    <string name="info_autoUpdate">급식 자동 업데이트는 매주 사용자분께서 급식을 업데이트 해야하는 불편을 덜기위해 만들어졌습니다
-\n학교에 나오는 목적중 하나인 급식을 누구보다 빨리 확인해 보세요
-\n
-\n- 업데이트 주기 : 자동, 토요일, 일요일을 선택할 수 있습니다 선택한 날짜의 AM 1:00에 업데이트가 이루어집니다
-\n- 업데이트 알림 : 급식 업데이트 중에는 설정과 관계없이 진행중 알림이 나타나며 업데이트 완료후 성공/실패여부를 알림으로 나타내줍니다
-\n- Wi-Fi로만 업데이트 : 말그대로 Wi-Fi에서만 업데이트 합니다 데이터가 부족한 학생을 위한 기능입니다 (그런대 급식 가져오는거 데이터 얼마 안들어요)
-\n
-\n
-\n몇일동안 저와 친구들의 도움으로 테스트를 해보았으나 아직은 부족한 기능입니다
-\n어플을 사용하시다 강제종료가 발생하면 꼭 "보고(신고)" 버튼을 눌러 신고해 주세요!</string>
     <string name="changeLog">원당고 앱에 들어갈 기능에 대한 아이디어가 있으신 분께서는 주저하지 마시고 제 이메일로 메일 남겨주시면 감사드리겠습니다!
 \n설정 - 개발자에게 메일 보내기 메뉴로 메일 전송이 가능합니다
 \n
@@ -98,6 +87,67 @@
 \n- 대회 정보 기능 추가
 \n- 이스터에그 추가 (어플내 숨겨져있는 버튼을 찾아 이스터 에그를 발견해 보세요!)
 \n- 기타 급식 오류, 악보 오류 수정</string>
+    <string name="update_app">어플이 업데이트 되었습니다!</string>
+    <string name="wondang_movies">소개 영상</string>
+
+    <!-- 전화 관련 -->
+    <string name="call_info">전화 하고자 하는 번호를 터치하세요\n터치한다고 해서 바로 전화가 걸리지는 않습니다</string>
+
+    <!-- 만든이 관련 -->
+    <string name="madeby_info">이 앱을 만든이 정보입니다</string>
+
+    <!-- 급식 관련 -->
+    <string name="shareBap_title">급식 공유하기</string>
+    <string name="shareBap_message_title">%1$s의 급식</string>
+    <string name="shareBap_message_msg">%1$s의 급식 목록
+\n\n아침 : %2$s
+\n\n점심 : %3$s
+\n\n저녁 : %4$s</string>
+    <string name="info_autoUpdate_title">급식 자동 업데이트 안내</string>
+    <string name="info_autoUpdate">급식 자동 업데이트는 매주 사용자분께서 급식을 업데이트 해야하는 불편을 덜기위해 만들어졌습니다
+\n학교에 나오는 목적중 하나인 급식을 누구보다 빨리 확인해 보세요
+\n
+\n- 업데이트 주기 : 자동, 토요일, 일요일을 선택할 수 있습니다 선택한 날짜의 AM 1:00에 업데이트가 이루어집니다
+\n- 업데이트 알림 : 급식 업데이트 중에는 설정과 관계없이 진행중 알림이 나타나며 업데이트 완료후 성공/실패여부를 알림으로 나타내줍니다
+\n- Wi-Fi로만 업데이트 : 말그대로 Wi-Fi에서만 업데이트 합니다 데이터가 부족한 학생을 위한 기능입니다 (그런대 급식 가져오는거 데이터 얼마 안들어요)
+\n
+\n
+\n몇일동안 저와 친구들의 도움으로 테스트를 해보았으나 아직은 부족한 기능입니다
+\n어플을 사용하시다 강제종료가 발생하면 꼭 "보고(신고)" 버튼을 눌러 신고해 주세요!</string>
+
+    <!-- 급식 액티비티 관련 -->
+    <string name="savedList">저장된 정보를 불러왔습니다\n과거 정보일경우 새로고침 해주세요</string>
+    <string name="noNetwork">연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다</string>
+    <string name="loadingList">급식 정보를 받아오고 있습니다...</string>
+    <string name="loadList">인터넷에서 급식 정보를 받아왔습니다</string>
+    <string name="Syncing">지금 로딩중입니다</string>
+
+    <!-- 급식 자동업데이트관련 -->
+    <string name="bapUpdateNotification_ticker">원당고등학교 급식 업데이트중</string>
+    <string name="bapUpdateNotification_title">급식 업데이트중</string>
+    <string name="bapUpdateNotification_msg">급식을 업데이트 하고 있습니다 잠시만 기다려 주세요</string>
+    <string name="bapUpdateNotification_notification">급식 업데이트 알림</string>
+    <string name="bapUpdate_Error_Wifi_title">WIFI 연결 안됨</string>
+    <string name="bapUpdate_Error_Wifi_msg">WIFI 연결이 되어 있지 않습니다 다시 시도하려면 누르세요</string>
+    <string name="bapUpdate_Error_Net_title">네트워크 연결 안됨</string>
+    <string name="bapUpdate_Error_Net_msg">인터넷에 접속할수 없습니다 다시 시도하려면 누르세요</string>
+    <string name="bapUpdate_Error_get_title">급식 가져오기 실패</string>
+    <string name="bapUpdate_Error_get_msg">급식을 가져오는대 실패했습니다 다시 시도하려면 누르세요</string>
+    <string name="bapUpdate_Success_title">급식 업데이트 성공</string>
+    <string name="bapUpdate_Success_msg">급식을 성공적으로 업데이트 했습니다 확인하려면 누르세요</string>
+
+    <!-- 대회정보 관련 -->
+    <string name="rss_full">최근 30개 게시글</string>
+    <string name="rss_info">대회 정보</string>
+    <string name="rss_noti">알림판</string>
+    <string name="internet_error">인터넷이 연결되어 있지 않습니다</string>
+
+    <!-- 교가 관련 -->
+    <string name="song_info">이미지 확대/축소 방식을 사용하려면, 상단 변경 버튼을 눌러주세요</string>
+    <string name="song_info_touch">손가락을 벌리고, 줄여서 크기를 조절할수 있습니다</string>
+    <string name="song_info_scroll">상하 좌우로 스크롤해서 악보를 볼 수 있습니다</string>
+
+    <!-- 시간표 관련 -->
     <string name="yourGradeClass">다음부터 시간표 접속시 이 학급으로 바로 진입할까요?
 \n설정에서 학급 정보를 초기화 할수 있습니다
 \n

@@ -80,7 +80,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 				preference
 						.setSummary(index >= 0 ? listPreference.getEntries()[index]
-								: "매주 토요일");
+								: null);
 
 				updateAlarm updateAlarm = new updateAlarm(SettingsActivity.this);
 				updateAlarm.cancle();
@@ -147,8 +147,8 @@ public class SettingsActivity extends PreferenceActivity {
 			if ("openSource".equals(getKey)) {
 				AlertDialog.Builder alert = new AlertDialog.Builder(
 						SettingsActivity.this);
-				alert.setTitle("라이센스 정보");
-				alert.setPositiveButton("확인",
+				alert.setTitle(R.string.license_title);
+				alert.setPositiveButton(R.string.OK,
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,
@@ -179,13 +179,14 @@ public class SettingsActivity extends PreferenceActivity {
 	private void showNotifi() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(
 				SettingsActivity.this);
-		alert.setTitle("급식 자동 업데이트 안내");
-		alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		});
+		alert.setTitle(R.string.info_autoUpdate_title);
+		alert.setPositiveButton(R.string.OK,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
 		alert.setMessage(R.string.info_autoUpdate);
 		alert.show();
 	}

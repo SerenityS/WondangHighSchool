@@ -131,8 +131,8 @@ public class MainActivity extends SherlockActivity {
 
 			if (mPref.getInt("versionCode", 0) != code) {
 				AlertDialog.Builder alert = new AlertDialog.Builder(this);
-				alert.setTitle("어플이 업데이트 되었습니다!");
-				alert.setPositiveButton("확인",
+				alert.setTitle(R.string.update_app);
+				alert.setPositiveButton(R.string.OK,
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,

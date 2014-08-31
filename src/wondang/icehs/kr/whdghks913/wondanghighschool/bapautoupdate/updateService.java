@@ -238,11 +238,14 @@ public class updateService extends Service {
 		NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(
 				mContext);
 		mCompatBuilder.setSmallIcon(R.drawable.ic_notifi_icon);
-		mCompatBuilder.setTicker("원당고등학교 급식 업데이트중");
+		mCompatBuilder
+				.setTicker(getString(R.string.bapUpdateNotification_ticker));
 		mCompatBuilder.setWhen(System.currentTimeMillis());
 		mCompatBuilder.setAutoCancel(true);
-		mCompatBuilder.setContentTitle("급식 업데이트중");
-		mCompatBuilder.setContentText("급식을 업데이트 하고 있습니다 잠시만 기다려 주세요");
+		mCompatBuilder
+				.setContentTitle(getString(R.string.bapUpdateNotification_title));
+		mCompatBuilder
+				.setContentText(getString(R.string.bapUpdateNotification_msg));
 		mCompatBuilder.setContentIntent(null);
 		mCompatBuilder.setOngoing(true);
 
@@ -259,25 +262,34 @@ public class updateService extends Service {
 		NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(
 				mContext);
 		mCompatBuilder.setSmallIcon(R.drawable.ic_notifi_icon);
-		mCompatBuilder.setTicker("급식 업데이트 알림");
+		mCompatBuilder
+				.setTicker(getString(R.string.bapUpdateNotification_notification));
 		mCompatBuilder.setWhen(System.currentTimeMillis());
 		mCompatBuilder.setAutoCancel(true);
 
 		if (notifiCode == WIFI_ERROR) {
-			mCompatBuilder.setContentTitle("WIFI 연결 안됨");
-			mCompatBuilder.setContentText("WIFI 연결이 되어 있지 않습니다 다시 시도하려면 누르세요");
+			mCompatBuilder
+					.setContentTitle(getString(R.string.bapUpdate_Error_Wifi_title));
+			mCompatBuilder
+					.setContentText(getString(R.string.bapUpdate_Error_Wifi_msg));
 
 		} else if (notifiCode == NET_ERROR) {
-			mCompatBuilder.setContentTitle("네트워크 연결 안됨");
-			mCompatBuilder.setContentText("인터넷에 접속할수 없습니다 다시 시도하려면 누르세요");
+			mCompatBuilder
+					.setContentTitle(getString(R.string.bapUpdate_Error_Net_title));
+			mCompatBuilder
+					.setContentText(getString(R.string.bapUpdate_Error_Net_msg));
 
 		} else if (notifiCode == GET_ERROR) {
-			mCompatBuilder.setContentTitle("급식 가져오기 실패");
-			mCompatBuilder.setContentText("급식을 가져오는대 실패했습니다 다시 시도하려면 누르세요");
+			mCompatBuilder
+					.setContentTitle(getString(R.string.bapUpdate_Error_get_title));
+			mCompatBuilder
+					.setContentText(getString(R.string.bapUpdate_Error_get_msg));
 
 		} else {
-			mCompatBuilder.setContentTitle("급식 업데이트 성공");
-			mCompatBuilder.setContentText("급식을 성공적으로 업데이트 했습니다 확인하려면 누르세요");
+			mCompatBuilder
+					.setContentTitle(getString(R.string.bapUpdate_Success_title));
+			mCompatBuilder
+					.setContentText(getString(R.string.bapUpdate_Success_msg));
 
 			pendingIntent = PendingIntent.getActivity(this, 0, new Intent(
 					mContext, Bap.class), PendingIntent.FLAG_UPDATE_CURRENT);

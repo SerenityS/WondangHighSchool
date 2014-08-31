@@ -45,7 +45,7 @@ public class Song extends Activity {
 				R.drawable.schoolsong));
 
 		mHelper = new CroutonHelper(this);
-		mHelper.setText("이미지 확대/축소 방식을 사용하려면, 상단 변경 버튼을 눌러주세요");
+		mHelper.setText(R.string.song_info);
 		mHelper.setStyle(Style.INFO);
 		mHelper.show();
 	}
@@ -70,7 +70,7 @@ public class Song extends Activity {
 				isVisibility = !isVisibility;
 
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText("손가락을 벌리고, 줄여서 크기를 조절할수 있습니다");
+				mHelper.setText(R.string.song_info_touch);
 				mHelper.setStyle(Style.INFO);
 				mHelper.show();
 			} else {
@@ -80,7 +80,7 @@ public class Song extends Activity {
 				isVisibility = !isVisibility;
 
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText("상하 좌우로 스크롤해서 악보를 볼 수 있습니다");
+				mHelper.setText(R.string.song_info_scroll);
 				mHelper.setStyle(Style.INFO);
 				mHelper.show();
 			}

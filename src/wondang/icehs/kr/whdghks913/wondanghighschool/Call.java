@@ -60,7 +60,7 @@ public class Call extends Activity {
 		mAdapter.addItem(null, "행정실", "032-569-0720");
 
 		mHelper = new CroutonHelper(this);
-		mHelper.setText("전화 하고자 하는 번호를 터치하세요\n터치한다고 해서 바로 전화가 걸리지는 않습니다");
+		mHelper.setText(R.string.call_info);
 		mHelper.setStyle(Style.INFO);
 		mHelper.show();
 	}

@@ -50,12 +50,6 @@ public class Bap extends Activity {
 
 	private ProgressDialog mDialog;
 
-	private final String savedList = "저장된 정보를 불러왔습니다\n과거 정보일경우 새로고침 해주세요";
-	private final String noNetwork = "연결상태가 좋지 않아 급식 정보를 받아오는대 실패했습니다";
-	private final String loadingList = "급식 정보를 받아오고 있습니다...";
-	private final String loadList = "인터넷에서 급식 정보를 받아왔습니다";
-	private final String Syncing = "지금 로딩중입니다";
-
 	private boolean isSync = false;
 
 	private Calendar mCalendar;
@@ -116,7 +110,7 @@ public class Bap extends Activity {
 			autoScroll();
 
 			mHelper.clearCroutonsForActivity();
-			mHelper.setText(savedList);
+			mHelper.setText(R.string.savedList);
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
 
@@ -132,7 +126,7 @@ public class Bap extends Activity {
 
 			} else {
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText(noNetwork);
+				mHelper.setText(R.string.noNetwork);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
@@ -208,10 +202,6 @@ public class Bap extends Activity {
 			return false;
 	}
 
-	// private void addErrorList() {
-	// mAdapter.addItem("알수 없음", "알수 없음", noNetwork, noNetwork, noNetwork);
-	// }
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -232,14 +222,14 @@ public class Bap extends Activity {
 
 				} else {
 					mHelper.clearCroutonsForActivity();
-					mHelper.setText(Syncing);
+					mHelper.setText(R.string.Syncing);
 					mHelper.setStyle(Style.INFO);
 					mHelper.show();
 				}
 
 			} else {
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText(noNetwork);
+				mHelper.setText(R.string.noNetwork);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
@@ -252,7 +242,7 @@ public class Bap extends Activity {
 
 			} else {
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText(noNetwork);
+				mHelper.setText(R.string.noNetwork);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
@@ -265,7 +255,7 @@ public class Bap extends Activity {
 
 			} else {
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText(noNetwork);
+				mHelper.setText(R.string.noNetwork);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
@@ -290,7 +280,7 @@ public class Bap extends Activity {
 
 			} else {
 				mHelper.clearCroutonsForActivity();
-				mHelper.setText(noNetwork);
+				mHelper.setText(R.string.noNetwork);
 				mHelper.setStyle(Style.ALERT);
 				mHelper.show();
 			}
@@ -342,7 +332,8 @@ public class Bap extends Activity {
 			super.onPreExecute();
 
 			if (mDialog == null)
-				mDialog = ProgressDialog.show(Bap.this, "", loadingList);
+				mDialog = ProgressDialog.show(Bap.this, "",
+						getString(R.string.loadingList));
 
 			isSync = true;
 			mAdapter.clearData();
@@ -398,7 +389,7 @@ public class Bap extends Activity {
 						mAdapter.notifyDataSetChanged();
 
 						mHelper.clearCroutonsForActivity();
-						mHelper.setText(noNetwork);
+						mHelper.setText(R.string.noNetwork);
 						mHelper.setStyle(Style.ALERT);
 						mHelper.show();
 
@@ -424,7 +415,7 @@ public class Bap extends Activity {
 			getBapList();
 
 			mHelper.clearCroutonsForActivity();
-			mHelper.setText(loadList);
+			mHelper.setText(R.string.loadList);
 			mHelper.setStyle(Style.CONFIRM);
 			mHelper.show();
 		}

@@ -84,7 +84,7 @@ public class RssFull extends Fragment {
 
 		} else {
 			CroutonHelper mHelper = new CroutonHelper(getActivity());
-			mHelper.setText("인터넷이 연결되어 있지 않습니다");
+			mHelper.setText(R.string.internet_error);
 			mHelper.setStyle(Style.ALERT);
 			mHelper.show();
 		}
@@ -245,8 +245,8 @@ public class RssFull extends Fragment {
 			super.onPreExecute();
 
 			if (mDialog == null)
-				mDialog = ProgressDialog.show(getActivity(), "로딩중",
-						"잠시만 기다려 주세요");
+				mDialog = ProgressDialog.show(getActivity(), getString(R.string.Loading_title),
+						getString(R.string.Loading_summary));
 		}
 
 		@Override
