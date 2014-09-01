@@ -24,6 +24,10 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.tistory.whdghks913.croutonhelper.CroutonHelper;
+
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 public class TimeTableScrollTab extends FragmentActivity {
 	public final String[] DAY = { "월요일", "화요일", "수요일", "목요일", "금요일" };
 
@@ -32,6 +36,8 @@ public class TimeTableScrollTab extends FragmentActivity {
 
 	// String mFileName, tableName;
 	public int Grade, WClass;
+
+	private CroutonHelper mHelper;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -99,6 +105,13 @@ public class TimeTableScrollTab extends FragmentActivity {
 		if (mViewPager.getChildCount() > 0) {
 			setCurrentItem();
 		}
+
+		mHelper = new CroutonHelper(this);
+		mHelper.setText("이 시간표는 100% 확신할수 없으며 언제든지 변동될수 있습니다\n어플에서 제공하는 시간표외 항상 정확한 수업 정보를 숙지하시길 바랍니다");
+		mHelper.setStyle(Style.CONFIRM);
+		mHelper.setDuration(5000);
+		mHelper.setAutoTouchCencle(true);
+		mHelper.show();
 	}
 
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
