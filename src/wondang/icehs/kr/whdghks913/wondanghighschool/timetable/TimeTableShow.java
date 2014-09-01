@@ -29,7 +29,7 @@ public class TimeTableShow extends Fragment {
 
 	public final String mFilePath = Environment.getExternalStorageDirectory()
 			.getAbsolutePath() + "/WondangHS/";
-	public final int dbVersion = 1;
+	public final int dbVersion = 2;
 
 	public static SQLiteDatabase mSQDB;
 

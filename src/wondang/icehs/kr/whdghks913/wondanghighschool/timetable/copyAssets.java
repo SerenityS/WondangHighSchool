@@ -19,41 +19,39 @@ public class copyAssets {
 
 		File dbFile = new File(mFilePath + mFileName);
 
-		// 파일이 없으면
-		if (!dbFile.exists()) {
-			File mFolder = new File(mFilePath);
-			// 폴더도 없으면 폴더를 만든다
-			if (!mFolder.exists())
-				mFolder.mkdirs();
+		File mFolder = new File(mFilePath);
+		// 폴더도 없으면 폴더를 만든다
+		if (!mFolder.exists())
+			mFolder.mkdirs();
 
-			AssetManager mAssetM = mContext.getResources().getAssets();
-			InputStream mInput = null;
-			FileOutputStream mOutput = null;
-			long filesize = 0;
+		AssetManager mAssetM = mContext.getResources().getAssets();
+		InputStream mInput = null;
+		FileOutputStream mOutput = null;
+		long filesize = 0;
+		dbFile.delete();
 
+		try {
+			mInput = mAssetM.open(mFileName, AssetManager.ACCESS_BUFFER);
+			filesize = mInput.available();
+
+			if (dbFile.length() <= 0) {
+				byte[] tmpbyte = new byte[(int) filesize];
+				mInput.read(tmpbyte);
+				dbFile.createNewFile();
+				mOutput = new FileOutputStream(dbFile);
+				mOutput.write(tmpbyte);
+			}
+
+		} catch (IOException e) {
+			// error
+		} finally {
 			try {
-				mInput = mAssetM.open(mFileName, AssetManager.ACCESS_BUFFER);
-				filesize = mInput.available();
-
-				if (dbFile.length() <= 0) {
-					byte[] tmpbyte = new byte[(int) filesize];
-					mInput.read(tmpbyte);
-					dbFile.createNewFile();
-					mOutput = new FileOutputStream(dbFile);
-					mOutput.write(tmpbyte);
-				}
-
+				if (mInput != null)
+					mInput.close();
+				if (mOutput != null)
+					mOutput.close();
 			} catch (IOException e) {
-				// error
-			} finally {
-				try {
-					if (mInput != null)
-						mInput.close();
-					if (mOutput != null)
-						mOutput.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				e.printStackTrace();
 			}
 		}
 	}
