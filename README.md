@@ -19,11 +19,8 @@ Info
 필요한 라이브러리 & 사용된 라이브러리
 --------------------------------------
 
-필요한 라이브러리
 - ActionBarSherlock
 - Jericho Library
-
-사용된 라이브러리
 - Crouton Helper
 - Android Meal Library
 
