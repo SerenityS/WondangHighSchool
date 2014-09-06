@@ -1,355 +1,199 @@
-﻿    - Android Meal Library with Mir(whdghks913) -
-
-
-VERSION 2
-UPDATE 20140713
-
-대구 나이스 홈페이지의 구조변경에 대응한 새로운 메소드 생성
-getMealNew, getDateNew 사용가능
-getKcal, getPeople, getMonthMeal은 지원하지 않습니다
+﻿Android Meal Library with Mir(whdghks913)
+=======================================
+VERSION 5 (UPDATE 20140906)
+----------------------------
 
 
 
-    - 한국어 버전 -
-
--원본 소스 : http://blog.naver.com/rimal
-
--ITcraft's Github Project의 오픈소스 : https://github.com/mhkim4886/OkdongMidSch/blob/master/src/toast/library/meal/MealLibrary.java
-
--원본 라이센스 : Public Open Library
+사용하는 라이브러리
+===================
+- jericho-html-3.3.jar
 
 
 
--수정 : ~ 2014-03-16
-
--업로드 : https://bitbucket.org/whdghks913/wondanghighschool (src/toast/library/meal/MealLibrary.java)
-
-
-
--API 사용법
-
-(1) getDate() : 일주일치 날짜를 반환합니다
-
--반환 타입 : String[]
-
--getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
+업데이트 안내
+=============
+- 나이스 홈페이지 구조 변경에 따라 새로운 파싱 방법 사용
+- getDateNew(), getKcalNew(), getMealNew(), getPeopleNew() 사용가능
+- 기존 메소드인 getDate(), getKcal(), getMeal(), getMonthMeal(), getPeople()은 Deprecated됨
 
 
+
+오픈 소스 안내
+==============
+- 원본 소스 : http://blog.naver.com/rimal
+- ITcraft's Github Project의 오픈소스 : https://github.com/mhkim4886/OkdongMidSch/blob/master/src/toast/library/meal/MealLibrary.java
+- 원본 라이센스 : Public Open Library
+- 수정 : 2014-03-16 ~
+- 업로드 : https://bitbucket.org/whdghks913/wondanghighschool (src/toast/library/meal/MealLibrary.java)
+
+
+
+How To Use?
+=============
+Deprecated API
+==============
+
+MealLibrary.getDate()
+--------------------
+
+- MealLibrary.getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
+- MealLibrary.getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
+- MealLibrary.getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
 
 일주일치 날짜를 반환합니다
-
-schYmd 또는 year(month, day)를 입력하지 않을경우, 현재 서버 날짜를 기준으로 급식을 가져옵니다
-
-schYmd 또는 year(month, day)를 입력해서 원하는 날짜의 한주 급식을 가져올수도 있습니다
-
-String[]에서 [0]에는 일요일의 정보가, [6]에는 토요일의 정보가 담기며, 총 길이는 0~6 입니다
+schYmd 또는 year, month, day를 입력하지 않을경우, 현재 서버 날짜를 기준으로 급식을 가져옵니다
+schYmd 또는 year, month, day를 입력해서 원하는 날짜의 한주 급식을 가져올수도 있습니다
+원당고 앱에서는 year, month, day를 이용해서 지난주, 다음주, 날짜를 선택해서 급식을 가져올수 있습니다
+String[]에서 [0]에는 일요일의 정보가, [6]에는 토요일의 정보가 담기며, 총 index 길이는 0~6 입니다
 
 
 
+MealLibrary.getMeal()
+-------------------
 
-
-(2) getMeal() : 일주일치 급식을 반환합니다
-
--반환 타입 : String[]
-
--getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
-
-
+- MealLibrary.getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
+- MealLibrary.getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
+- MealLibrary.getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
 
 일주일치 급식을 반환합니다
-
 급식이 없을경우 " " 또는 "" 또는 null으로 반환하며, 자세한 설명은 getDate()와 같습니다
 
 
 
 
+MealLibrary.getMonthMeal()
+-------------------------
 
-(3) getMonthMeal() : 한달 급식을 반환합니다
-
--반환 타입 : String[]
-
--getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYm)
-
--getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month)
-
-
+- MealLibrary.getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYm)
+- MealLibrary.getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month)
 
 한달 급식을 반환합니다
-
 getMeal()에서 사용하는 schYm 파라메터와 getMonthMeal()에서 사용하는 schYm파라메터는 다른 형식을 사용해야 합니다 (아래 참조)
-
 String[]의 길이는 한달 날짜 길이와 같으며, 2월은 윤년을 위해 길이가 29입니다
 
 
 
+MealLibrary.getKcal()
+--------------------
 
-
-(4) getKcal() : 일주일치 급식의 칼로리를 가져옵니다
-
--반환 타입 : String[]
-
--getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
-
-
+- MealLibrary.getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
+- MealLibrary.getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
+- MealLibrary.getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
 
 일주일치 급식의 칼로리를 가져옵니다
-
-getDate()와 같습니다
-
+위와 같습니다
 
 
 
+MealLibrary.getPeople()
+----------------------
 
-(5) getPeople() : 일주일치 급식 인원을 반환합니다
-
--반환 타입 : String[]
-
--getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
-
-
+- MealLibrary.getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
+- MealLibrary.getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
+- MealLibrary.getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
 
 일주일치 급식 인원을 반환합니다
+위와 같습니다
 
-getDate()와 같습니다
 
 
+New API
+========
 
+MealLibrary.getDateNew()
+-----------------------
 
+- MealLibrary.getDateNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
+- MealLibrary.getDateNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
 
-(6) 변수 설명
 
--CountryCode : 학교 교육청 코드, nice홈페이지 도메인과 같습니다
 
-EX) 인천 : ice.go.kr
+MealLibrary.getKcalNew()
+-----------------------
 
+- MealLibrary.getKcalNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
+- MealLibrary.getKcalNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
 
 
--schulCode : 학교 고유 나이스 코드
 
-EX) 인천의 학교 코드 검색 : http://hes.ice.go.kr/sts_sci_si00_001.do (E10000xxxx)
+MealLibrary.getMealNew()
+-----------------------
 
-참조 : 중학교 나이스 코드 검색 : http://me2.do/xAY6Zij1
+- MealLibrary.getMealNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
+- MealLibrary.getMealNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
 
-고등학교 나이스 코드 검색 : http://me2.do/G22fDh8l
 
 
+MealLibrary.getPeopleNew()
+-----------------------
 
--schulCrseScCode, schulKndScCode : 학교 고유 분류 번호
+- MealLibrary.getPeopleNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
+- MealLibrary.getPeopleNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
 
-: 어디서 구하는지를 잘 모르는 부분입니다만, Toast님께서 schulCrseScCode = "4", schulKndScCode = "04"으로 사용하셨습니다
 
-나이스 홈페이지에는 schulCrseScCode는 학교종과정분코드, schulKndScCode는 학교종류구분코드 라고 주석처리 되어 있었습니다
 
+변수 설명
+=========
 
+CountryCode
+------------
+- 학교 교육청 코드, nice홈페이지 도메인과 같습니다
+- EX) 인천 : ice.go.kr
 
--schMmealScCode : 급식 코드
 
-조식 : "1"
+schulCode
+----------
+- 학교 고유 나이스 코드
+- EX) 인천의 학교 코드 검색 : http://hes.ice.go.kr/sts_sci_si00_001.do (E10000xxxx)
+- 참조 : 중학교 나이스 코드 검색 : http://me2.do/xAY6Zij1
+- 고등학교 나이스 코드 검색 : http://me2.do/G22fDh8l
 
-중식 : "2"
 
-석식 : "3"
+schulCrseScCode
+----------------
+- 학교 분류
+- "1" : 병설유치원
+- "2" : 초등학교
+- "3" : 중학교
+- "4" : 고등학교
+- 분류번호랑 종류랑 안맞으면 반환이 안됩니다
 
 
+schulKndScCode
+----------------
+- 학교 종류
+- "01" : 유치원
+- "02" : 초등학교
+- "03" : 중학교
+- "04" : 고등학교
 
--schYmd : (일주일치 정보를 얻어오는 메소드에서) 원하는 날짜의 급식 정보를 얻기 위해 필요
 
-String 형식 : 년.월.일
+schMmealScCode
+----------------
+- 반환할 식사 값
+- 조식 : "1"
+- 중식 : "2"
+- 석식 : "3"
 
-EX) "2014.03.16"
 
+schYmd
+-------
+- 원하는 날짜의 급식 정보를 얻기 위해 필요합니다
+- String 형식 : 년.월.일
+- EX) "2014.03.16"
+- 새로운 New메소드에서는 schYmd을 지원하지 않고 year, month, day만 지원합니다
 
 
--schYm : (한달치 정보를 얻어오는 메소드에서) 원하는 달의 급식 정보를 얻기 위해 필요
+schYm
+------
+- 원하는 달의 급식 정보를 얻기 위해 필요합니다
+- String 형식 : 년.월
+- EX) "2014.03"
+- 새로운 New메소드에서는 schYm 지원하지 않고 year, month, day만 지원합니다
 
-String 형식 : 년.월
 
-EX) "2014.03"
-
-
-
--year, month, day : schYmd와 schYm의 정보를 세분화 해서 각각 파라메터 사용 가능
-
-EX) year = "2014", month = "03", day = "16"
-
-
-
-
-
-
-
-
-
-
-
-    - EN Version -
-
--Origin Source : http://blog.naver.com/rimal
-
--OpenSource by ITcraft's Github Project : https://github.com/mhkim4886/OkdongMidSch/blob/master/src/toast/library/meal/MealLibrary.java
-
--Origin License : Public Open Library
-
-
-
--Fixed : ~ 2014-03-16
-
--Upload : https://bitbucket.org/whdghks913/wondanghighschool (src/toast/library/meal/MealLibrary.java)
-
-
-
--How To API
-
-(1) getDate() : You can get the days of week
-
--return : String[]
-
--getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
-
-
-
-return the date of a week
-
-
-
-
-
-(2) getMeal() : You can get the days of week School Meal
-
--return : String[]
-
--getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
-
-
-
-return the meal that day of week
-
-
-
-
-
-(3) getMonthMeal() : You can get the meal of a month
-
--return : String[]
-
--getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYm)
-
--getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month)
-
-
-
-return the month meal
-
-
-
-
-
-(4) getKcal() : You can get the days of week School Kcal
-
--return : String[]
-
--getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
-
-
-
-return the kcal that day of week
-
-
-
-
-
-(5) getPeople() : You can get the days of week School People
-
--return : String[]
-
--getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
-
--getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
-
--getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
-
-
-
-return the people that day of week
-
-
-
-
-
-(6) Description of the parameters
-
--CountryCode : Your School's City Website
-
-EX) Incheon : ice.go.kr
-
-
-
--schulCode : School's Nice Code
-
-EX) Incheon's School Search : http://hes.ice.go.kr/sts_sci_si00_001.do (E10000xxxx)
-
-
-
--schulCrseScCode, schulKndScCode : Classification number of a school
-
-: I don't Understand here but usually schulCrseScCode = "4", schulKndScCode = "04"
-
-
-
--schMmealScCode : Meal Code
-
-Breakfast : "1"
-
-lunch : "2"
-
-dinner : "3"
-
-
-
--schYmd : Get Custom Meal (Day of Week)
-
-String Type : year.month.day
-
-EX) "2014.03.16"
-
-
-
--schYm : Get Custom Meal (a Month)
-
-String Type : year.month
-
-EX) "2014.03"
-
-
-
--year, month, day : To subdivide the schYmd and schYm
-
-EX) year = "2014", month = "03", day = "16"
+year, month, day
+---------------
+- schYmd와 schYm의 정보를 세분화 해서 각각 정보를 넘겨줄때 사용합니다
+- EX) year = "2014", month = "03", day = "16"
