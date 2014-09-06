@@ -211,19 +211,6 @@ public class MealLibrary {
 
 	public static String[] getKcalNew(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode,
-			String schMmealScCode, String schYmd) {
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
-				+ "&schYmd=" + schYmd;
-
-		return getKcalSubNew(content, url);
-	}
-
-	public static String[] getKcalNew(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode,
 			String schMmealScCode, String year, String month, String day) {
 		String[] content = new String[7];
 		String url = "http://hes." + CountryCode
