@@ -13,6 +13,9 @@ import net.htmlparser.jericho.Source;
  * UPDATE 20140906
  * 
  * @author Mir(whdghks913)
+ * 
+ * Use : getDateNew, getKcalNew, getMealNew, getPeopleNew
+ * Deprecated : getDate, getKcal, getMeal, getMonthMeal, getPeople
  */
 public class MealLibrary {
 	private static Source mSource;
@@ -294,7 +297,6 @@ public class MealLibrary {
 				List<?> tbody = ((Element) table.get(i))
 						.getAllElements("tbody");
 				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
-
 				List<?> __th = ((Element) __tr.get(16)).getAllElements("th");
 
 				if (((Element) __th.get(0)).getContent().toString()
