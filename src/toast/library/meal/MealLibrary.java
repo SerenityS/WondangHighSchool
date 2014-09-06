@@ -9,110 +9,60 @@ import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 
 /*
- * VERSION 3
- * UPDATE 20140824
+ * VERSION 5
+ * UPDATE 20140906
  * 
  * @author Mir(whdghks913)
  */
 public class MealLibrary {
-	private static Source source;
+	private static Source mSource;
 
 	/**
-	 * 대구 나이스 홈페이지 구조 변경으로 라이브러리 업데이트
+	 * getDate
 	 */
-	public static String[] getMealNew(String CountryCode, String schulCode,
+	@Deprecated
+	public static String[] getDate(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
+		String[] date = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getDateSub(date, url);
+	}
+
+	@Deprecated
+	public static String[] getDate(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] date = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getDateSub(date, url);
+	}
+
+	@Deprecated
+	public static String[] getDate(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode,
 			String schMmealScCode, String year, String month, String day) {
-
-		String[] content = new String[7];
+		String[] date = new String[7];
 		String url = "http://hes." + CountryCode
 				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
 				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
 				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
 				+ "&schYmd=" + year + "." + month + "." + day;
 
-		return getMealNewSub(content, url);
+		return getDateSub(date, url);
 	}
 
-	public static String[] getMealNew(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
-
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
-
-		return getMealNewSub(content, url);
-	}
-
-	private static String[] getMealNewSub(String[] content, String url) {
-		try {
-			source = new Source(new URL(url));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		source.fullSequentialParse();
-		List<?> table = source.getAllElements("table");
-
-		for (int i = 0; i < table.size(); i++) {
-			if (((Element) table.get(i)).getAttributeValue("class").equals(
-					"tbl_type3")) {
-				List<?> tbody = ((Element) table.get(i))
-						.getAllElements("tbody");
-				List<?> tr = ((Element) tbody.get(0)).getAllElements("tr");
-				List<?> title = ((Element) tr.get(2)).getAllElements("th");
-				if (((Element) title.get(0)).getContent().toString()
-						.equals("식재료")) {
-					List<?> tdMeal = ((Element) tr.get(1)).getAllElements("td");
-
-					content[0] = ((Element) tdMeal.get(0)).getContent()
-							.toString();
-
-					content[0] = content[0].replace("<br />", "\n");
-					content[1] = ((Element) tdMeal.get(1)).getContent()
-							.toString();
-
-					content[1] = content[1].replace("<br />", "\n");
-					content[2] = ((Element) tdMeal.get(2)).getContent()
-							.toString();
-
-					content[2] = content[2].replace("<br />", "\n");
-					content[3] = ((Element) tdMeal.get(3)).getContent()
-							.toString();
-
-					content[3] = content[3].replace("<br />", "\n");
-					content[4] = ((Element) tdMeal.get(4)).getContent()
-							.toString();
-
-					content[4] = content[4].replace("<br />", "\n");
-					content[5] = ((Element) tdMeal.get(5)).getContent()
-							.toString();
-
-					content[5] = content[5].replace("<br />", "\n");
-					content[6] = ((Element) tdMeal.get(6)).getContent()
-							.toString();
-
-					content[6] = content[6].replace("<br />", "\n");
-					break;
-				}
-
-				content[0] = null;
-				content[1] = null;
-				content[2] = null;
-				content[3] = null;
-				content[4] = null;
-				content[5] = null;
-				content[6] = null;
-			}
-		}
-
-		return content;
-	}
-
+	/**
+	 * getDateNew
+	 */
 	public static String[] getDateNew(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
 
@@ -141,27 +91,26 @@ public class MealLibrary {
 
 	private static String[] getDateNewSub(String[] date, String url) {
 		try {
-			source = new Source(new URL(url));
+			mSource = new Source(new URL(url));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		source.fullSequentialParse();
-		List<?> table = source.getAllElements("table");
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+
 		for (int i = 0; i < table.size(); i++) {
 			if (((Element) table.get(i)).getAttributeValue("class").equals(
 					"tbl_type3")) {
 				List<?> tr = ((Element) table.get(i)).getAllElements("tr");
 				List<?> th = ((Element) tr.get(0)).getAllElements("th");
-				date[0] = ((Element) th.get(1)).getContent().toString();
-				date[1] = ((Element) th.get(2)).getContent().toString();
-				date[2] = ((Element) th.get(3)).getContent().toString();
-				date[3] = ((Element) th.get(4)).getContent().toString();
-				date[4] = ((Element) th.get(5)).getContent().toString();
-				date[5] = ((Element) th.get(6)).getContent().toString();
-				date[6] = ((Element) th.get(7)).getContent().toString();
+
+				for (int j = 0; j < 7; j++) {
+					date[j] = ((Element) th.get(j + 1)).getContent().toString();
+				}
+
 				break;
 			}
 		}
@@ -169,66 +118,29 @@ public class MealLibrary {
 		return date;
 	}
 
-	public static String[] getDate(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
-		String[] date = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
-
-		return getDateSub(date, url);
-	}
-
-	public static String[] getDate(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode,
-			String schMmealScCode, String schYmd) {
-		String[] date = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
-				+ "&schYmd=" + schYmd;
-
-		return getDateSub(date, url);
-	}
-
-	public static String[] getDate(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode,
-			String schMmealScCode, String year, String month, String day) {
-		String[] date = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
-				+ "&schYmd=" + year + "." + month + "." + day;
-
-		return getDateSub(date, url);
-	}
-
+	@Deprecated
 	private static String[] getDateSub(String[] date, String url) {
 		try {
-			source = new Source(new URL(url));
+			mSource = new Source(new URL(url));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		source.fullSequentialParse();
-		List<?> table = source.getAllElements("table");
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+
 		for (int i = 0; i < table.size(); i++) {
 			if (((Element) table.get(i)).getAttributeValue("class").equals(
 					"tableType6")) {
 				List<?> tr = ((Element) table.get(i)).getAllElements("tr");
 				List<?> th = ((Element) tr.get(0)).getAllElements("th");
-				date[0] = ((Element) th.get(1)).getContent().toString();
-				date[1] = ((Element) th.get(2)).getContent().toString();
-				date[2] = ((Element) th.get(3)).getContent().toString();
-				date[3] = ((Element) th.get(4)).getContent().toString();
-				date[4] = ((Element) th.get(5)).getContent().toString();
-				date[5] = ((Element) th.get(6)).getContent().toString();
-				date[6] = ((Element) th.get(7)).getContent().toString();
+
+				for (int j = 0; j < 7; j++) {
+					date[j] = ((Element) th.get(j + 1)).getContent().toString();
+				}
+
 				break;
 			}
 
@@ -237,6 +149,181 @@ public class MealLibrary {
 		return date;
 	}
 
+	/**
+	 * getKcal
+	 */
+	@Deprecated
+	public static String[] getKcal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getKcalSub(content, url);
+	}
+
+	@Deprecated
+	public static String[] getKcal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getKcalSub(content, url);
+	}
+
+	@Deprecated
+	public static String[] getKcal(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getKcalSub(content, url);
+	}
+
+	/**
+	 * getKcal
+	 */
+	public static String[] getKcalNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getKcalSubNew(content, url);
+	}
+
+	public static String[] getKcalNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getKcalSubNew(content, url);
+	}
+
+	public static String[] getKcalNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getKcalSubNew(content, url);
+	}
+
+	@Deprecated
+	private static String[] getKcalSub(String[] content, String url) {
+		try {
+			mSource = new Source(new URL(url));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+		for (int i = 0; i < table.size(); i++) {
+
+			if (((Element) table.get(i)).getAttributeValue("class").equals(
+					"tableType6")) {
+				List<?> tbody = ((Element) table.get(i))
+						.getAllElements("tbody");
+				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
+				List<?> __th = ((Element) __tr.get(16)).getAllElements("th");
+
+				if (((Element) __th.get(0)).getContent().toString()
+						.equals("에너지(kcal)    ")) {
+					List<?> td = ((Element) __tr.get(16)).getAllElements("td");
+
+					for (int j = 0; j < 7; j++) {
+						content[j] = ((Element) td.get(j)).getContent()
+								.toString();
+					}
+
+					break;
+				}
+
+				for (int index = 0; index < content.length; index++) {
+					content[index] = null;
+				}
+
+				break;
+			}
+		}
+
+		return content;
+	}
+
+	private static String[] getKcalSubNew(String[] content, String url) {
+		try {
+			mSource = new Source(new URL(url));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+
+		for (int i = 0; i < table.size(); i++) {
+			if (((Element) table.get(i)).getAttributeValue("class").equals(
+					"tbl_type3")) {
+				List<?> tbody = ((Element) table.get(i))
+						.getAllElements("tbody");
+				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
+
+				List<?> __th = ((Element) __tr.get(16)).getAllElements("th");
+
+				if (((Element) __th.get(0)).getContent().toString()
+						.equals("에너지(kcal)")) {
+					List<?> td = ((Element) __tr.get(16)).getAllElements("td");
+
+					for (int j = 0; j < 7; j++) {
+						content[j] = ((Element) td.get(j)).getContent()
+								.toString();
+					}
+
+					break;
+				}
+
+				for (int index = 0; index < content.length; index++) {
+					content[index] = null;
+				}
+
+				break;
+			}
+		}
+
+		return content;
+	}
+
+	/**
+	 * getMeal
+	 */
+	@Deprecated
 	public static String[] getMeal(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
 		String[] content = new String[7];
@@ -248,9 +335,7 @@ public class MealLibrary {
 		return getMealSub(content, url);
 	}
 
-	/**
-	 * 2014.03.16
-	 */
+	@Deprecated
 	public static String[] getMeal(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode,
 			String schMmealScCode, String schYmd) {
@@ -264,6 +349,7 @@ public class MealLibrary {
 		return getMealSub(content, url);
 	}
 
+	@Deprecated
 	public static String[] getMeal(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode,
 			String schMmealScCode, String year, String month, String day) {
@@ -277,17 +363,92 @@ public class MealLibrary {
 		return getMealSub(content, url);
 	}
 
-	private static String[] getMealSub(String[] content, String url) {
+	public static String[] getMealNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
+
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getMealNewSub(content, url);
+	}
+
+	/**
+	 * getMealNew
+	 */
+	public static String[] getMealNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getMealNewSub(content, url);
+	}
+
+	private static String[] getMealNewSub(String[] content, String url) {
 		try {
-			source = new Source(new URL(url));
+			mSource = new Source(new URL(url));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		source.fullSequentialParse();
-		List<?> table = source.getAllElements("table");
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+
+		for (int i = 0; i < table.size(); i++) {
+			if (((Element) table.get(i)).getAttributeValue("class").equals(
+					"tbl_type3")) {
+				List<?> tbody = ((Element) table.get(i))
+						.getAllElements("tbody");
+				List<?> tr = ((Element) tbody.get(0)).getAllElements("tr");
+				List<?> title = ((Element) tr.get(2)).getAllElements("th");
+
+				if (((Element) title.get(0)).getContent().toString()
+						.equals("식재료")) {
+					List<?> tdMeal = ((Element) tr.get(1)).getAllElements("td");
+
+					for (int j = 0; j < 7; j++) {
+						content[j] = ((Element) tdMeal.get(j)).getContent()
+								.toString();
+						content[j] = content[j].replace("<br />", "\n");
+					}
+
+					break;
+				}
+
+				for (int index = 0; index < content.length; index++) {
+					content[index] = null;
+				}
+
+				break;
+			}
+		}
+
+		return content;
+	}
+
+	@Deprecated
+	private static String[] getMealSub(String[] content, String url) {
+		try {
+			mSource = new Source(new URL(url));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+
 		for (int i = 0; i < table.size(); i++) {
 			if (((Element) table.get(i)).getAttributeValue("class").equals(
 					"tableType6")) {
@@ -295,56 +456,64 @@ public class MealLibrary {
 						.getAllElements("tbody");
 				List<?> tr = ((Element) tbody.get(0)).getAllElements("tr");
 				List<?> title = ((Element) tr.get(2)).getAllElements("th");
+
 				if (((Element) title.get(0)).getContent().toString()
 						.equals("식재료")) {
 					List<?> tdMeal = ((Element) tr.get(1)).getAllElements("td");
 
-					content[0] = ((Element) tdMeal.get(0)).getContent()
-							.toString();
+					for (int j = 0; j < 7; j++) {
+						content[j] = ((Element) tdMeal.get(j)).getContent()
+								.toString();
+						content[j] = content[j].replace("<br />", "\n");
+					}
 
-					content[0] = content[0].replace("<br />", "\n");
-					content[1] = ((Element) tdMeal.get(1)).getContent()
-							.toString();
-
-					content[1] = content[1].replace("<br />", "\n");
-					content[2] = ((Element) tdMeal.get(2)).getContent()
-							.toString();
-
-					content[2] = content[2].replace("<br />", "\n");
-					content[3] = ((Element) tdMeal.get(3)).getContent()
-							.toString();
-
-					content[3] = content[3].replace("<br />", "\n");
-					content[4] = ((Element) tdMeal.get(4)).getContent()
-							.toString();
-
-					content[4] = content[4].replace("<br />", "\n");
-					content[5] = ((Element) tdMeal.get(5)).getContent()
-							.toString();
-
-					content[5] = content[5].replace("<br />", "\n");
-					content[6] = ((Element) tdMeal.get(6)).getContent()
-							.toString();
-
-					content[6] = content[6].replace("<br />", "\n");
 					break;
 				}
 
-				content[0] = null;
-				content[1] = null;
-				content[2] = null;
-				content[3] = null;
-				content[4] = null;
-				content[5] = null;
-				content[6] = null;
+				for (int index = 0; index < content.length; index++) {
+					content[index] = null;
+				}
+
+				break;
 			}
 		}
 		return content;
 	}
 
+	private static int getMonthDays(String CalenderMonth) {
+		switch (Integer.parseInt(CalenderMonth)) {
+		case 1:
+			return 31;
+		case 2:
+			return 29;
+		case 3:
+			return 31;
+		case 4:
+			return 30;
+		case 5:
+			return 31;
+		case 6:
+			return 30;
+		case 7:
+			return 31;
+		case 8:
+			return 31;
+		case 9:
+			return 30;
+		case 10:
+			return 31;
+		case 11:
+			return 30;
+		case 12:
+			return 31;
+		}
+		return 31;
+	}
+
 	/**
-	 * schYm : 2014.03
+	 * getMonthMeal
 	 */
+	@Deprecated
 	public static String[] getMonthMeal(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode,
 			String schMmealScCode, String schYm) {
@@ -359,6 +528,7 @@ public class MealLibrary {
 		return getMonthMealSub(content, schMmealScCode, url, "1");
 	}
 
+	@Deprecated
 	public static String[] getMonthMeal(String CountryCode, String schulCode,
 			String schulCrseScCode, String schulKndScCode,
 			String schMmealScCode, String year, String month) {
@@ -373,20 +543,21 @@ public class MealLibrary {
 		return getMonthMealSub(content, schMmealScCode, url, month);
 	}
 
+	@Deprecated
 	private static String[] getMonthMealSub(String[] content,
 			String schMmealScCode, String url, String month) {
 		int dayChecker = 0;
 
 		try {
-			source = new Source(new URL(url));
+			mSource = new Source(new URL(url));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		source.fullSequentialParse();
-		List<?> table = source.getAllElements("table");
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
 		for (int i = 0; i < table.size(); i++) {
 
 			String tableType = ((Element) table.get(i))
@@ -449,6 +620,164 @@ public class MealLibrary {
 						}
 					}
 				}
+
+				break;
+			}
+		}
+
+		return content;
+	}
+
+	/**
+	 * getPeople
+	 */
+	@Deprecated
+	public static String[] getPeople(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getPeopleSub(content, url);
+	}
+
+	@Deprecated
+	public static String[] getPeople(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String schYmd) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + schYmd;
+
+		return getPeopleSub(content, url);
+	}
+
+	@Deprecated
+	public static String[] getPeople(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getPeopleSub(content, url);
+	}
+
+	/**
+	 * getPeople
+	 */
+	public static String[] getPeopleNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
+
+		return getPeopleSubNew(content, url);
+	}
+
+	public static String[] getPeopleNew(String CountryCode, String schulCode,
+			String schulCrseScCode, String schulKndScCode,
+			String schMmealScCode, String year, String month, String day) {
+		String[] content = new String[7];
+		String url = "http://hes." + CountryCode
+				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
+				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
+				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
+				+ "&schYmd=" + year + "." + month + "." + day;
+
+		return getPeopleSub(content, url);
+	}
+
+	@Deprecated
+	private static String[] getPeopleSub(String[] content, String url) {
+		try {
+			mSource = new Source(new URL(url));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+
+		for (int i = 0; i < table.size(); i++) {
+			if (((Element) table.get(i)).getAttributeValue("class").equals(
+					"tableType6")) {
+				List<?> tbody = ((Element) table.get(i))
+						.getAllElements("tbody");
+				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
+				List<?> __th = ((Element) __tr.get(0)).getAllElements("th");
+
+				if (((Element) __th.get(0)).getContent().toString()
+						.equals("급식인원")) {
+					List<?> td = ((Element) __tr.get(0)).getAllElements("td");
+
+					for (int j = 0; j < 7; j++) {
+						content[j] = ((Element) td.get(j)).getContent()
+								.toString();
+					}
+
+					break;
+				}
+
+				for (int index = 0; index < content.length; index++) {
+					content[index] = null;
+				}
+
+				break;
+			}
+		}
+
+		return content;
+	}
+
+	private static String[] getPeopleSubNew(String[] content, String url) {
+		try {
+			mSource = new Source(new URL(url));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		mSource.fullSequentialParse();
+		List<?> table = mSource.getAllElements("table");
+
+		for (int i = 0; i < table.size(); i++) {
+			if (((Element) table.get(i)).getAttributeValue("class").equals(
+					"tbl_type3")) {
+				List<?> tbody = ((Element) table.get(i))
+						.getAllElements("tbody");
+				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
+				List<?> __th = ((Element) __tr.get(0)).getAllElements("th");
+
+				if (((Element) __th.get(0)).getContent().toString()
+						.equals("급식인원")) {
+					List<?> td = ((Element) __tr.get(0)).getAllElements("td");
+
+					for (int j = 0; j < 7; j++) {
+						content[j] = ((Element) td.get(j)).getContent()
+								.toString();
+					}
+
+					break;
+				}
+
+				for (int index = 0; index < content.length; index++) {
+					content[index] = null;
+				}
+
 				break;
 			}
 		}
@@ -461,199 +790,5 @@ public class MealLibrary {
 			return false;
 		else
 			return true;
-	}
-
-	private static int getMonthDays(String CalenderMonth) {
-		switch (Integer.parseInt(CalenderMonth)) {
-		case 1:
-			return 31;
-		case 2:
-			return 29;
-		case 3:
-			return 31;
-		case 4:
-			return 30;
-		case 5:
-			return 31;
-		case 6:
-			return 30;
-		case 7:
-			return 31;
-		case 8:
-			return 31;
-		case 9:
-			return 30;
-		case 10:
-			return 31;
-		case 11:
-			return 30;
-		case 12:
-			return 31;
-		}
-		return 31;
-	}
-
-	public static String[] getKcal(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
-
-		return getKcalSub(content, url);
-	}
-
-	public static String[] getKcal(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode,
-			String schMmealScCode, String schYmd) {
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
-				+ "&schYmd=" + schYmd;
-
-		return getKcalSub(content, url);
-	}
-
-	public static String[] getKcal(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode,
-			String schMmealScCode, String year, String month, String day) {
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
-				+ "&schYmd=" + year + "." + month + "." + day;
-
-		return getKcalSub(content, url);
-	}
-
-	private static String[] getKcalSub(String[] content, String url) {
-		try {
-			source = new Source(new URL(url));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		source.fullSequentialParse();
-		List<?> table = source.getAllElements("table");
-		for (int i = 0; i < table.size(); i++) {
-			if (((Element) table.get(i)).getAttributeValue("class").equals(
-					"tableType6")) {
-				List<?> tbody = ((Element) table.get(i))
-						.getAllElements("tbody");
-				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
-				List<?> __th = ((Element) __tr.get(16)).getAllElements("th");
-				if (((Element) __th.get(0)).getContent().toString()
-						.equals("에너지(kcal)    ")) {
-					List<?> td = ((Element) __tr.get(16)).getAllElements("td");
-					content[0] = ((Element) td.get(0)).getContent().toString();
-					content[1] = ((Element) td.get(1)).getContent().toString();
-					content[2] = ((Element) td.get(2)).getContent().toString();
-					content[3] = ((Element) td.get(3)).getContent().toString();
-					content[4] = ((Element) td.get(4)).getContent().toString();
-					content[5] = ((Element) td.get(5)).getContent().toString();
-					content[6] = ((Element) td.get(6)).getContent().toString();
-					break;
-				}
-
-				content[0] = null;
-				content[1] = null;
-				content[2] = null;
-				content[3] = null;
-				content[4] = null;
-				content[5] = null;
-				content[6] = null;
-				break;
-			}
-		}
-
-		return content;
-	}
-
-	public static String[] getPeople(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode, String schMmealScCode) {
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode;
-
-		return getPeopleSub(content, url);
-	}
-
-	public static String[] getPeople(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode,
-			String schMmealScCode, String schYmd) {
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
-				+ "&schYmd=" + schYmd;
-
-		return getPeopleSub(content, url);
-	}
-
-	public static String[] getPeople(String CountryCode, String schulCode,
-			String schulCrseScCode, String schulKndScCode,
-			String schMmealScCode, String year, String month, String day) {
-		String[] content = new String[7];
-		String url = "http://hes." + CountryCode
-				+ "/sts_sci_md01_001.do?schulCode=" + schulCode
-				+ "&schulCrseScCode=" + schulCrseScCode + "&schulKndScCode="
-				+ schulKndScCode + "&schMmealScCode=" + schMmealScCode
-				+ "&schYmd=" + year + "." + month + "." + day;
-
-		return getPeopleSub(content, url);
-	}
-
-	private static String[] getPeopleSub(String[] content, String url) {
-		try {
-			source = new Source(new URL(url));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		source.fullSequentialParse();
-		List<?> table = source.getAllElements("table");
-		for (int i = 0; i < table.size(); i++) {
-			if (((Element) table.get(i)).getAttributeValue("class").equals(
-					"tableType6")) {
-				List<?> tbody = ((Element) table.get(i))
-						.getAllElements("tbody");
-				List<?> __tr = ((Element) tbody.get(0)).getAllElements("tr");
-				List<?> __th = ((Element) __tr.get(0)).getAllElements("th");
-				if (((Element) __th.get(0)).getContent().toString()
-						.equals("급식인원")) {
-					List<?> td = ((Element) __tr.get(0)).getAllElements("td");
-					content[0] = ((Element) td.get(0)).getContent().toString();
-					content[1] = ((Element) td.get(1)).getContent().toString();
-					content[2] = ((Element) td.get(2)).getContent().toString();
-					content[3] = ((Element) td.get(3)).getContent().toString();
-					content[4] = ((Element) td.get(4)).getContent().toString();
-					content[5] = ((Element) td.get(5)).getContent().toString();
-					content[6] = ((Element) td.get(6)).getContent().toString();
-					break;
-				}
-
-				content[0] = null;
-				content[1] = null;
-				content[2] = null;
-				content[3] = null;
-				content[4] = null;
-				content[5] = null;
-				content[6] = null;
-				break;
-			}
-		}
-
-		return content;
 	}
 }
