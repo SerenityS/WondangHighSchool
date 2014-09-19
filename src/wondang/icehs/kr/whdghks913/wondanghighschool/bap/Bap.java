@@ -21,6 +21,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,7 +79,12 @@ public class Bap extends Activity {
 		}
 
 		mHelper = new CroutonHelper(this);
-		mAdapter = new BapListViewAdapter(this);
+
+		SharedPreferences mPref = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		boolean isHidden = mPref.getBoolean("customBap", false);
+		String KeyWord = mPref.getString("customBapKeyWord", null);
+		mAdapter = new BapListViewAdapter(this, isHidden, KeyWord);
 
 		bapList = getSharedPreferences("bapList", 0);
 		bapListeditor = bapList.edit();

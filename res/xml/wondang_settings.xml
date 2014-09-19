@@ -76,6 +76,10 @@
                 android:action="android.intent.action.SENDTO"
                 android:data="mailto:whdghks913@naver.com" />
         </Preference>
+        <Preference
+            android:key="appVersion"
+            android:summary="v0.0"
+            android:title="어플 버전" />
     </PreferenceCategory>
 
 </PreferenceScreen>

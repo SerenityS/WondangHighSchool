@@ -14,8 +14,13 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 public class SettingsActivity extends PreferenceActivity {
+	private SharedPreferences mPref;
+	private SharedPreferences.Editor mEdit;
+
+	private static int HIDDEN_MODE = 0;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -27,6 +32,7 @@ public class SettingsActivity extends PreferenceActivity {
 		setOnPreferenceClick(findPreference("openSource"));
 		setOnPreferenceClick(findPreference("infoAutoUpdate"));
 		setOnPreferenceClick(findPreference("deleteGradeClass"));
+		setOnPreferenceClick(findPreference("appVersion"));
 		setOnPreferenceChange(findPreference("updateLife"));
 		setOnPreferenceChange(findPreference("autoBapUpdate"));
 		setOnPreferenceChange(findPreference("userName"));
@@ -36,6 +42,16 @@ public class SettingsActivity extends PreferenceActivity {
 			actionBar.setHomeButtonEnabled(true);
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
+
+		mPref = PreferenceManager
+				.getDefaultSharedPreferences(SettingsActivity.this);
+		mEdit = mPref.edit();
+
+		if (mPref.getBoolean("HiddenMenu", false)) {
+			addPreferencesFromResource(R.xml.hidden_settings);
+			setOnPreferenceChange(findPreference("customBapKeyWord"));
+		}
+
 	}
 
 	private void setOnPreferenceChange(Preference mPreference) {
@@ -162,14 +178,21 @@ public class SettingsActivity extends PreferenceActivity {
 			} else if ("infoAutoUpdate".equals(getKey)) {
 				showNotifi();
 			} else if ("deleteGradeClass".equals(getKey)) {
-				SharedPreferences.Editor mEdit = PreferenceManager
-						.getDefaultSharedPreferences(SettingsActivity.this)
-						.edit();
 				mEdit.remove("YourGrade");
 				mEdit.remove("YourClass");
 				mEdit.remove("YourGradeClass");
 				mEdit.remove("DontShowGradeClass");
 				mEdit.commit();
+			} else if ("appVersion".equals(getKey)) {
+				if (HIDDEN_MODE == 20) {
+					mEdit.putBoolean("HiddenMenu", true).commit();
+
+					Toast.makeText(getApplicationContext(),
+							"숨겨진 메뉴가 활성화 되었습니다 재접속 해주세요", Toast.LENGTH_SHORT)
+							.show();
+				} else {
+					++HIDDEN_MODE;
+				}
 			}
 
 			return true;

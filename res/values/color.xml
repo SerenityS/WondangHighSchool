@@ -1,6 +1,7 @@
 <resources>
 
     <color name="background">#80ffd700</color>
+    <color name="background_blue">#8033b5e5</color>
 
     <!-- 구글나우 카드 형식 -->
     <integer name="card_press_fade_duration">500</integer>

@@ -29,16 +29,30 @@ class BapListViewAdapter extends BaseAdapter {
 	private Calendar currentTime = Calendar.getInstance();
 	private final int YEAR, MONTH, DAY_OF_MONTH;
 
-	public BapListViewAdapter(Context mContext) {
+	private final boolean isKeyWord;
+	private final String mKeyWord;
+
+	public BapListViewAdapter(Context mContext, boolean isKeyWord,
+			String mKeyWord) {
 		super();
+
 		this.mContext = mContext;
 		YEAR = currentTime.get(Calendar.YEAR);
 		MONTH = currentTime.get(Calendar.MONTH);
 		DAY_OF_MONTH = currentTime.get(Calendar.DAY_OF_MONTH);
+
+		this.isKeyWord = isKeyWord;
+
+		if (mStringCheck(mKeyWord))
+			this.mKeyWord = null;
+		else
+			this.mKeyWord = mKeyWord;
+
 	}
 
 	public void addItem(String mCalender, String mDate, String mMorning,
 			String mLunch, String mNight) {
+
 		BapListData addInfo = new BapListData();
 		addInfo.mCalender = mCalender;
 		addInfo.mDate = mDate;
@@ -96,7 +110,6 @@ class BapListViewAdapter extends BaseAdapter {
 		BapListData mData = mListData.get(position);
 
 		String mDate = mData.mDate;
-
 		if ("일요일".equals(mDate)) {
 			holder.mCalender.setTextColor(Color.RED);
 			holder.mDate.setTextColor(Color.RED);
@@ -111,8 +124,25 @@ class BapListViewAdapter extends BaseAdapter {
 		}
 
 		String Calender = mData.mCalender;
+		String mMorning = mData.mMorning;
+		String mLunch = mData.mLunch;
+		String mNight = mData.mNight;
+
+		if (mStringCheck(mMorning))
+			mMorning = mData.mMorning = "아침이 없습니다";
+		if (mStringCheck(mLunch))
+			mLunch = mData.mLunch = "점심이 없습니다";
+		if (mStringCheck(mNight))
+			mNight = mData.mNight = "저녁이 없습니다";
+
 		holder.mCalender.setText(Calender);
 		holder.mDate.setText(mDate);
+		holder.mMorning.setText(mMorning);
+		holder.mLunch.setText(mLunch);
+		holder.mNight.setText(mNight);
+
+		LinearLayout bapListLayout = (LinearLayout) convertView
+				.findViewById(R.id.bapListLayout);
 
 		try {
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy.MM.dd(E)",
@@ -121,15 +151,14 @@ class BapListViewAdapter extends BaseAdapter {
 			Calendar Date = Calendar.getInstance();
 			Date.setTime(sdFormat.parse(Calender));
 
-			LinearLayout bapListLayout = (LinearLayout) convertView
-					.findViewById(R.id.bapListLayout);
-
 			if (Date.get(Calendar.YEAR) == YEAR
 					&& Date.get(Calendar.MONTH) == MONTH
 					&& Date.get(Calendar.DAY_OF_MONTH) == DAY_OF_MONTH) {
 
 				bapListLayout.setBackgroundColor(mContext.getResources()
 						.getColor(R.color.background));
+
+				return convertView;
 
 			} else {
 				bapListLayout.setBackgroundColor(mContext.getResources()
@@ -140,28 +169,26 @@ class BapListViewAdapter extends BaseAdapter {
 			e.printStackTrace();
 		}
 
-		String mMorning = mData.mMorning;
-		String mLunch = mData.mLunch;
-		String mNight = mData.mNight;
-
-		if (MealCheck(mMorning))
-			mMorning = mData.mMorning = "아침이 없습니다";
-
-		if (MealCheck(mLunch))
-			mLunch = mData.mLunch = "점심이 없습니다";
-
-		if (MealCheck(mNight))
-			mNight = mData.mNight = "저녁이 없습니다";
-
-		holder.mMorning.setText(mMorning.trim());
-		holder.mLunch.setText(mLunch.trim());
-		holder.mNight.setText(mNight.trim());
+		if (isKeyWord) {
+			if (keyWordCheck(mLunch) || keyWordCheck(mNight)
+					|| keyWordCheck(mMorning)) {
+				bapListLayout.setBackgroundColor(mContext.getResources()
+						.getColor(R.color.background_blue));
+				return convertView;
+			}
+		}
 
 		return convertView;
 	}
 
-	private boolean MealCheck(String Meal) {
-		if ("".equals(Meal) || " ".equals(Meal) || Meal == null)
+	private boolean keyWordCheck(String Meal) {
+		if (Meal.indexOf(mKeyWord) == -1)
+			return false;
+		return true;
+	}
+
+	private boolean mStringCheck(String mString) {
+		if (mString == null || "".equals(mString) || " ".equals(mString))
 			return true;
 		return false;
 	}
