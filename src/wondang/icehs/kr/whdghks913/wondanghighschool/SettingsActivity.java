@@ -6,6 +6,9 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -20,7 +23,7 @@ public class SettingsActivity extends PreferenceActivity {
 	private SharedPreferences mPref;
 	private SharedPreferences.Editor mEdit;
 
-	private static int HIDDEN_MODE = 0;
+	private int HIDDEN_MODE = 0;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -52,6 +55,14 @@ public class SettingsActivity extends PreferenceActivity {
 			setOnPreferenceChange(findPreference("customBapKeyWord"));
 		}
 
+		try {
+			PackageManager packageManager = this.getPackageManager();
+			PackageInfo infor = packageManager.getPackageInfo(getPackageName(),
+					PackageManager.GET_META_DATA);
+			findPreference("appVersion").setSummary(infor.versionName);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void setOnPreferenceChange(Preference mPreference) {
@@ -66,8 +77,10 @@ public class SettingsActivity extends PreferenceActivity {
 					.setSummary(index >= 0 ? listPreference.getEntries()[index]
 							: null);
 		} else if (mPreference instanceof EditTextPreference) {
-			onPreferenceChangeListener.onPreferenceChange(mPreference,
-					((EditTextPreference) mPreference).getText());
+			String values = ((EditTextPreference) mPreference).getText();
+			if (values == null)
+				values = "";
+			onPreferenceChangeListener.onPreferenceChange(mPreference, values);
 		}
 	}
 
