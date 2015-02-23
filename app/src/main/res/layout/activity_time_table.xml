@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/toolbar" />
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="25dp">
+
+                        <TextView
+                            android:id="@+id/mTimeName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="1학년 2반 시간표"
+                            android:textSize="30dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/mDayOfTheWeek"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_horizontal"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <ListView
+                    android:id="@+id/mListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/flat_melon_yellow"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>

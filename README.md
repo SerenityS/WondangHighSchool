@@ -1,6 +1,6 @@
-ï»¿ì¸ì²œ ì›ë‹¹ ê³ ë“±í•™êµ (Wondang High School)
+ÀÎÃµ ¿ø´ç °íµîÇÐ±³ (Wondang High School)
 ========================================
-Copyright (C) 2014 JongHwan Lee <whdghks913@gmail.com> [itmir.tistory.com](http://itmir.tistory.com)
+Copyright (C) 2014~2015 JongHwan Lee <whdghks913@gmail.com> [itmir.tistory.com](http://itmir.tistory.com)
 ------------------------------------------------------------------------------------------------
 
 
@@ -8,35 +8,40 @@ Copyright (C) 2014 JongHwan Lee <whdghks913@gmail.com> [itmir.tistory.com](http:
 Info
 ----
 
-ì¸ì²œ ì›ë‹¹ ê³ ë“±í•™êµ ì•ˆë“œë¡œì´ë“œ ì•± ì˜¤í”ˆì†ŒìŠ¤ ì‚¬ì´íŠ¸
+ÀÎÃµ ¿ø´ç °íµîÇÐ±³ ¾Èµå·ÎÀÌµå ¾Û ¿ÀÇÂ¼Ò½º »çÀÌÆ®
 
-í•™êµì•±ì„ ì‚¬ìš©í•´ ì£¼ì‹œëŠ” ì—¬ëŸ¬ë¶„, í•™êµì•±ì„ ê°œë°œì¤‘ì´ì‹  ì—¬ëŸ¬ë¶„ ì´ ì‚¬ì´íŠ¸ì— ë°©ë¬¸í•´ ì£¼ì…”ì„œ ê°ì‚¬ë“œë¦½ë‹ˆë‹¤
-ì´ ì•±ì˜ ì˜¤í”ˆì†ŒìŠ¤í™”ê°€ ì—¬ëŸ¬ë¶„ê»˜ ë„ì›€ì´ ë˜ì—ˆìœ¼ë©´ í•©ë‹ˆë‹¤
-ê¶ê¸ˆí•˜ì‹  ì  ë˜ëŠ” í•´ê²°ì´ ì•ˆë˜ëŠ” ì ì´ ìžˆë‹¤ë©´ ê°œë°œìž ë¸”ë¡œê·¸ [itmir.tistory.com](http://itmir.tistory.com)ìœ¼ë¡œ ë°©ë¬¸í•´ ì£¼ì‹œê¸° ë°”ëžŒë‹ˆë‹¤
+ÇÐ±³¾ÛÀ» »ç¿ëÇØ ÁÖ½Ã´Â ¿©·¯ºÐ, ÇÐ±³¾ÛÀ» °³¹ßÁßÀÌ½Å ¿©·¯ºÐ ÀÌ »çÀÌÆ®¿¡ ¹æ¹®ÇØ ÁÖ¼Å¼­ °¨»çµå¸³´Ï´Ù
+ÀÌ ¾ÛÀÇ ¿ÀÇÂ¼Ò½ºÈ­°¡ ¿©·¯ºÐ²² µµ¿òÀÌ µÇ¾úÀ¸¸é ÇÕ´Ï´Ù
+±Ã±ÝÇÏ½Å Á¡ ¶Ç´Â ÇØ°áÀÌ ¾ÈµÇ´Â Á¡ÀÌ ÀÖ´Ù¸é °³¹ßÀÚ ºí·Î±× [itmir.tistory.com](http://itmir.tistory.com)À¸·Î ¹æ¹®ÇØ ÁÖ½Ã±â ¹Ù¶÷´Ï´Ù
 
 
 
-í•„ìš”í•œ ë¼ì´ë¸ŒëŸ¬ë¦¬ & ì‚¬ìš©ëœ ë¼ì´ë¸ŒëŸ¬ë¦¬
+ÇÊ¿äÇÑ ¶óÀÌºê·¯¸® & »ç¿ëµÈ ¶óÀÌºê·¯¸®
 --------------------------------------
 
-- ActionBarSherlock
-- Jericho Library
-- Crouton Helper
-- Android Meal Library
+- [ericho HTML Parser](http://jericho.htmlparser.net/docs/index.html)
+
+- [Android Meal Library](http://itmir.tistory.com/486)
+
+- [SnackBar](https://github.com/MrEngineer13/SnackBar)
+
+- [L-Dialogs](https://github.com/lewisjdeane/L-Dialogs)
+
+- [Floating Action Button](http://itmir.tistory.com/528)
 
 
 
-ë¼ì´ì„¼ìŠ¤
+¶óÀÌ¼¾½º
 --------
 
-- ë³„ë„ì˜ ì–¸ê¸‰ì´ ìžˆëŠ” ê²½ìš°ë¥¼ ì œì™¸í•˜ê³  ì¸ì²œ ì›ë‹¹ê³ ë“±í•™êµ ì–´í”Œì€ [ì•„íŒŒì¹˜ ë¼ì´ì„¼ìŠ¤ 2.0ë²„ì „](http://www.apache.org/licenses/LICENSE-2.0.html)ì´ ì ìš©ë©ë‹ˆë‹¤
-- ëˆ„êµ¬ë‚˜ ì´ ì•±ì— ì „ì²´, ë˜ëŠ” ì¼ë¶€ë¥¼ ì‚¬ìš©í• ìˆ˜ ìžˆìœ¼ë©°, ìˆ˜ì • ë° ìž¬ë°°í¬ ê°€ëŠ¥í•©ë‹ˆë‹¤
-- ìˆ˜ì • ë° ìž¬ë°°í¬ì‹œ ì•± ì •ë³´ì— ì´ bitbucket.orgì£¼ì†Œë¥¼ ì¶”ê°€í•´ ì£¼ì„¸ìš”
-- ê°œë°œìžì—ê²Œ ì €ìž‘ê¶Œì´ ìžˆê³  ì´ ì•±ì— í¬í•¨ë˜ì–´ ìžˆëŠ” ëª¨ë“  ì†ŒìŠ¤ì˜ ìƒì—…ì  ì´ìš©ì„ í—ˆë½í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤
+- º°µµÀÇ ¾ð±ÞÀÌ ÀÖ´Â °æ¿ì¸¦ Á¦¿ÜÇÏ°í ÀÎÃµ ¿ø´ç°íµîÇÐ±³ ¾îÇÃÀº [¾ÆÆÄÄ¡ ¶óÀÌ¼¾½º 2.0¹öÀü](http://www.apache.org/licenses/LICENSE-2.0.html)ÀÌ Àû¿ëµË´Ï´Ù
+- ´©±¸³ª ÀÌ ¾Û¿¡ ÀüÃ¼, ¶Ç´Â ÀÏºÎ¸¦ »ç¿ëÇÒ¼ö ÀÖÀ¸¸ç, ¼öÁ¤ ¹× Àç¹èÆ÷ °¡´ÉÇÕ´Ï´Ù
+- ¼öÁ¤ ¹× Àç¹èÆ÷½Ã ¾Û Á¤º¸¿¡ ÀÌ bitbucket.orgÁÖ¼Ò¸¦ Ãß°¡ÇØ ÁÖ¼¼¿ä
+- °³¹ßÀÚ¿¡°Ô ÀúÀÛ±ÇÀÌ ÀÖ°í ÀÌ ¾Û¿¡ Æ÷ÇÔµÇ¾î ÀÖ´Â ¸ðµç ¼Ò½ºÀÇ »ó¾÷Àû ÀÌ¿ëÀ» Çã¶ôÇÏÁö ¾Ê½À´Ï´Ù
 
 
 
 Android Meal Library
 ------------------
-ëŒ€í•œë¯¼êµ­ ì´ˆ/ì¤‘/ê³ ë“±í•™êµì˜ ê¸‰ì‹ì„ String[]ì˜ í˜•ì‹ìœ¼ë¡œ ë°›ì„ìˆ˜ ìžˆëŠ” ì˜¤í”ˆì†ŒìŠ¤ ë¼ì´ë¸ŒëŸ¬ë¦¬ ìž…ë‹ˆë‹¤
-ëˆ„êµ¬ë‚˜ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ë©° ì‚¬ìš©ì‹œ ì•±ì˜ ì˜¤í”ˆì†ŒìŠ¤ ë¼ì´ì„¼ìŠ¤ì— [ì˜¤í”ˆì†ŒìŠ¤ ì£¼ì†Œ](https://bitbucket.org/whdghks913/wondanghighschool)ë¥¼ ê¼­ ì¶”ê°€í•´ì•¼ í•©ë‹ˆë‹¤
+´ëÇÑ¹Î±¹ ÃÊ/Áß/°íµîÇÐ±³ÀÇ ±Þ½ÄÀ» String[]ÀÇ Çü½ÄÀ¸·Î ¹ÞÀ»¼ö ÀÖ´Â ¿ÀÇÂ¼Ò½º ¶óÀÌºê·¯¸® ÀÔ´Ï´Ù
+´©±¸³ª »ç¿ëÀÌ °¡´ÉÇÏ¸ç »ç¿ë½Ã ¾ÛÀÇ ¿ÀÇÂ¼Ò½º ¶óÀÌ¼¾½º¿¡ [¿ÀÇÂ¼Ò½º ÁÖ¼Ò](https://bitbucket.org/whdghks913/wondanghighschool)¸¦ ²À Ãß°¡ÇØ¾ß ÇÕ´Ï´Ù
