@@ -110,4 +110,10 @@ public class BapTool {
         public String Dinner;
         public boolean isBlankDay = false;
     }
+
+    public static boolean mStringCheck(String mString) {
+        if (mString == null || "".equals(mString) || " ".equals(mString))
+            return true;
+        return false;
+    }
 }

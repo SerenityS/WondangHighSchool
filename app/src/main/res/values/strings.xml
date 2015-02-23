@@ -41,6 +41,10 @@
     <!-- 수정 내역 -->
     <string name="changeLog_title">수정 내역</string>
     <string name="changeLog_msg">
+\n[3.2] : 급식 위젯 업데이트
+\n- 급식 위젯 추가
+\n- 위젯의 날짜부분을 누르면 위젯이 업데이트 되서 표시됩니다.
+\n
 \n[3.0] : 아주 큰 메인 업데이트
 \n- Material Design 적용
 \n- 한번 불러온 급식을 재로딩시 데이터 필요 없음
@@ -154,5 +158,9 @@
     <string name="bapUpdate_Error_get_msg">급식을 가져오는대 실패했습니다</string>
     <string name="bapUpdate_Success_title">급식 업데이트 성공</string>
     <string name="bapUpdate_Success_msg">급식을 성공적으로 업데이트 했습니다 확인하려면 누르세요</string>
+    <!-- 급식 위젯 -->
+    <string name="widget_name">급식 위젯</string>
+    <string name="widget_no_data">데이터가 없습니다 날짜를 눌러 새로고침 하세요</string>
+    <string name="widget_updating">급식 업데이트중입니다</string>
 
 </resources>

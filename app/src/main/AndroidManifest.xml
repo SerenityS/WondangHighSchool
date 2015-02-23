@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="wondang.icehs.kr.whdghks913.wondanghighschool"
-    android:versionCode="20"
-    android:versionName="3.0">
+    android:versionCode="21"
+    android:versionName="3.2">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -55,6 +55,25 @@
         <service
             android:name=".autoupdate.updateService"
             android:label="@string/title_service_autoupdate" />
+
+        <receiver
+            android:name=".widget.BapWidget"
+            android:label="@string/widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/bap_widget_info" />
+        </receiver>
+
+        <receiver android:name=".widget.WidgetBroadCast">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="itmir.tistory.com.UPDATE_ACTION" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

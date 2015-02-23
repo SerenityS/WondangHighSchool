@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_container"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,8 +11,6 @@
         android:background="@color/flat_yellow_green"
         android:orientation="vertical"
         android:paddingBottom="5dp"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
         android:paddingTop="5dp">
 
         <TextView

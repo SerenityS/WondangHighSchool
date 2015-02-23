@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
+import wondang.icehs.kr.whdghks913.wondanghighschool.tool.BapTool;
 
 /**
  * Created by 종환 on 2015-02-17.
@@ -100,9 +101,9 @@ public class BapListAdapter extends BaseAdapter {
         String mLunch = mData.mLunch;
         String mDinner = mData.mDinner;
 
-        if (mStringCheck(mLunch))
+        if (BapTool.mStringCheck(mLunch))
             mLunch = mData.mLunch = mContext.getResources().getString(R.string.no_data_lunch);
-        if (mStringCheck(mDinner))
+        if (BapTool.mStringCheck(mDinner))
             mDinner = mData.mDinner = mContext.getResources().getString(R.string.no_data_dinner);
 
         mHolder.mCalender.setText(mCalender);
@@ -139,11 +140,5 @@ public class BapListAdapter extends BaseAdapter {
         }*/
 
         return convertView;
-    }
-
-    private boolean mStringCheck(String mString) {
-        if (mString == null || "".equals(mString) || " ".equals(mString))
-            return true;
-        return false;
     }
 }
