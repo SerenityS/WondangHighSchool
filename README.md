@@ -19,7 +19,7 @@ Info
 필요한 라이브러리 & 사용된 라이브러리
 --------------------------------------
 
-- [ericho HTML Parser](http://jericho.htmlparser.net/docs/index.html)
+- [Jericho HTML Parser](http://jericho.htmlparser.net/docs/index.html)
 
 - [Android Meal Library](http://itmir.tistory.com/486)
 

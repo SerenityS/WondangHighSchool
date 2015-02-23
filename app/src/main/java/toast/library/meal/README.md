@@ -38,6 +38,101 @@ AsyncTask를 사용하여 라이브러리를 사용해 주세요, 어떻게 쓰�
 
 
 
+급식 다운로드를 위한 AsyncTask를 지원합니다
+============================
+원당고 학교앱이 업데이트됨에따라 급식을 가져오는 방법이 변경되었습니다
+아래 방법을 따라하시면 업데이트된 방식을 적용하실수 있습니다
+
+1. wondang/icehs/kr/whdghks913/wondanghighschool/bap/ProcessTask.java, 
+wondang/icehs/kr/whdghks913/wondanghighschool/tool/BapTool.java, 
+wondang/icehs/kr/whdghks913/wondanghighschool/tool/Preference.java를 가져옵니다
+
+- ProcessTask.java는 급식 파싱 라이브러리를 사용하는 AsyncTask이며 BapTool.java와 Preference.java를 이용해 급식을 저장합니다
+
+
+2. ProcessTask.java를 열고 자신의 학교에 맞게 정보를 수정하세요
+
+
+3. 급식을 다운받는 액티비티(서비스등)에서 ProcessTask를 상속받는 class를 만들어줘야 합니다
+
+```java
+BapDownloadTask mProcessTask;
+
+public class BapDownloadTask extends ProcessTask {
+    public BapDownloadTask(Context mContext) {
+        super(mContext);
+    }
+
+    @Override
+    public void onPreDownload() {
+	    // 다운로드 전에 해야하는 코드를 여기에 작성하세요
+    }
+
+    @Override
+    public void onUpdate(int progress) {
+	    // 진행상황을 표시할수 있는 코드를 여기에 작성하세요
+    }
+
+    @Override
+    public void onFinish(long result) {
+	    // 급식을 가져오는 코드를 여기에 작성하세요
+    }
+}
+```
+
+
+4. 만든 class를 실행해주세요
+
+```java
+mProcessTask = new BapDownloadTask(this);
+mProcessTask.execute(year, month, day);
+```
+
+ProcessTask를 execute할때 3가지 값을 순서대로 전달해주어야 합니다
+int형식이며 Calendar에서 얻은 값을 그대로 넣어야 합니다
+
+Calendar에서 얻은 month값은 1월=0, 12월=11입니다
+이를 ProcessTask에서 잡아주므로 따로 month+1을 하지 마세요
+
+
+5. ProcessTask를 실행하면 BapTool을 이용해 급식을 저장합니다 (BapTool.saveBapData)
+급식을 가져올때는 마찬가지로 BapTool을 사용해서 가져옵니다
+
+```java
+BapTool.restoreBapDateClass mData = BapTool.restoreBapData(Context, year, month, day);
+```
+
+하루의 급식 정보가 아래 class에 담겨 반환되며, mData를 이용해 급식을 가져올수 있습니다
+
+```java
+public static class restoreBapDateClass {
+    public String Calender;
+    public String DayOfTheWeek;
+    public String Lunch;
+    public String Dinner;
+    public boolean isBlankDay = false;
+}
+
+mData.Calender, mData.DayOfTheWeek, mData.Lunch, mData.Dinner, mData.isBlankDay
+```
+
+
+6. isBlankDay가 중요합니다
+isBlankDay가 true일경우 데이터가 저장되지 않은 상태입니다
+이때 ProcessTask를 실행해서 데이터를 받아옵니다
+
+```java
+if (mData.isBlankDay) {
+    // ProcessTask 실행
+}
+```
+
+
+7. 자세한 정보는 이 프로젝트의 BapActivity.java의 getBapList()를 참고하세요
+
+
+
+
 How To Use?
 =============
 Deprecated API
@@ -45,10 +140,11 @@ Deprecated API
 
 MealLibrary.getDate()
 --------------------
-
+```java
 - MealLibrary.getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
 - MealLibrary.getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
 - MealLibrary.getDate(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
+```
 
 일주일치 날짜를 반환합니다
 schYmd 또는 year, month, day를 입력하지 않을경우, 현재 서버 날짜를 기준으로 급식을 가져옵니다
@@ -60,10 +156,11 @@ String[]에서 [0]에는 일요일의 정보가, [6]에는 토요일의 정보�
 
 MealLibrary.getMeal()
 -------------------
-
+```java
 - MealLibrary.getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
 - MealLibrary.getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
 - MealLibrary.getMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
+```
 
 일주일치 급식을 반환합니다
 급식이 없을경우 " " 또는 "" 또는 null으로 반환하며, 자세한 설명은 getDate()와 같습니다
@@ -73,9 +170,10 @@ MealLibrary.getMeal()
 
 MealLibrary.getMonthMeal()
 -------------------------
-
+```java
 - MealLibrary.getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYm)
 - MealLibrary.getMonthMeal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month)
+```
 
 한달 급식을 반환합니다
 getMeal()에서 사용하는 schYm 파라메터와 getMonthMeal()에서 사용하는 schYm파라메터는 다른 형식을 사용해야 합니다 (아래 참조)
@@ -85,10 +183,11 @@ String[]의 길이는 한달 날짜 길이와 같으며, 2월은 윤년을 위�
 
 MealLibrary.getKcal()
 --------------------
-
+```java
 - MealLibrary.getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
 - MealLibrary.getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
 - MealLibrary.getKcal(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
+```
 
 일주일치 급식의 칼로리를 가져옵니다
 위와 같습니다
@@ -97,10 +196,11 @@ MealLibrary.getKcal()
 
 MealLibrary.getPeople()
 ----------------------
-
+```java
 - MealLibrary.getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode)
 - MealLibrary.getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String schYmd)
 - MealLibrary.getPeople(String CountryCode, String schulCode, String schulCrseScCode, String schulKndScCode, String schMmealScCode, String year, String month, String day)
+```
 
 일주일치 급식 인원을 반환합니다
 위와 같습니다
@@ -112,33 +212,37 @@ New API
 
 MealLibrary.getDateNew()
 -----------------------
-
+```java
 - MealLibrary.getDateNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
 - MealLibrary.getDateNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
+```
 
 
 
 MealLibrary.getKcalNew()
 -----------------------
-
+```java
 - MealLibrary.getKcalNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
 - MealLibrary.getKcalNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
+```
 
 
 
 MealLibrary.getMealNew()
 -----------------------
-
+```java
 - MealLibrary.getMealNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
 - MealLibrary.getMealNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
+```
 
 
 
 MealLibrary.getPeopleNew()
 -----------------------
-
+```java
 - MealLibrary.getPeopleNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode)
 - MealLibrary.getPeopleNew(CountryCode, schulCode, schulCrseScCode, schulKndScCode, schMmealScCode, year, month, day)
+```
 
 
 
