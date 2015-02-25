@@ -13,6 +13,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 import wondang.icehs.kr.whdghks913.wondanghighschool.bap.BapActivity;
 import wondang.icehs.kr.whdghks913.wondanghighschool.bap.ProcessTask;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.BapTool;
+import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Preference;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Tools;
 
 /**
@@ -48,8 +49,13 @@ public class WidgetTool {
         if (mData.isBlankDay) {
             // 데이터 없음
             if (Tools.isNetwork(mContext)) {
+                // Only Wifi && Not Wifi
+                if (new Preference(mContext).getBoolean("updateWiFi", true) && !Tools.isWifi(mContext)) {
+                    mViews.setTextViewText(R.id.mLunch, mContext.getString(R.string.widget_no_data));
+                    mViews.setTextViewText(R.id.mDinner, mContext.getString(R.string.widget_no_data));
+                }
                 // 급식 데이터 받아옴
-                if (ifNotUpdate) {
+                else if (ifNotUpdate) {
                     WidgetTool.BapDownloadTask mProcessTask = new WidgetTool.BapDownloadTask(mContext);
                     mProcessTask.execute(year, month, day);
                 }

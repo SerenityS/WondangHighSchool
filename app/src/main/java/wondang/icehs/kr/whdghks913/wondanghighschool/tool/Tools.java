@@ -25,8 +25,6 @@ public class Tools {
         NetworkInfo wifi = manager
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-        if (wifi.isConnected())
-            return true;
-        return false;
+        return wifi.isConnected();
     }
 }
