@@ -46,7 +46,8 @@
 
         <receiver
             android:name=".autoupdate.BroadCast"
-            android:label="@string/title_broadcast_autoupdate">
+            android:label="@string/title_broadcast_autoupdate"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -67,10 +68,14 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/bap_widget_info" />
         </receiver>
-
-        <receiver android:name=".widget.WidgetBroadCast">
+        <receiver
+            android:name=".widget.WidgetBroadCast"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.TIME_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="itmir.tistory.com.UPDATE_ACTION" />
             </intent-filter>
         </receiver>
