@@ -37,7 +37,8 @@
 \nic_notifi_icon.png : https://www.iconfinder.com/icons/176629/download_internet_manager_metroui_icon#size=128
 \ncalendar.png : http://www.tutsmag.com/wp-content/uploads/2013/06/final-result-calendar.png
 \nrice.png : http://keworganics.com.au/product-category/legumes/
-\ntimetable.png : http://iconshow.me/watch-icon</string>
+\ntimetable.png : http://iconshow.me/watch-icon
+\nclock.png : http://imgkid.com/alarm-clock-icon.shtml (http://appevent.com/wp-content/uploads/2014/08/app-icon-17597-mzl.atkfmgta.png)</string>
     <!-- 수정 내역 -->
     <string name="changeLog_title">수정 내역</string>
     <string name="changeLog_msg">
@@ -162,5 +163,7 @@
     <string name="widget_name">급식 위젯</string>
     <string name="widget_no_data">데이터가 없습니다 날짜를 눌러 새로고침 하세요</string>
     <string name="widget_updating">급식 업데이트중입니다</string>
+    <!-- 일과 운영표 -->
+    <string name="title_activity_today_list">일과 운영표</string>
 
 </resources>

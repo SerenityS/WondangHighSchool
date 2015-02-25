@@ -25,6 +25,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.info.SchoolInfo;
 import wondang.icehs.kr.whdghks913.wondanghighschool.schedule.ScheduleActivity;
 import wondang.icehs.kr.whdghks913.wondanghighschool.settings.SettingsActivity;
 import wondang.icehs.kr.whdghks913.wondanghighschool.timetable.TimeTableActivity;
+import wondang.icehs.kr.whdghks913.wondanghighschool.todaylist.TodayList;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.BapTool;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Database;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Preference;
@@ -181,6 +182,10 @@ public class MainActivity extends ActionBarActivity {
 
     public void Info(View mView) {
         startActivity(new Intent(this, SchoolInfo.class));
+    }
+
+    public void TodayList(View mView) {
+        startActivity(new Intent(this, TodayList.class));
     }
 
     @Override

@@ -79,6 +79,10 @@
                 <action android:name="itmir.tistory.com.UPDATE_ACTION" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".todaylist.TodayList"
+            android:label="@string/title_activity_today_list" />
     </application>
 
 </manifest>
