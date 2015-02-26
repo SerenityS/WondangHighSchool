@@ -126,6 +126,7 @@
     <string name="action_setting_mygrade">학년 설정</string>
     <string name="action_setting_myclass">반 설정</string>
     <string name="action_setting_myweek">요일 설정</string>
+    <string name="share_timetable_error">오류가 발생하여 공유를 할 수 없습니다</string>
     <!-- 설정 -->
     <string name="title_activity_settings">설정</string>
     <!-- 일정 -->

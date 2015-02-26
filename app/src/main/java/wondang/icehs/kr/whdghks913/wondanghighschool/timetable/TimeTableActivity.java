@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.mrengineer13.snackbar.SnackBar;
+
 import java.io.File;
 import java.util.Calendar;
 
@@ -198,25 +200,35 @@ public class TimeTableActivity extends ActionBarActivity {
     }
 
     private void shareTimeTable() {
-        int max = 7;
-        String[] TimeTable = new String[max];
+        try {
+            int max = 7;
+            String[] TimeTable = new String[max];
 
-        for (int i = 0; i < max; i++) {
-            TimeTableListData mData = mAdapter.getItem(i);
-            TimeTable[i] = mData.mSubjectName + "(" + mData.mRoom + ")";
+            for (int i = 0; i < max; i++) {
+                TimeTableListData mData = mAdapter.getItem(i);
+                TimeTable[i] = mData.mSubjectName + "(" + mData.mRoom + ")";
+            }
+
+            String title = getString(R.string.action_share_timetable);
+            Intent msg = new Intent(Intent.ACTION_SEND);
+            msg.addCategory(Intent.CATEGORY_DEFAULT);
+            msg.putExtra(Intent.EXTRA_TITLE, title);
+            msg.putExtra(Intent.EXTRA_TEXT, String.format(
+                    getString(R.string.action_share_timetable_msg),
+                    TimeTableTool.mDisplayName[DayOfWeek], TimeTable[0], TimeTable[1],
+                    TimeTable[2], TimeTable[3], TimeTable[4], TimeTable[5],
+                    TimeTable[6]));
+            msg.setType("text/plain");
+            startActivity(Intent.createChooser(msg, title));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            SnackBar.Builder mSnackBar = new SnackBar.Builder(this);
+            mSnackBar.withMessage(getString(R.string.share_timetable_error));
+            mSnackBar.withStyle(SnackBar.Style.INFO);
+            mSnackBar.withActionMessage(getString(android.R.string.ok));
+            mSnackBar.show();
         }
-
-        String title = getString(R.string.action_share_timetable);
-        Intent msg = new Intent(Intent.ACTION_SEND);
-        msg.addCategory(Intent.CATEGORY_DEFAULT);
-        msg.putExtra(Intent.EXTRA_TITLE, title);
-        msg.putExtra(Intent.EXTRA_TEXT, String.format(
-                getString(R.string.action_share_timetable_msg),
-                TimeTableTool.mDisplayName[DayOfWeek], TimeTable[0], TimeTable[1],
-                TimeTable[2], TimeTable[3], TimeTable[4], TimeTable[5],
-                TimeTable[6]));
-        msg.setType("text/plain");
-        startActivity(Intent.createChooser(msg, title));
     }
 
     @Override
