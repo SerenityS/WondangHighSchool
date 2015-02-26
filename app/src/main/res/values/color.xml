@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TodayList -->
+    <!-- No -->
     <color name="flat_light_blue">#6A71E5</color>
-    <!-- Setting -->
+    <!-- TodayList Setting -->
     <color name="flat_sky_blue">#0091FF</color>
     <!-- MainActivity -->
     <color name="flat_sky_light_blue">#2CBAE7</color>

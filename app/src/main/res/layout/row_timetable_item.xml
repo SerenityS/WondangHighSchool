@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3"
-            android:textColor="@android:color/black"
+            android:textColor="@color/flat_grey"
             android:textSize="35dp"
             android:textStyle="bold" />
 
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="체육"
-                android:textColor="@android:color/black"
+                android:textColor="@color/flat_grey"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
