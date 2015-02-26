@@ -2,6 +2,7 @@ package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -84,6 +85,9 @@ public abstract class ProcessTask extends AsyncTask<Integer, Integer, Long> {
             publishProgress(100);
 
         } catch (Exception e) {
+            Log.e("ProcessTask Error", "Message : " + e.getMessage());
+            Log.e("ProcessTask Error", "LocalizedMessage : " + e.getLocalizedMessage());
+
             e.printStackTrace();
             return -1l;
         }

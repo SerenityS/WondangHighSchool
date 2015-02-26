@@ -19,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ListView;
 
+import com.github.mrengineer13.snackbar.SnackBar;
+
 import java.util.Calendar;
 
 import itmir.tistory.floatingactionbutton.FloatingActionButton;
@@ -118,6 +120,7 @@ public class BapActivity extends ActionBarActivity {
                         mDialog.setMax(100);
                         mDialog.setTitle("로딩중");
                         mDialog.setMessage("데이터를 불러오는중입니다");
+                        mDialog.setCancelable(false);
                         mDialog.show();
 
                         mProcessTask = new BapDownloadTask(this);
@@ -143,6 +146,14 @@ public class BapActivity extends ActionBarActivity {
         setCurrentItem();
     }
 
+    public void errorMessage() {
+        SnackBar.Builder mSnackBar = new SnackBar.Builder(this);
+        mSnackBar.withMessage(getString(R.string.share_timetable_error));
+        mSnackBar.withStyle(SnackBar.Style.INFO);
+        mSnackBar.withActionMessage(getResources().getString(android.R.string.ok));
+        mSnackBar.show();
+    }
+
     public class BapDownloadTask extends ProcessTask {
         public BapDownloadTask(Context mContext) {
             super(mContext);
@@ -163,9 +174,14 @@ public class BapActivity extends ActionBarActivity {
             if (mDialog != null)
                 mDialog.dismiss();
 
-            getBapList();
-
             isUpdating = false;
+
+            if (result == -1) {
+                errorMessage();
+                return;
+            }
+
+            getBapList();
         }
     }
 
