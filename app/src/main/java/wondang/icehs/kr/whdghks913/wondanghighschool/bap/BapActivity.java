@@ -90,11 +90,12 @@ public class BapActivity extends ActionBarActivity {
             }
         });
 
-        getBapList();
+        getBapList(true);
     }
 
-    private void getBapList() {
+    private void getBapList(boolean isUpdate) {
         mAdapter.clearData();
+        mAdapter.notifyDataSetChanged();
 
         if (mCalendar == null)
             mCalendar = Calendar.getInstance();
@@ -113,7 +114,7 @@ public class BapActivity extends ActionBarActivity {
 
             if (mData.isBlankDay) {
                 if (Tools.isNetwork(this)) {
-                    if (!isUpdating) {
+                    if (!isUpdating && isUpdate) {
                         // Not Updating (If isUpdating = false)
                         mDialog = new ProgressDialog(this);
                         mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -181,7 +182,7 @@ public class BapActivity extends ActionBarActivity {
                 return;
             }
 
-            getBapList();
+            getBapList(false);
         }
     }
 
@@ -241,14 +242,14 @@ public class BapActivity extends ActionBarActivity {
             mPref.remove(mPrefLunchName);
             mPref.remove(mPrefDinnerName);
 
-            getBapList();
+            getBapList(true);
 
             return true;
         } else if (id == R.id.action_today) {
             mCalendar = null;
             mCalendar = Calendar.getInstance();
 
-            getBapList();
+            getBapList(true);
 
             return true;
 
@@ -275,7 +276,7 @@ public class BapActivity extends ActionBarActivity {
                                           int monthOfYear, int dayOfMonth) {
                         mCalendar.set(year, monthOfYear, dayOfMonth);
                         DAY_OF_WEEK = mCalendar.get(Calendar.DAY_OF_WEEK);
-                        getBapList();
+                        getBapList(true);
                     }
                 }, year, month, day);
         mDialog.show();
