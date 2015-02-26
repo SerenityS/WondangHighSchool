@@ -90,6 +90,11 @@ public class TimeTableActivity extends ActionBarActivity {
         mTimeName.setText(String.format(getString(R.string.timetable_title), mGrade, mClass));
         mDayOfTheWeek.setText(TimeTableTool.mDisplayName[DayOfWeek]);
 
+        if (true) {
+            mAdapter.addItem(Integer.toString(1), "DB 준비중", "2015년 DB를 준비중입니다");
+            return;
+        }
+
         try {
             if (getDBUpdate()) {
                 copyAssets copyAssets = new copyAssets();
@@ -185,7 +190,6 @@ public class TimeTableActivity extends ActionBarActivity {
     }
 
     private void settingWeek() {
-
         CustomListDialog.Builder builder = new CustomListDialog.Builder(this, R.string.action_setting_myweek, R.array.myWeek);
 
         CustomListDialog customListDialog = builder.build();
@@ -201,12 +205,14 @@ public class TimeTableActivity extends ActionBarActivity {
 
     private void shareTimeTable() {
         try {
-            int max = 7;
+            int max = mAdapter.getCount();
             String[] TimeTable = new String[max];
 
+            String mText = "";
             for (int i = 0; i < max; i++) {
                 TimeTableListData mData = mAdapter.getItem(i);
                 TimeTable[i] = mData.mSubjectName + "(" + mData.mRoom + ")";
+                mText += "\n" + (i + 1) + "교시 : " + TimeTable[i];
             }
 
             String title = getString(R.string.action_share_timetable);
@@ -215,9 +221,7 @@ public class TimeTableActivity extends ActionBarActivity {
             msg.putExtra(Intent.EXTRA_TITLE, title);
             msg.putExtra(Intent.EXTRA_TEXT, String.format(
                     getString(R.string.action_share_timetable_msg),
-                    TimeTableTool.mDisplayName[DayOfWeek], TimeTable[0], TimeTable[1],
-                    TimeTable[2], TimeTable[3], TimeTable[4], TimeTable[5],
-                    TimeTable[6]));
+                    TimeTableTool.mDisplayName[DayOfWeek], mText));
             msg.setType("text/plain");
             startActivity(Intent.createChooser(msg, title));
         } catch (Exception ex) {

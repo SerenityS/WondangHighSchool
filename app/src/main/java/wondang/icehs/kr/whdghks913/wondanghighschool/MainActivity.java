@@ -108,7 +108,7 @@ public class MainActivity extends ActionBarActivity {
         int mGrade = mPref.getInt("myGrade", -1);
         int mClass = mPref.getInt("myClass", -1);
 
-        if (mGrade == -1 || mClass == -1) {
+        if (true || (mGrade == -1 || mClass == -1)) {
             return mView;
         }
 
@@ -136,17 +136,17 @@ public class MainActivity extends ActionBarActivity {
         mCursor.moveToPosition((DayOfWeek * 7) + 1);
 
         for (int period = 1; period <= 7; period++) {
-            String mSubject, mRoom;
+            String mSubject;
 
             if (mGrade == 1) {
                 mSubject = mCursor.getString((mClass * 2) - 2);
-                mRoom = mCursor.getString((mClass * 2) - 1);
+//                mRoom = mCursor.getString((mClass * 2) - 1);
             } else if (mGrade == 2) {
                 mSubject = mCursor.getString(18 + (mClass * 2));
-                mRoom = mCursor.getString(19 + (mClass * 2));
+//                mRoom = mCursor.getString(19 + (mClass * 2));
             } else {
                 mSubject = mCursor.getString(39 + mClass);
-                mRoom = null;
+//                mRoom = null;
             }
 
             if (mSubject != null && !mSubject.isEmpty()

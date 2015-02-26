@@ -119,13 +119,7 @@
     <string name="action_reset_mygrade">학급 정보 재설정</string>
     <string name="action_share_timetable">시간표 공유</string>
     <string name="action_share_timetable_msg">%1$s 시간표
-\n1교시 : %2$s
-\n2교시 : %3$s
-\n3교시 : %4$s
-\n4교시 : %5$s
-\n5교시 : %6$s
-\n6교시 : %7$s
-\n7교시 : %8$s</string>
+\n%2$s</string>
     <string name="action_setting_mygrade">학년 설정</string>
     <string name="action_setting_myclass">반 설정</string>
     <string name="action_setting_myweek">요일 설정</string>
