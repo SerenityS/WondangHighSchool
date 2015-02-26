@@ -26,7 +26,7 @@ public class TodayList extends ActionBarActivity {
         setContentView(R.layout.activity_today_list);
 
         mToolbar = (Toolbar) findViewById(R.id.mToolbar);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.flat_melon_yellow));
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.flat_light_blue));
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);

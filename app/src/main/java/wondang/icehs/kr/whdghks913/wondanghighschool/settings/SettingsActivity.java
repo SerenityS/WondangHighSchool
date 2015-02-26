@@ -25,7 +25,7 @@ public class SettingsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_settings);
 
         mToolbar = (Toolbar) findViewById(R.id.mToolbar);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.flat_light_green));
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.flat_sky_blue));
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
 
