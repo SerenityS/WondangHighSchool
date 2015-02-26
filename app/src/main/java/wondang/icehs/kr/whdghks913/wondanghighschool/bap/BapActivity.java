@@ -43,6 +43,8 @@ public class BapActivity extends ActionBarActivity {
 
     ProgressDialog mDialog;
 
+    boolean isUpdating = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,16 +111,20 @@ public class BapActivity extends ActionBarActivity {
 
             if (mData.isBlankDay) {
                 if (Tools.isNetwork(this)) {
-                    mDialog = new ProgressDialog(this);
-                    mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    mDialog.setMax(100);
-                    mDialog.setTitle("로딩중");
-                    mDialog.setMessage("데이터를 불러오는중입니다");
-                    mDialog.show();
+                    if (!isUpdating) {
+                        // Not Updating (If isUpdating = false)
+                        mDialog = new ProgressDialog(this);
+                        mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        mDialog.setMax(100);
+                        mDialog.setTitle("로딩중");
+                        mDialog.setMessage("데이터를 불러오는중입니다");
+                        mDialog.show();
 
-                    mProcessTask = new BapDownloadTask(this);
-                    mProcessTask.execute(year, month, day);
+                        mProcessTask = new BapDownloadTask(this);
+                        mProcessTask.execute(year, month, day);
 
+                        isUpdating = true;
+                    }
                 } else {
                     CustomDialog.Builder builder = new CustomDialog.Builder(this, R.string.no_network_title, android.R.string.ok);
                     builder.content(getString(R.string.no_network_msg));
@@ -158,6 +164,8 @@ public class BapActivity extends ActionBarActivity {
                 mDialog.dismiss();
 
             getBapList();
+
+            isUpdating = false;
         }
     }
 
