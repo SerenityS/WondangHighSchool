@@ -92,6 +92,7 @@ public class TimeTableActivity extends ActionBarActivity {
 
         if (true) {
             mAdapter.addItem(Integer.toString(1), "DB 준비중", "2015년 DB를 준비중입니다");
+            mAdapter.notifyDataSetChanged();
             return;
         }
 
