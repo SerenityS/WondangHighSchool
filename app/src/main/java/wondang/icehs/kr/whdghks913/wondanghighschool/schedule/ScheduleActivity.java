@@ -158,27 +158,32 @@ public class ScheduleActivity extends ActionBarActivity {
     }
 
     private void getTime(int year, int month, int day) {
-        Calendar myTime = Calendar.getInstance();
-
-        long nowTime = myTime.getTimeInMillis();
-        myTime.set(year, month, day);
-        long touchTime = myTime.getTimeInMillis();
-
-        long diff = (touchTime - nowTime);
-
-        boolean isPast = false;
-        if (diff < 0) {
-            diff = -diff;
-            isPast = true;
-        }
-
-        int diffInt = (int) (diff /= 24 * 60 * 60 * 1000);
-
         String Text;
-        if (isPast)
-            Text = "선택하신 날짜는 " + diffInt + "일전 날짜입니다";
-        else
-            Text = "선택하신 날짜까지 " + diffInt + "일 남았습니다";
+
+        try {
+            Calendar myTime = Calendar.getInstance();
+
+            long nowTime = myTime.getTimeInMillis();
+            myTime.set(year, month, day);
+            long touchTime = myTime.getTimeInMillis();
+
+            long diff = (touchTime - nowTime);
+
+            boolean isPast = false;
+            if (diff < 0) {
+                diff = -diff;
+                isPast = true;
+            }
+
+            int diffInt = (int) (diff /= 24 * 60 * 60 * 1000);
+
+            if (isPast)
+                Text = "선택하신 날짜는 " + diffInt + "일전 날짜입니다";
+            else
+                Text = "선택하신 날짜까지 " + diffInt + "일 남았습니다";
+        } catch (Exception ex) {
+            Text = "오류가 발생하였습니다";
+        }
 
         mSnackBar = new SnackBar.Builder(this);
         mSnackBar.withMessage(Text);
