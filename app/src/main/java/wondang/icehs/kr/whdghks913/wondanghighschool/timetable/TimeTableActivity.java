@@ -103,7 +103,7 @@ public class TimeTableActivity extends ActionBarActivity {
 //        }
 
         try {
-            if (getDBUpdate()) {
+            if (TimeTableTool.getDBUpdate(getApplicationContext())) {
                 copyAssets copyAssets = new copyAssets();
                 copyAssets.assetsFileCopy(getApplicationContext(), TimeTableTool.mFilePath, TimeTableTool.TimeTableDBName);
             }
@@ -159,17 +159,6 @@ public class TimeTableActivity extends ActionBarActivity {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    private boolean getDBUpdate() {
-        boolean fileInfo = !(new File(TimeTableTool.mFilePath + TimeTableTool.TimeTableDBName).exists());
-        boolean versionInfo = mPref.getInt("TimeTableDBVersion", 0) != TimeTableTool.dbVersion;
-
-        if (fileInfo || versionInfo) {
-            mPref.putInt("TimeTableDBVersion", TimeTableTool.dbVersion);
-            return true;
-        }
-        return false;
     }
 
     private void getDayOfWeek() {

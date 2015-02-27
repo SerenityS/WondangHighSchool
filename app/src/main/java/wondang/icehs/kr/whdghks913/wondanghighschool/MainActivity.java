@@ -30,6 +30,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.tool.BapTool;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Database;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Preference;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.TimeTableTool;
+import wondang.icehs.kr.whdghks913.wondanghighschool.tool.copyAssets;
 
 public class MainActivity extends ActionBarActivity {
     ActionBarDrawerToggle mToggle;
@@ -119,12 +120,17 @@ public class MainActivity extends ActionBarActivity {
             return mView;
         }
 
+        if (TimeTableTool.getDBUpdate(getApplicationContext())) {
+            copyAssets copyAssets = new copyAssets();
+            copyAssets.assetsFileCopy(getApplicationContext(), TimeTableTool.mFilePath, TimeTableTool.TimeTableDBName);
+        }
+
         boolean mFileExists = new File(TimeTableTool.mFilePath + TimeTableTool.TimeTableDBName).exists();
         if (!mFileExists)
             return mView;
 
         String mTimeTable = "";
-        LinearLayout todayBapLayout = (LinearLayout) mView.findViewById(R.id.todayTimeTableLayout);
+        LinearLayout todayTimeTableLayout = (LinearLayout) mView.findViewById(R.id.todayTimeTableLayout);
         TextView todayOfWeek = (TextView) mView.findViewById(R.id.todayOfWeek);
         TextView todayTimeTable = (TextView) mView.findViewById(R.id.todayTimeTable);
 
@@ -161,7 +167,7 @@ public class MainActivity extends ActionBarActivity {
             }
         }
 
-        todayBapLayout.setVisibility(View.VISIBLE);
+        todayTimeTableLayout.setVisibility(View.VISIBLE);
         todayOfWeek.setText(String.format(getString(R.string.today_timetable), TimeTableTool.mDisplayName[DayOfWeek]));
         todayTimeTable.setText(mTimeTable);
 
