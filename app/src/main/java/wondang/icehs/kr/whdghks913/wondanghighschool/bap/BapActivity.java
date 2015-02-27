@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -31,8 +32,6 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Preference;
 import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Tools;
 
 public class BapActivity extends ActionBarActivity {
-    ActionBarDrawerToggle mToggle;
-    DrawerLayout mDrawer;
     Toolbar mToolbar;
 
     ListView mListView;
@@ -59,9 +58,19 @@ public class BapActivity extends ActionBarActivity {
         mToolbar.setBackgroundColor(getResources().getColor(R.color.flat_yellow_green));
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.app_name, R.string.app_name);
-        mDrawer.setDrawerListener(mToggle);
+
+        ActionBar mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setHomeButtonEnabled(true);
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
 
         mListView = (ListView) findViewById(R.id.mListView);
         mAdapter = new BapListAdapter(this);
@@ -253,8 +262,6 @@ public class BapActivity extends ActionBarActivity {
 
             return true;
 
-        } else if (mToggle.onOptionsItemSelected(item)) {
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -289,28 +296,5 @@ public class BapActivity extends ActionBarActivity {
         msg.putExtra(Intent.EXTRA_TEXT, mShareBapMsg);
         msg.setType("text/plain");
         startActivity(Intent.createChooser(msg, getString(R.string.shareBap_title)));
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-// Sync the toggle state after onRestoreInstanceState has occurred.
-        mToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(Gravity.LEFT)) {
-            mDrawer.closeDrawer(Gravity.LEFT);
-        } else {
-            finish();
-        }
     }
 }

@@ -1,21 +1,16 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.todaylist;
 
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 
 public class TodayList extends ActionBarActivity {
-    ActionBarDrawerToggle mToggle;
-    DrawerLayout mDrawer;
     Toolbar mToolbar;
 
     ListView mListView;
@@ -33,9 +28,19 @@ public class TodayList extends ActionBarActivity {
         mToolbar.setBackgroundColor(getResources().getColor(R.color.flat_sky_blue));
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.app_name, R.string.app_name);
-        mDrawer.setDrawerListener(mToggle);
+
+        ActionBar mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setHomeButtonEnabled(true);
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
 
         mListView = (ListView) findViewById(R.id.mListView);
         mAdapter = new TodayListAdapter(getApplicationContext());
@@ -65,42 +70,5 @@ public class TodayList extends ActionBarActivity {
         mAdapter.addItem("자기주도적학습 준비", "18:45 ~ 19:00", "15분", false);
         mAdapter.addItem("1차시", "19:00 ~ 21:00", "120분", false);
         mAdapter.addItem("2차시", "21:10 ~ 22:00", "50분", false);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        //noinspection SimplifiableIfStatement
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-// Sync the toggle state after onRestoreInstanceState has occurred.
-        mToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(Gravity.LEFT)) {
-            mDrawer.closeDrawer(Gravity.LEFT);
-        } else {
-            finish();
-        }
     }
 }

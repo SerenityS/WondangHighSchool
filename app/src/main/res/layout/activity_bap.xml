@@ -1,57 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/toolbar" />
+
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/toolbar" />
-
-            <FrameLayout
-                android:id="@+id/container"
+            <ListView
+                android:id="@+id/mListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:divider="@null"
+                android:dividerHeight="5dp" />
 
-                <ListView
-                    android:id="@+id/mListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@null"
-                    android:dividerHeight="5dp" />
+            <itmir.tistory.floatingactionbutton.FloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/mFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:src="@android:drawable/ic_menu_month"
+                fab:fab_colorNormal="@color/flat_yellow_green"
+                fab:fab_colorPressed="@color/flat_yellow_green_pressed" />
 
-                <itmir.tistory.floatingactionbutton.FloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/mFloatingActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_margin="16dp"
-                    android:src="@android:drawable/ic_menu_month"
-                    fab:fab_colorNormal="@color/flat_yellow_green"
-                    fab:fab_colorPressed="@color/flat_yellow_green_pressed" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/flat_yellow_green"
-        android:orientation="vertical">
+        </FrameLayout>
 
     </LinearLayout>
 
-</android.support.v4.widget.DrawerLayout>
+</FrameLayout>

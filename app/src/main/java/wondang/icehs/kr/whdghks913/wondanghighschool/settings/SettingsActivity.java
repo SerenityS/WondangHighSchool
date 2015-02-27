@@ -9,8 +9,10 @@ import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import uk.me.lewisdeane.ldialogs.CustomDialog;
 import wondang.icehs.kr.whdghks913.wondanghighschool.R;
@@ -28,6 +30,19 @@ public class SettingsActivity extends ActionBarActivity {
         mToolbar.setBackgroundColor(getResources().getColor(R.color.flat_sky_blue));
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
+
+        ActionBar mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setHomeButtonEnabled(true);
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction().replace(R.id.container, new PrefsFragment()).commit();
