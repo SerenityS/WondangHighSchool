@@ -1,17 +1,13 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.timetable;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,11 +96,11 @@ public class TimeTableActivity extends ActionBarActivity {
         mTimeName.setText(String.format(getString(R.string.timetable_title), mGrade, mClass));
         mDayOfTheWeek.setText(TimeTableTool.mDisplayName[DayOfWeek]);
 
-        if (true) {
-            mAdapter.addItem(Integer.toString(1), "DB 준비중", "2015년 DB를 준비중입니다");
-            mAdapter.notifyDataSetChanged();
-            return;
-        }
+//        if (true) {
+//            mAdapter.addItem(Integer.toString(1), "DB 준비중", "2015년 DB를 준비중입니다");
+//            mAdapter.notifyDataSetChanged();
+//            return;
+//        }
 
         try {
             if (getDBUpdate()) {
@@ -117,25 +113,41 @@ public class TimeTableActivity extends ActionBarActivity {
 
             Cursor mCursor = mDatabase.getData(TimeTableTool.tableName, "*");
 
+            /**
+             * Move to Row
+             * ---- moveToFirst
+             * ---- moveToNext
+             * ---- moveToPosition
+             * ---- moveToLast
+             *
+             * Mon : DayOfWeek : 0
+             * Tus : DayOfWeek : 1
+             * ...
+             * Fri : DayOfWeek : 4
+             */
             mCursor.moveToPosition((DayOfWeek * 7) + 1);
 
             for (int period = 1; period <= 7; period++) {
-                String mSubject, mRoom;
+                String mSubject, mRoom = null;
 
+                /**
+                 * | | | |
+                 * 0 1 2 3
+                 */
                 if (mGrade == 1) {
                     mSubject = mCursor.getString((mClass * 2) - 2);
-                    mRoom = mCursor.getString((mClass * 2) - 1);
+//                    mRoom = mCursor.getString((mClass * 2) - 1);
                 } else if (mGrade == 2) {
                     mSubject = mCursor.getString(18 + (mClass * 2));
-                    mRoom = mCursor.getString(19 + (mClass * 2));
+//                    mRoom = mCursor.getString(19 + (mClass * 2));
                 } else {
                     mSubject = mCursor.getString(39 + mClass);
                     mRoom = null;
                 }
 
-                if (mSubject != null && !mSubject.isEmpty()
-                        && mSubject.indexOf("\n") != -1)
-                    mSubject = mSubject.replace("\n", "(") + ")";
+//                if (mSubject != null && !mSubject.isEmpty()
+//                        && mSubject.indexOf("\n") != -1)
+//                    mSubject = mSubject.replace("\n", "(") + ")";
 
                 mAdapter.addItem(Integer.toString(period), mSubject, mRoom);
 
@@ -222,7 +234,9 @@ public class TimeTableActivity extends ActionBarActivity {
             String mText = "";
             for (int i = 0; i < max; i++) {
                 TimeTableListData mData = mAdapter.getItem(i);
-                TimeTable[i] = mData.mSubjectName + "(" + mData.mRoom + ")";
+                String mRoom = mData.mRoom;
+                if (mRoom == null) mRoom = "정보없음";
+                TimeTable[i] = mData.mSubjectName + "(" + mRoom + ")";
                 mText += "\n" + (i + 1) + "교시 : " + TimeTable[i];
             }
 
