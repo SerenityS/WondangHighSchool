@@ -108,7 +108,7 @@ public class MainActivity extends ActionBarActivity {
         int mGrade = mPref.getInt("myGrade", -1);
         int mClass = mPref.getInt("myClass", -1);
 
-        if (true || (mGrade == -1 || mClass == -1)) {
+        if (mGrade == -1 || mClass == -1) {
             return mView;
         }
 
@@ -149,9 +149,9 @@ public class MainActivity extends ActionBarActivity {
 //                mRoom = null;
             }
 
-            if (mSubject != null && !mSubject.isEmpty()
-                    && mSubject.indexOf("\n") != -1)
-                mSubject = mSubject.replace("\n", "(") + ")";
+//            if (mSubject != null && !mSubject.isEmpty()
+//                    && mSubject.indexOf("\n") != -1)
+//                mSubject = mSubject.replace("\n", "(") + ")";
 
             String tmp = Integer.toString(period) + ". " + mSubject;
             mTimeTable += tmp;
