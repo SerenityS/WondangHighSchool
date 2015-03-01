@@ -1,25 +1,20 @@
 package wondang.icehs.kr.whdghks913.wondanghighschool.bap;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.ListView;
 
+import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.github.mrengineer13.snackbar.SnackBar;
 
 import java.util.Calendar;
@@ -37,8 +32,9 @@ public class BapActivity extends ActionBarActivity {
     ListView mListView;
     BapListAdapter mAdapter;
 
-    static Calendar mCalendar;
-    static int DAY_OF_WEEK;
+    Calendar mCalendar;
+    int YEAR, MONTH, DAY;
+    int DAY_OF_WEEK;
 
     BapDownloadTask mProcessTask;
 
@@ -52,6 +48,9 @@ public class BapActivity extends ActionBarActivity {
         setContentView(R.layout.activity_bap);
 
         mCalendar = Calendar.getInstance();
+        YEAR = mCalendar.get(Calendar.YEAR);
+        MONTH = mCalendar.get(Calendar.MONTH);
+        DAY = mCalendar.get(Calendar.DAY_OF_MONTH);
         DAY_OF_WEEK = mCalendar.get(Calendar.DAY_OF_WEEK);
 
         mToolbar = (Toolbar) findViewById(R.id.mToolbar);
@@ -128,8 +127,7 @@ public class BapActivity extends ActionBarActivity {
                         mDialog = new ProgressDialog(this);
                         mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                         mDialog.setMax(100);
-                        mDialog.setTitle("로딩중");
-                        mDialog.setMessage("데이터를 불러오는중입니다");
+                        mDialog.setTitle(R.string.loading_title);
                         mDialog.setCancelable(false);
                         mDialog.show();
 
@@ -152,6 +150,7 @@ public class BapActivity extends ActionBarActivity {
             mCalendar.add(Calendar.DATE, 1);
         }
 
+        mCalendar.set(YEAR, MONTH, DAY);
         mAdapter.notifyDataSetChanged();
         setCurrentItem();
     }
@@ -237,8 +236,8 @@ public class BapActivity extends ActionBarActivity {
             if (mCalendar == null)
                 mCalendar = Calendar.getInstance();
 
-            DAY_OF_WEEK = mCalendar.get(Calendar.DAY_OF_WEEK);
-            mCalendar.add(Calendar.DATE, 2 - DAY_OF_WEEK);
+            int DayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK);
+            mCalendar.add(Calendar.DATE, 2 - DayOfWeek);
 
             int year = mCalendar.get(Calendar.YEAR);
             int month = mCalendar.get(Calendar.MONTH);
@@ -257,6 +256,9 @@ public class BapActivity extends ActionBarActivity {
         } else if (id == R.id.action_today) {
             mCalendar = null;
             mCalendar = Calendar.getInstance();
+            YEAR = mCalendar.get(Calendar.YEAR);
+            MONTH = mCalendar.get(Calendar.MONTH);
+            DAY = mCalendar.get(Calendar.DAY_OF_MONTH);
 
             getBapList(true);
 
@@ -275,18 +277,20 @@ public class BapActivity extends ActionBarActivity {
         int month = mCalendar.get(Calendar.MONTH);
         int day = mCalendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog mDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        mCalendar.set(year, monthOfYear, dayOfMonth);
-                        DAY_OF_WEEK = mCalendar.get(Calendar.DAY_OF_WEEK);
-                        getBapList(true);
-                    }
-                }, year, month, day);
-        mDialog.show();
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+                mCalendar.set(year, month, day);
+                YEAR = year;
+                MONTH = month;
+                DAY = day;
+                DAY_OF_WEEK = mCalendar.get(Calendar.DAY_OF_WEEK);
+                getBapList(true);
+            }
+        }, year, month, day, false);
+        datePickerDialog.setYearRange(2006, 2030);
+        datePickerDialog.setCloseOnSingleTapDay(false);
+        datePickerDialog.show(getSupportFragmentManager(), "Tag");
     }
 
     private void bapShare(String mShareBapMsg) {
