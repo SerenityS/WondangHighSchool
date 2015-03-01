@@ -58,15 +58,26 @@
             android:label="@string/title_service_autoupdate" />
 
         <receiver
-            android:name=".widget.BapWidget"
-            android:label="@string/widget_name">
+            android:name=".widget.BapWidget3x3"
+            android:label="@string/widget_3x3_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/bap_widget_info" />
+                android:resource="@xml/bap_widget_3x3_info" />
+        </receiver>
+        <receiver
+            android:name=".widget.BapWidget3x2"
+            android:label="@string/widget_3x2_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/bap_widget_3x2_info" />
         </receiver>
         <receiver
             android:name=".widget.WidgetBroadCast"

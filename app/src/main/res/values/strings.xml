@@ -171,7 +171,8 @@
     <string name="bapUpdate_Success_title">급식 업데이트 성공</string>
     <string name="bapUpdate_Success_msg">급식을 성공적으로 업데이트 했습니다 확인하려면 누르세요</string>
     <!-- 급식 위젯 -->
-    <string name="widget_name">급식 위젯</string>
+    <string name="widget_3x3_name">급식 위젯 3x3</string>
+    <string name="widget_3x2_name">급식 위젯 3x2</string>
     <string name="widget_no_data">데이터가 없습니다 날짜를 눌러 새로고침 하세요</string>
     <string name="widget_updating">급식 업데이트중입니다</string>
     <!-- 일과 운영표 -->

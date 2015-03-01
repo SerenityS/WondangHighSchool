@@ -5,7 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 
-public class BapWidget extends AppWidgetProvider {
+public class BapWidget3x2 extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context mContext, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -22,7 +22,7 @@ public class BapWidget extends AppWidgetProvider {
 
         String mAction = mIntent.getAction();
         if (mAction.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
-            WidgetTool.updateWidgetData(mContext);
+            WidgetTool.updateWidgetData3x2(mContext);
         }
 //        else if (mAction.equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) { }
     }
@@ -39,7 +39,7 @@ public class BapWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context mContext, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        WidgetTool.updateAppWidget(mContext, appWidgetManager, appWidgetId, true);
+        WidgetTool.updateAppWidget3x2(mContext, appWidgetManager, appWidgetId, true);
     }
 }
 

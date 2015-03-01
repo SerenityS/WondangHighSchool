@@ -25,7 +25,7 @@
                 android:gravity="center"
                 android:text="2000년 00월 00일"
                 android:textColor="@android:color/white"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/mDayOfTheWeek"
@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:text="월요일"
                 android:textColor="@android:color/white"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="점심"
+                    android:text="@string/today_lunch"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="저녁"
+                    android:text="@string/today_dinner"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
