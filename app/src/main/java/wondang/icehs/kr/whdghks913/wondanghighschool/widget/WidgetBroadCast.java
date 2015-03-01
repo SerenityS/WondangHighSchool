@@ -17,7 +17,6 @@ public class WidgetBroadCast extends BroadcastReceiver {
     public void onReceive(Context mContext, Intent mIntent) {
         String ACTION = mIntent.getAction();
 
-        Toast.makeText(mContext, R.string.widget_updating, Toast.LENGTH_SHORT).show();
         WidgetTool.updateWidgetData(mContext);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(ACTION)) {
@@ -28,6 +27,8 @@ public class WidgetBroadCast extends BroadcastReceiver {
             PendingIntent mPending = PendingIntent.getBroadcast(mContext, 0, mIntentDate, 0);
             mCalendar.set(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH) + 1, 0, 0);
             mAlarm.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 24 * 60 * 60 * 1000, mPending);
+        } else if ("itmir.tistory.com.UPDATE_ACTION".equals(ACTION)) {
+            Toast.makeText(mContext, R.string.widget_updating, Toast.LENGTH_SHORT).show();
         }
     }
 }
