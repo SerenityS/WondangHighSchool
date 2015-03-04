@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.github.mrengineer13.snackbar.SnackBar;
 
-import java.io.File;
 import java.util.Calendar;
 
 import uk.me.lewisdeane.ldialogs.CustomListDialog;
@@ -148,6 +147,8 @@ public class TimeTableActivity extends ActionBarActivity {
 //                if (mSubject != null && !mSubject.isEmpty()
 //                        && mSubject.indexOf("\n") != -1)
 //                    mSubject = mSubject.replace("\n", "(") + ")";
+
+                mSubject = mSubject.replace("귀가", "정보 없음");
 
                 mAdapter.addItem(Integer.toString(period), mSubject, mRoom);
 
