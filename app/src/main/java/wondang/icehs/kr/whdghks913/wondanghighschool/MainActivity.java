@@ -155,9 +155,9 @@ public class MainActivity extends ActionBarActivity {
 //                mRoom = null;
             }
 
-//            if (mSubject != null && !mSubject.isEmpty()
-//                    && mSubject.indexOf("\n") != -1)
-//                mSubject = mSubject.replace("\n", "(") + ")";
+            if (mSubject != null && !mSubject.isEmpty()
+                    && mSubject.indexOf("\n") != -1)
+                mSubject = mSubject.replace("\n", " (") + ")";
 
             String tmp = Integer.toString(period) + ". " + mSubject;
             mTimeTable += tmp;

@@ -127,7 +127,7 @@ public class TimeTableActivity extends ActionBarActivity {
             mCursor.moveToPosition((DayOfWeek * 7) + 1);
 
             for (int period = 1; period <= 7; period++) {
-                String mSubject, mRoom = null;
+                String mSubject, mRoom;
 
                 /**
                  * | | | |
@@ -135,20 +135,18 @@ public class TimeTableActivity extends ActionBarActivity {
                  */
                 if (mGrade == 1) {
                     mSubject = mCursor.getString((mClass * 2) - 2);
-//                    mRoom = mCursor.getString((mClass * 2) - 1);
+                    mRoom = mCursor.getString((mClass * 2) - 1);
                 } else if (mGrade == 2) {
                     mSubject = mCursor.getString(18 + (mClass * 2));
-//                    mRoom = mCursor.getString(19 + (mClass * 2));
+                    mRoom = mCursor.getString(19 + (mClass * 2));
                 } else {
                     mSubject = mCursor.getString(39 + mClass);
                     mRoom = null;
                 }
 
-//                if (mSubject != null && !mSubject.isEmpty()
-//                        && mSubject.indexOf("\n") != -1)
-//                    mSubject = mSubject.replace("\n", "(") + ")";
-
-                mSubject = mSubject.replace("귀가", "정보 없음");
+                if (mSubject != null && !mSubject.isEmpty()
+                        && mSubject.indexOf("\n") != -1)
+                    mSubject = mSubject.replace("\n", " (") + ")";
 
                 mAdapter.addItem(Integer.toString(period), mSubject, mRoom);
 

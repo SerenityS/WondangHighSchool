@@ -127,9 +127,9 @@
     <string name="loading_title">로딩중</string>
     <!-- 시간표 -->
     <string name="title_activity_time_table">시간표</string>
-    <string name="today_timetable">%1$s 임시 시간표</string>
+    <string name="today_timetable">%1$s 시간표</string>
     <string name="no_setting_mygrade">학급 정보가 없습니다</string>
-    <string name="timetable_title">%1$d학년 %2$d반 임시 시간표</string>
+    <string name="timetable_title">%1$d학년 %2$d반 시간표</string>
     <string name="action_reset_mygrade">학급 정보 재설정</string>
     <string name="action_share_timetable">시간표 공유</string>
     <string name="action_share_timetable_msg">%1$s 시간표
