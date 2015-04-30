@@ -181,5 +181,7 @@
     <string name="widget_updating">급식 업데이트중입니다</string>
     <!-- 일과 운영표 -->
     <string name="title_activity_today_list">일과 운영표</string>
+    <!-- 시간표 위젯 -->
+    <string name="timetable_widget_3x3_name">시간표 위젯 2x2</string>
 
 </resources>

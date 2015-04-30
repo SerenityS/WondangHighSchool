@@ -22,24 +22,14 @@ public class BapWidget3x2 extends AppWidgetProvider {
 
         String mAction = mIntent.getAction();
         if (mAction.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
-            WidgetTool.updateWidgetData3x2(mContext);
+            BapWidgetTool.updateWidgetData3x2(mContext);
         }
 //        else if (mAction.equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) { }
     }
 
-    @Override
-    public void onEnabled(Context mContext) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    @Override
-    public void onDisabled(Context mContext) {
-        // Enter relevant functionality for when the last widget is disabled
-    }
-
     static void updateAppWidget(Context mContext, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        WidgetTool.updateAppWidget3x2(mContext, appWidgetManager, appWidgetId, true);
+        BapWidgetTool.updateAppWidget3x2(mContext, appWidgetManager, appWidgetId, true);
     }
 }
 

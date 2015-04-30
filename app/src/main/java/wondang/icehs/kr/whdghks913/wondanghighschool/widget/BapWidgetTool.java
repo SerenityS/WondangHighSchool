@@ -19,7 +19,7 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.tool.Tools;
 /**
  * Created by 종환 on 2015-02-23.
  */
-public class WidgetTool {
+public class BapWidgetTool {
 
     /**
      * 3x3 Widget
@@ -59,7 +59,7 @@ public class WidgetTool {
                 }
                 // 급식 데이터 받아옴
                 else if (ifNotUpdate) {
-                    WidgetTool.BapDownloadTask mProcessTask = new WidgetTool.BapDownloadTask(mContext);
+                    BapWidgetTool.BapDownloadTask mProcessTask = new BapWidgetTool.BapDownloadTask(mContext);
                     mProcessTask.execute(year, month, day);
                 }
             } else {
@@ -135,7 +135,7 @@ public class WidgetTool {
                     mViews.setTextViewText(R.id.mLunch, mContext.getString(R.string.widget_no_data));
                 } else if (ifNotUpdate) {
                     // 급식 데이터 받아옴
-                    WidgetTool.BapDownloadTask mProcessTask = new WidgetTool.BapDownloadTask(mContext);
+                    BapWidgetTool.BapDownloadTask mProcessTask = new BapWidgetTool.BapDownloadTask(mContext);
                     mProcessTask.execute(year, month, day);
                 }
             } else {

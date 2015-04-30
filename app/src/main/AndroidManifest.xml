@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="wondang.icehs.kr.whdghks913.wondanghighschool"
     android:versionCode="28"
-    android:versionName="3.8">
+    android:versionName="3.8" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,10 +14,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +47,7 @@
         <receiver
             android:name=".autoupdate.BroadCast"
             android:label="@string/title_broadcast_autoupdate"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -59,7 +59,7 @@
 
         <receiver
             android:name=".widget.BapWidget3x3"
-            android:label="@string/widget_3x3_name">
+            android:label="@string/widget_3x3_name" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -70,7 +70,7 @@
         </receiver>
         <receiver
             android:name=".widget.BapWidget3x2"
-            android:label="@string/widget_3x2_name">
+            android:label="@string/widget_3x2_name" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -82,7 +82,7 @@
         <receiver
             android:name=".widget.WidgetBroadCast"
             android:enabled="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
             <intent-filter>
                 <action android:name="android.intent.action.DATE_CHANGED" />
                 <action android:name="android.intent.action.TIME_CHANGED" />
@@ -94,6 +94,17 @@
         <activity
             android:name=".todaylist.TodayList"
             android:label="@string/title_activity_today_list" />
+
+        <receiver android:name=".widget.TimeTableWidget2x2"
+            android:label="@string/timetable_widget_3x3_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/time_table_widget2x2_info" />
+        </receiver>
     </application>
 
 </manifest>

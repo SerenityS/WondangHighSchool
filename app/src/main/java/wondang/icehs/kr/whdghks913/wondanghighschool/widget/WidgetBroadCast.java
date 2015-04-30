@@ -5,11 +5,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import java.util.Calendar;
-
-import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 
 public class WidgetBroadCast extends BroadcastReceiver {
 
@@ -17,8 +14,10 @@ public class WidgetBroadCast extends BroadcastReceiver {
     public void onReceive(Context mContext, Intent mIntent) {
         String ACTION = mIntent.getAction();
 
-        WidgetTool.updateWidgetData3x3(mContext);
-        WidgetTool.updateWidgetData3x2(mContext);
+        BapWidgetTool.updateWidgetData3x3(mContext);
+        BapWidgetTool.updateWidgetData3x2(mContext);
+
+        TimeTableWidgetTool.updateWidgetData2x2(mContext);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(ACTION)) {
             Calendar mCalendar = Calendar.getInstance();

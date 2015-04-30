@@ -4,7 +4,7 @@
     android:initialLayout="@layout/widget_bap_3x3"
     android:minHeight="220dp"
     android:minWidth="220dp"
-    android:previewImage="@drawable/preview_widget_3x3"
+    android:previewImage="@drawable/preview_bap_widget_3x3"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="43200000"
     android:widgetCategory="home_screen|keyguard"/>

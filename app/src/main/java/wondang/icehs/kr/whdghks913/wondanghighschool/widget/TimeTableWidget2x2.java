@@ -5,14 +5,17 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 
-public class BapWidget3x3 extends AppWidgetProvider {
+/**
+ * Implementation of App Widget functionality.
+ */
+public class TimeTableWidget2x2 extends AppWidgetProvider {
 
     @Override
-    public void onUpdate(Context mContext, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {
-            updateAppWidget(mContext, appWidgetManager, appWidgetIds[i]);
+            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
         }
     }
 
@@ -22,14 +25,13 @@ public class BapWidget3x3 extends AppWidgetProvider {
 
         String mAction = mIntent.getAction();
         if (mAction.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
-            BapWidgetTool.updateWidgetData3x3(mContext);
+            TimeTableWidgetTool.updateWidgetData2x2(mContext);
         }
-//        else if (mAction.equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) { }
     }
 
     static void updateAppWidget(Context mContext, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        BapWidgetTool.updateAppWidget3x3(mContext, appWidgetManager, appWidgetId, true);
+        TimeTableWidgetTool.updateWidgetData2x2(mContext);
     }
 }
 
