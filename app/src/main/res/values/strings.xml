@@ -45,6 +45,10 @@
     <!-- 수정 내역 -->
     <string name="changeLog_title">수정 내역</string>
     <string name="changeLog_msg">
+\n[3.9] : 시간표 업데이트
+\n- 요일별 시간표 스크롤 가능하게 변경
+\n- 시간표 위젯 추가
+\n
 \n[3.7] : 급식 업데이트
 \n- 급식 날짜 선택시 나타나는 UI 변경
 \n- 3x2 위젯 추가
