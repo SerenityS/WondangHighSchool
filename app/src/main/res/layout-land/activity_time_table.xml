@@ -8,8 +8,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar" />
-
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -36,18 +34,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="1학년 2반 시간표"
+                        android:text="2학년 8반 시간표"
                         android:textSize="30dp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/mDayOfTheWeek"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center_horizontal"
                         android:textColor="@android:color/darker_gray"
-                        android:textSize="15dp" />
+                        android:textSize="15dp" />-->
 
                 </LinearLayout>
 

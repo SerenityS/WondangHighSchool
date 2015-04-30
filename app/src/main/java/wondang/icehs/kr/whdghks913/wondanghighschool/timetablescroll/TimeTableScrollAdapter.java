@@ -1,4 +1,4 @@
-package wondang.icehs.kr.whdghks913.wondanghighschool.timetable;
+package wondang.icehs.kr.whdghks913.wondanghighschool.timetablescroll;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,31 +14,30 @@ import wondang.icehs.kr.whdghks913.wondanghighschool.R;
 /**
  * Created by 종환 on 2015-02-18.
  */
-class TimeTableViewHolder {
+class TimeTableScrollViewHolder {
     public TextView mTimeText;
     public TextView mTimeName;
     public TextView mRoom;
 }
 
-class TimeTableListData {
+class TimeTableScrollListData {
     public String mTimeText;
     public String mSubjectName;
     public String mRoom;
 }
 
-public class TimeTableAdapter extends BaseAdapter {
+public class TimeTableScrollAdapter extends BaseAdapter {
     private Context mContext = null;
-    private ArrayList<TimeTableListData> mListData = new ArrayList<TimeTableListData>();
+    private ArrayList<TimeTableScrollListData> mListData = new ArrayList<TimeTableScrollListData>();
 
-    public TimeTableAdapter(Context mContext) {
+    public TimeTableScrollAdapter(Context mContext) {
         super();
-
         this.mContext = mContext;
     }
 
     public void addItem(String mTimeText, String mSubjectName, String mRoom) {
 
-        TimeTableListData addItemInfo = new TimeTableListData();
+        TimeTableScrollListData addItemInfo = new TimeTableScrollListData();
         addItemInfo.mTimeText = mTimeText;
         addItemInfo.mSubjectName = mSubjectName;
         addItemInfo.mRoom = mRoom;
@@ -56,7 +55,7 @@ public class TimeTableAdapter extends BaseAdapter {
     }
 
     @Override
-    public TimeTableListData getItem(int position) {
+    public TimeTableScrollListData getItem(int position) {
         return mListData.get(position);
     }
 
@@ -67,10 +66,10 @@ public class TimeTableAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        TimeTableViewHolder mHolder;
+        TimeTableScrollViewHolder mHolder;
 
         if (convertView == null) {
-            mHolder = new TimeTableViewHolder();
+            mHolder = new TimeTableScrollViewHolder();
 
             LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -86,10 +85,10 @@ public class TimeTableAdapter extends BaseAdapter {
             convertView.setTag(mHolder);
 
         } else {
-            mHolder = (TimeTableViewHolder) convertView.getTag();
+            mHolder = (TimeTableScrollViewHolder) convertView.getTag();
         }
 
-        TimeTableListData mData = mListData.get(position);
+        TimeTableScrollListData mData = mListData.get(position);
 
         String mTimeText = mData.mTimeText;
         String mSubjectName = mData.mSubjectName;

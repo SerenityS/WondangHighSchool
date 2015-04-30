@@ -136,7 +136,7 @@
 \n%2$s</string>
     <string name="action_setting_mygrade">학년 설정</string>
     <string name="action_setting_myclass">반 설정</string>
-    <string name="action_setting_myweek">요일 설정</string>
+    <string name="action_share_day">공유할 요일 선택</string>
     <string name="share_timetable_error">오류가 발생하였습니다..</string>
     <!-- 설정 -->
     <string name="title_activity_settings">설정</string>

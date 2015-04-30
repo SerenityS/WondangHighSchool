@@ -28,7 +28,7 @@
             android:name=".bap.BapActivity"
             android:label="@string/title_activity_bap" />
         <activity
-            android:name=".timetable.TimeTableActivity"
+            android:name=".timetablescroll.TimeTableScrollActivity"
             android:label="@string/title_activity_time_table" />
         <activity
             android:name=".settings.SettingsActivity"
