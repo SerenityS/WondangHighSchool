@@ -5,29 +5,29 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class Preference {
-    private SharedPreferences mRref;
+    private SharedPreferences mPref;
     private SharedPreferences.Editor mEditor;
 
     public Preference(Context mContext) {
-        mRref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mEditor = mRref.edit();
+        mPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mEditor = mPref.edit();
     }
 
     public Preference(Context mContext, String prefName) {
-        mRref = mContext.getSharedPreferences(prefName, 0);
-        mEditor = mRref.edit();
+        mPref = mContext.getSharedPreferences(prefName, 0);
+        mEditor = mPref.edit();
     }
 
     public boolean getBoolean(String key, boolean defValue) {
-        return mRref.getBoolean(key, defValue);
+        return mPref.getBoolean(key, defValue);
     }
 
     public int getInt(String key, int defValue) {
-        return mRref.getInt(key, defValue);
+        return mPref.getInt(key, defValue);
     }
 
     public String getString(String key, String defValue) {
-        return mRref.getString(key, defValue);
+        return mPref.getString(key, defValue);
     }
 
     public void putBoolean(String key, boolean value) {
