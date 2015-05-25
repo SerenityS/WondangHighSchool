@@ -19,6 +19,12 @@ Copyright (C) 2014~2015 JongHwan Lee <whdghks913@naver.com>
 
 
 
+##How To MealLibrary?
+* [Sample Library 확인하기](https://bitbucket.org/whdghks913/androidmeallibrary)
+* [Android Meal Library Guide](http://itmir.tistory.com/579)
+
+
+
 ##필요한 라이브러리 & 사용된 라이브러리
 * [Jericho HTML Parser](http://jericho.htmlparser.net/docs/index.html)
 * [Android Meal Library](http://itmir.tistory.com/486)

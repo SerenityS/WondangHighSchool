@@ -48,8 +48,6 @@ public abstract class ProcessTask extends AsyncTask<Integer, Integer, Long> {
     protected Long doInBackground(Integer... params) {
         publishProgress(5);
 
-        Calendar mCalendar = Calendar.getInstance();
-
         final String CountryCode = "ice.go.kr"; // 접속 할 교육청 도메인
         final String schulCode = "E100001786"; // 학교 고유 코드
         final String schulCrseScCode = "4"; // 학교 종류 코드 1

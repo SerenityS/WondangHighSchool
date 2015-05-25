@@ -8,6 +8,12 @@
 
 
 
+##How To MealLibrary?
+* [Sample Library 확인하기](https://bitbucket.org/whdghks913/androidmeallibrary)
+* [Android Meal Library Guide](http://itmir.tistory.com/579)
+
+
+
 ###주의사항
 * 이 MealLibrary.java는 자유롭게 변형해도 됩니다.
 * 그러나 MealLibrary.java가 아닌 이 앱의 모든 코드를 이용할때는 출처와 오픈소스 라이센스를 적어야 합니다.
